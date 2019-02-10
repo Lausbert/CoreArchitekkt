@@ -16,7 +16,6 @@
 		9BF78AF9CC10E57E23B5776B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		AB41424802F1C540FBF7289F /* Pods-CoreArchitekkt_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreArchitekkt_Tests.release.xcconfig"; path = "Target Support Files/Pods-CoreArchitekkt_Tests/Pods-CoreArchitekkt_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		AFDB310E06C5DFB550A4E225 /* Pods_CoreArchitekkt_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreArchitekkt_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B2F3307398E7E6257048ED05 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		DA73E4384FF2E246CE1586C4 /* Pods-CoreArchitekkt_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreArchitekkt_Tests.debug.xcconfig"; path = "Target Support Files/Pods-CoreArchitekkt_Tests/Pods-CoreArchitekkt_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED83F68A20348A760038D96B /* CoreArchitekkt_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreArchitekkt_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED83F68E20348A760038D96B /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
@@ -85,7 +84,6 @@
 			children = (
 				0446041B94CE0A3198BE9B8F /* CoreArchitekkt.podspec */,
 				9BF78AF9CC10E57E23B5776B /* README.md */,
-				B2F3307398E7E6257048ED05 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";

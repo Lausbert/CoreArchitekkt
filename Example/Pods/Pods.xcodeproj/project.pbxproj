@@ -27,7 +27,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		013A2C2BEA4E18AB04E5852D3097078C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		14502759FB20D2620FFC551A455B900B /* Pods-CoreArchitekkt_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CoreArchitekkt_Tests-Info.plist"; sourceTree = "<group>"; };
 		188484A09B394D9E0E144F43EB8AF56B /* Pods-CoreArchitekkt_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CoreArchitekkt_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		1D23E10A49841105539A3616C9575E52 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = CoreArchitekkt/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
@@ -107,7 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				7FB507A6C5C67EED8B597A5B8BD2930D /* CoreArchitekkt.podspec */,
-				013A2C2BEA4E18AB04E5852D3097078C /* LICENSE */,
 				9DC13F741E29E0216A4D7B45C0A074A1 /* README.md */,
 			);
 			name = Pod;
