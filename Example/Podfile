@@ -1,0 +1,6 @@
+use_frameworks!
+target 'CoreArchitekkt_Tests' do
+  pod 'CoreArchitekkt', :path => '../'
+  
+  
+end
