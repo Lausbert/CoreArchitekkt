@@ -1,0 +1,6 @@
+framework module CoreArchitekkt {
+  umbrella header "CoreArchitekkt-umbrella.h"
+
+  export *
+  module * { export * }
+}

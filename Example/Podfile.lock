@@ -1,0 +1,16 @@
+PODS:
+  - CoreArchitekkt (0.1.0)
+
+DEPENDENCIES:
+  - CoreArchitekkt (from `../`)
+
+EXTERNAL SOURCES:
+  CoreArchitekkt:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CoreArchitekkt: b55cf5b1cd60e10caa302cb238feb49d64c01512
+
+PODFILE CHECKSUM: 3b2d257f137a14759348cc7f06530ac1a33c05c2
+
+COCOAPODS: 1.6.0
