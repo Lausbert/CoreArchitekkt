@@ -32,7 +32,7 @@ TODO: Add long description of the pod here.
   s.swift_version = '5.0'
   
 
-  s.source_files = 'CoreArchitekkt/Classes/**/*'
+  s.source_files = 'CoreArchitekkt/Source/**/*'
 
   # s.resource_bundles = {
   #   'CoreArchitekkt' => ['CoreArchitekkt/Assets/*.png']

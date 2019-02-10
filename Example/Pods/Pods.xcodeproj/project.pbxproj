@@ -9,7 +9,19 @@
 /* Begin PBXBuildFile section */
 		349B1A2B43C4BBAFA5E0BAE0C0649422 /* CoreArchitekkt-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 598F31EC763D8B861C1F91EF55C7D8B6 /* CoreArchitekkt-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		38D09164567C1F969C1F06578094F5C6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F940C819049CFF8741C0F5E3E075E607 /* Cocoa.framework */; };
-		5B222B5B91E9B4F25C30CC65652E8BA9 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D23E10A49841105539A3616C9575E52 /* ReplaceMe.swift */; };
+		5DF04648221054E900A43095 /* Arc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04635221054E900A43095 /* Arc.swift */; };
+		5DF04649221054E900A43095 /* GraphRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04636221054E900A43095 /* GraphRequest.swift */; };
+		5DF0464A221054E900A43095 /* Node+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04638221054E900A43095 /* Node+Comparable.swift */; };
+		5DF0464B221054E900A43095 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04639221054E900A43095 /* Node.swift */; };
+		5DF0464C221054E900A43095 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF0463B221054E900A43095 /* Array.swift */; };
+		5DF0464D221054E900A43095 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF0463C221054E900A43095 /* DispatchQueue.swift */; };
+		5DF0464E221054E900A43095 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF0463D221054E900A43095 /* String.swift */; };
+		5DF0464F221054E900A43095 /* ObjectAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04640221054E900A43095 /* ObjectAssociation.swift */; };
+		5DF04650221054E900A43095 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04641221054E900A43095 /* Regex.swift */; };
+		5DF04651221054E900A43095 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04642221054E900A43095 /* Shell.swift */; };
+		5DF04652221054E900A43095 /* StoryBoardLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04644221054E900A43095 /* StoryBoardLoadable.swift */; };
+		5DF04653221054E900A43095 /* GraphRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04646221054E900A43095 /* GraphRequestHandler.swift */; };
+		5DF04654221054E900A43095 /* RootNodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF04647221054E900A43095 /* RootNodeHandler.swift */; };
 		822C606240E918B24A570B62BB97C77C /* Pods-CoreArchitekkt_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B8AC13D6E8B315F352EEBE2750F377A /* Pods-CoreArchitekkt_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8AAFD8E91DBEA58861A4FE6988DC5D4C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F940C819049CFF8741C0F5E3E075E607 /* Cocoa.framework */; };
 		BE2AA846135A0D07A11ADFB06FF78E23 /* CoreArchitekkt-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F5BCA6690C6E870E588948F6316C9585 /* CoreArchitekkt-dummy.m */; };
@@ -29,13 +41,25 @@
 /* Begin PBXFileReference section */
 		14502759FB20D2620FFC551A455B900B /* Pods-CoreArchitekkt_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CoreArchitekkt_Tests-Info.plist"; sourceTree = "<group>"; };
 		188484A09B394D9E0E144F43EB8AF56B /* Pods-CoreArchitekkt_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CoreArchitekkt_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		1D23E10A49841105539A3616C9575E52 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = CoreArchitekkt/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		1F252D4F0102076D069EF5733EFB5960 /* Pods-CoreArchitekkt_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CoreArchitekkt_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		3661416AF4A675EEB976AE3F5DB784F1 /* Pods_CoreArchitekkt_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreArchitekkt_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41C775E362353530766B2E8A9A58DC16 /* CoreArchitekkt-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreArchitekkt-prefix.pch"; sourceTree = "<group>"; };
 		45DFA6347309D297DBDD1EEABDF8E8B8 /* Pods-CoreArchitekkt_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CoreArchitekkt_Tests.modulemap"; sourceTree = "<group>"; };
 		49B6023DFFFA5F3986491E6AE607D89C /* CoreArchitekkt-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CoreArchitekkt-Info.plist"; sourceTree = "<group>"; };
 		598F31EC763D8B861C1F91EF55C7D8B6 /* CoreArchitekkt-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreArchitekkt-umbrella.h"; sourceTree = "<group>"; };
+		5DF04635221054E900A43095 /* Arc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arc.swift; sourceTree = "<group>"; };
+		5DF04636221054E900A43095 /* GraphRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphRequest.swift; sourceTree = "<group>"; };
+		5DF04638221054E900A43095 /* Node+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Node+Comparable.swift"; sourceTree = "<group>"; };
+		5DF04639221054E900A43095 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		5DF0463B221054E900A43095 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		5DF0463C221054E900A43095 /* DispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
+		5DF0463D221054E900A43095 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		5DF04640221054E900A43095 /* ObjectAssociation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectAssociation.swift; sourceTree = "<group>"; };
+		5DF04641221054E900A43095 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
+		5DF04642221054E900A43095 /* Shell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
+		5DF04644221054E900A43095 /* StoryBoardLoadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoardLoadable.swift; sourceTree = "<group>"; };
+		5DF04646221054E900A43095 /* GraphRequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphRequestHandler.swift; sourceTree = "<group>"; };
+		5DF04647221054E900A43095 /* RootNodeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootNodeHandler.swift; sourceTree = "<group>"; };
 		6B8AC13D6E8B315F352EEBE2750F377A /* Pods-CoreArchitekkt_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CoreArchitekkt_Tests-umbrella.h"; sourceTree = "<group>"; };
 		6F7FEAE89F5E2B6C3B918C50738C460F /* CoreArchitekkt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreArchitekkt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FB507A6C5C67EED8B597A5B8BD2930D /* CoreArchitekkt.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = CoreArchitekkt.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -111,6 +135,83 @@
 			name = Pod;
 			sourceTree = "<group>";
 		};
+		5DF04633221054E900A43095 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				5DF04634221054E900A43095 /* Classes+Structs */,
+				5DF0463A221054E900A43095 /* Extensions */,
+				5DF0463E221054E900A43095 /* Utilities */,
+				5DF04645221054E900A43095 /* Protocols */,
+			);
+			name = Public;
+			path = CoreArchitekkt/Source/Public;
+			sourceTree = "<group>";
+		};
+		5DF04634221054E900A43095 /* Classes+Structs */ = {
+			isa = PBXGroup;
+			children = (
+				5DF04635221054E900A43095 /* Arc.swift */,
+				5DF04636221054E900A43095 /* GraphRequest.swift */,
+				5DF04637221054E900A43095 /* Node */,
+			);
+			path = "Classes+Structs";
+			sourceTree = "<group>";
+		};
+		5DF04637221054E900A43095 /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				5DF04638221054E900A43095 /* Node+Comparable.swift */,
+				5DF04639221054E900A43095 /* Node.swift */,
+			);
+			path = Node;
+			sourceTree = "<group>";
+		};
+		5DF0463A221054E900A43095 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5DF0463B221054E900A43095 /* Array.swift */,
+				5DF0463C221054E900A43095 /* DispatchQueue.swift */,
+				5DF0463D221054E900A43095 /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5DF0463E221054E900A43095 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5DF0463F221054E900A43095 /* Classes+Structs */,
+				5DF04643221054E900A43095 /* Protocols */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		5DF0463F221054E900A43095 /* Classes+Structs */ = {
+			isa = PBXGroup;
+			children = (
+				5DF04640221054E900A43095 /* ObjectAssociation.swift */,
+				5DF04641221054E900A43095 /* Regex.swift */,
+				5DF04642221054E900A43095 /* Shell.swift */,
+			);
+			path = "Classes+Structs";
+			sourceTree = "<group>";
+		};
+		5DF04643221054E900A43095 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5DF04644221054E900A43095 /* StoryBoardLoadable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5DF04645221054E900A43095 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5DF04646221054E900A43095 /* GraphRequestHandler.swift */,
+				5DF04647221054E900A43095 /* RootNodeHandler.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		7DED3283AFD0AB478F08347C5FBD750A /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,7 +223,7 @@
 		93AC4A2D5596002DD08CCE25D6B9FC44 /* CoreArchitekkt */ = {
 			isa = PBXGroup;
 			children = (
-				1D23E10A49841105539A3616C9575E52 /* ReplaceMe.swift */,
+				5DF04633221054E900A43095 /* Public */,
 				2AFFFF838B99AC3F8404DED01D731ADD /* Pod */,
 				1E7A204CBCDD260D42CDAC4C2DB96E86 /* Support Files */,
 			);
@@ -287,8 +388,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DF04652221054E900A43095 /* StoryBoardLoadable.swift in Sources */,
+				5DF04648221054E900A43095 /* Arc.swift in Sources */,
+				5DF04650221054E900A43095 /* Regex.swift in Sources */,
+				5DF0464B221054E900A43095 /* Node.swift in Sources */,
+				5DF04653221054E900A43095 /* GraphRequestHandler.swift in Sources */,
+				5DF04649221054E900A43095 /* GraphRequest.swift in Sources */,
+				5DF0464C221054E900A43095 /* Array.swift in Sources */,
 				BE2AA846135A0D07A11ADFB06FF78E23 /* CoreArchitekkt-dummy.m in Sources */,
-				5B222B5B91E9B4F25C30CC65652E8BA9 /* ReplaceMe.swift in Sources */,
+				5DF0464D221054E900A43095 /* DispatchQueue.swift in Sources */,
+				5DF04651221054E900A43095 /* Shell.swift in Sources */,
+				5DF04654221054E900A43095 /* RootNodeHandler.swift in Sources */,
+				5DF0464F221054E900A43095 /* ObjectAssociation.swift in Sources */,
+				5DF0464E221054E900A43095 /* String.swift in Sources */,
+				5DF0464A221054E900A43095 /* Node+Comparable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
