@@ -1,13 +1,9 @@
 {
   "name": "CoreArchitekkt",
   "version": "0.1.0",
-  "summary": "A short description of CoreArchitekkt.",
-  "description": "TODO: Add long description of the pod here.",
+  "summary": "A collection of shared components commonly used across Architekkt projects.",
+  "description": "A collection of shared components commonly used across Architekkt projects.",
   "homepage": "https://github.com/Lausbert/CoreArchitekkt",
-  "license": {
-    "type": "MIT",
-    "file": "LICENSE"
-  },
   "authors": {
     "Lausbert": "stephanlerner@icloud.com"
   },
@@ -16,7 +12,8 @@
     "tag": "0.1.0"
   },
   "platforms": {
-    "osx": "10.10"
+    "osx": "10.14"
   },
-  "source_files": "CoreArchitekkt/Classes/**/*"
+  "swift_version": "5.0",
+  "source_files": "CoreArchitekkt/Source/**/*"
 }
