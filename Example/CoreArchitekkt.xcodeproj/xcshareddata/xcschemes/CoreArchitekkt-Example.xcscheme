@@ -26,15 +26,15 @@
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED83F67720348A760038D96B"
-               BuildableName = "CoreArchitekkt_Example.app"
-               BlueprintName = "CoreArchitekkt_Example"
+               BlueprintIdentifier = "ED83F68920348A760038D96B"
+               BuildableName = "CoreArchitekkt_Tests.xctest"
+               BlueprintName = "CoreArchitekkt_Tests"
                ReferencedContainer = "container:CoreArchitekkt.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,15 +57,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED83F67720348A760038D96B"
-            BuildableName = "CoreArchitekkt_Example.app"
-            BlueprintName = "CoreArchitekkt_Example"
-            ReferencedContainer = "container:CoreArchitekkt.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -79,16 +70,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED83F67720348A760038D96B"
-            BuildableName = "CoreArchitekkt_Example.app"
-            BlueprintName = "CoreArchitekkt_Example"
-            ReferencedContainer = "container:CoreArchitekkt.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -98,16 +79,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED83F67720348A760038D96B"
-            BuildableName = "CoreArchitekkt_Example.app"
-            BlueprintName = "CoreArchitekkt_Example"
-            ReferencedContainer = "container:CoreArchitekkt.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
