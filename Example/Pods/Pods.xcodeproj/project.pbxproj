@@ -13,7 +13,6 @@
 		38D09164567C1F969C1F06578094F5C6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F940C819049CFF8741C0F5E3E075E607 /* Cocoa.framework */; };
 		4BA177AEBC7A17E22D0F49C775913158 /* Shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730DC8F63C370DCD3DCADE81B9BE0008 /* Shell.swift */; };
 		6B65B0AB7DF8BF95B229CB6747C7929D /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4A6C88109269A3A5341AD213B803DF /* DispatchQueue.swift */; };
-		7006697B1E6B90350195BA3CCC40ACCF /* Arc.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB35D385A401DAB064F8471CF7112D5F /* Arc.swift */; };
 		706B139991BF38DAAA5EACF06BDA6E59 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86646174C1125A97D046D2C122C2DDDD /* Node.swift */; };
 		7738CC441340A6A12D14923853783CD1 /* RootNodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AFFD4C51867D5BDA20736484C74902 /* RootNodeHandler.swift */; };
 		7CB7D4A549C657417A2115F5EF614B95 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A1F5437965FCFA8B14B748235782CF /* Array.swift */; };
@@ -71,7 +70,6 @@
 		E538E7016C069B8FF3EFFD680BBBE2F9 /* CoreArchitekkt.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CoreArchitekkt.modulemap; sourceTree = "<group>"; };
 		EA8BF8B8DABB791ACBF004B14CD3B7BB /* CoreArchitekkt.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = CoreArchitekkt.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F940C819049CFF8741C0F5E3E075E607 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		FB35D385A401DAB064F8471CF7112D5F /* Arc.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Arc.swift; sourceTree = "<group>"; };
 		FDBFC412A125BE56BA7526ACF20B868D /* CoreArchitekkt-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CoreArchitekkt-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -262,7 +260,6 @@
 		FE9DC9A5A534596633B26F9D4DDE3895 /* Classes+Structs */ = {
 			isa = PBXGroup;
 			children = (
-				FB35D385A401DAB064F8471CF7112D5F /* Arc.swift */,
 				542A704DA95FC1FE196F9D513592015B /* GraphRequest.swift */,
 				95953EF41F0B9C1889E92B2993FF09FF /* Node */,
 			);
@@ -379,7 +376,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7006697B1E6B90350195BA3CCC40ACCF /* Arc.swift in Sources */,
 				7CB7D4A549C657417A2115F5EF614B95 /* Array.swift in Sources */,
 				B8B8C9D45A35C4F380F85F36CBA11AE4 /* CoreArchitekkt-dummy.m in Sources */,
 				6B65B0AB7DF8BF95B229CB6747C7929D /* DispatchQueue.swift in Sources */,
