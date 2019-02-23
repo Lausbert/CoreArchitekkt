@@ -18,10 +18,10 @@ platform :mac do
   end
 
   def release(type)
-    pod_lib_lint(allow_warnings: true)
+    pod_lib_lint(allow_warnings: true,
+		 sources: [ENV["PODSPEC_SOURCE"]])
     version = version_bump_podspec(path: ENV["PODSPEC_NAME"],
-                                   bump_type: type,
-				   sources: [ENV["PODSPEC_SOURCE"]])
+                                   bump_type: type)
     git_add(path: ENV["PODSPEC_NAME"])
     git_commit(path: [ENV["PODSPEC_NAME"]],
                message: "#{version} release")
