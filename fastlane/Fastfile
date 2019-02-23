@@ -1,6 +1,4 @@
 default_platform(:mac)
-podspec_name = "CoreArchitekkt.podspec"
-podspec_repo = "PodSpecsArchitekkt"
 
 platform :mac do
 
@@ -21,13 +19,13 @@ platform :mac do
 
   def release(type)
     pod_lib_lint(allow_warnings: true)
-    version = version_bump_podspec(path: podspec_name,
+    version = version_bump_podspec(path: ENV["PODSPEC_NAME"],
                                    bump_type: type)
-    git_add(path: podspec_name)
-    git_commit(path: [podspec_name],
+    git_add(path: ENV["PODSPEC_NAME"])
+    git_commit(path: [ENV["PODSPEC_NAME"]],
                message: "#{version} release")
     add_git_tag(tag: "#{version}")
     push_to_git_remote
-    pod_push(path: "podspec_name", repo: podspec_repo, allow_warnings: true)
+    pod_push(path: ENV["PODSPEC_NAME"], repo: ENV["PODSPEC_REPO"], allow_warnings: true)
   end
 end
