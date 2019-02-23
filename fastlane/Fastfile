@@ -1,8 +1,8 @@
-default_platform(:macos)
+default_platform(:mac)
 podspec_name = "CoreArchitekkt.podspec"
 podspec_repo = "PodSpecsArchitekkt"
 
-platform :macos do
+platform :mac do
 
   desc "Release a new version with a patch bump_type"
   lane :patch do
@@ -20,7 +20,7 @@ platform :macos do
   end
 
   def release(type)
-    pod_lib_lint
+    pod_lib_lint(allow_warnings: true)
     version = version_bump_podspec(path: podspec_name,
                                    bump_type: type)
     git_add(path: podspec_name)
@@ -28,6 +28,6 @@ platform :macos do
                message: "#{version} release")
     add_git_tag(tag: "#{version}")
     push_to_git_remote
-    pod_push(path: "podspec_name", repo: podspec_repo)
+    pod_push(path: "podspec_name", repo: podspec_repo, allow_warnings: true)
   end
 end
