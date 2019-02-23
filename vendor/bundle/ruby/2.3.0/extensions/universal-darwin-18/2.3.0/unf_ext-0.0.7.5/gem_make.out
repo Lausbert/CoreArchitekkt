@@ -1,0 +1,16 @@
+current directory: /Users/stephinsky/Desktop/CoreArchitekkt/vendor/bundle/ruby/2.3.0/gems/unf_ext-0.0.7.5/ext/unf_ext
+/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/bin/ruby -I /Library/Ruby/Site/2.3.0 -r ./siteconf20190223-36939-1l5aum.rb extconf.rb
+checking for main() in -lstdc++... yes
+creating Makefile
+
+current directory: /Users/stephinsky/Desktop/CoreArchitekkt/vendor/bundle/ruby/2.3.0/gems/unf_ext-0.0.7.5/ext/unf_ext
+make "DESTDIR=" clean
+
+current directory: /Users/stephinsky/Desktop/CoreArchitekkt/vendor/bundle/ruby/2.3.0/gems/unf_ext-0.0.7.5/ext/unf_ext
+make "DESTDIR="
+compiling unf.cc
+linking shared-object unf_ext.bundle
+
+current directory: /Users/stephinsky/Desktop/CoreArchitekkt/vendor/bundle/ruby/2.3.0/gems/unf_ext-0.0.7.5/ext/unf_ext
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 unf_ext.bundle ./.gem.20190223-36939-cnb9k0
