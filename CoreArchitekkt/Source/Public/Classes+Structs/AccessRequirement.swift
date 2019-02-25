@@ -17,5 +17,5 @@ public struct AccessRequirement {
         self.fileName = fileName
         self.fileType = fileType
     }
-    
+
 }
