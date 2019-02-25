@@ -3,6 +3,8 @@
 import Foundation
 
 public protocol GraphRequestHandler {
+    
+    var accessRequirements: [AccessRequirement]? { get }
 
     var handableFileExtensions: [String] { get }
 
