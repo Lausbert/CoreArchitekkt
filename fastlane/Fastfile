@@ -18,6 +18,10 @@ platform :mac do
   end
 
   def release(type)
+    ensure_git_status_clean
+    swiftlint(mode: :autocorrect)
+    git_add
+    git_commit(path: "./*", message: "swiftlint autocorrect")
     pod_lib_lint(allow_warnings: true,
 		 sources: [ENV["PODSPEC_SOURCE"]])
     version = version_bump_podspec(path: ENV["PODSPEC_NAME"],
