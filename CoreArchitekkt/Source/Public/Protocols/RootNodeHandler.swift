@@ -3,7 +3,7 @@
 import Foundation
 
 public protocol RootNodeHandler {
-    
+
     func handle(rootNode: Node)
-        
+
 }

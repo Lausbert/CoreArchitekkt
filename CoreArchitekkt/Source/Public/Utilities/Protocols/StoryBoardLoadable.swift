@@ -3,13 +3,13 @@
 import AppKit
 
 public protocol StoryBoardLoadable {
-    
+
     static func createFromStoryBoard() -> Self
-    
+
 }
 
-public extension StoryBoardLoadable where Self: NSViewController{
-    
+public extension StoryBoardLoadable where Self: NSViewController {
+
     static func createFromStoryBoard() -> Self {
         let name = String(describing: Self.self)
         let bundle = Bundle(for: Self.self)
@@ -17,5 +17,5 @@ public extension StoryBoardLoadable where Self: NSViewController{
         let viewController = storyBoard.instantiateController(withIdentifier: name) as? Self ?? Self()
         return viewController
     }
-    
+
 }

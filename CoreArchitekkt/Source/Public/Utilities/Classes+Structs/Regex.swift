@@ -8,14 +8,14 @@
 import Foundation
 
 public struct Regex {
-    
+
     // MARK: - Public -
-    
+
     public static func getMatches(for regex: String, text: String) throws -> [NSTextCheckingResult] {
         let regex = try NSRegularExpression(pattern: regex, options: [])
         return regex.matches(in: text, options: [], range: NSRange(text.startIndex..., in: text))
     }
-    
+
     public static func getMatchingStrings(for regex: String, text: String, captureGroup: Int) throws -> [String] {
         let matches = try getMatches(for: regex, text: text)
         var matchingStrings: [String] = []
@@ -26,5 +26,5 @@ public struct Regex {
         }
         return matchingStrings
     }
-    
+
 }

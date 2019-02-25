@@ -313,6 +313,7 @@
 			buildConfigurationList = CDA29C644F831232EEBC4AEEFF7384A9 /* Build configuration list for PBXNativeTarget "CoreArchitekkt" */;
 			buildPhases = (
 				06C83CDC59E01C33C6EE290E5E285B35 /* Headers */,
+				5D12DCA822244B350074DB29 /* SwiftLint */,
 				B7B224540DBEFB2E1218EB8FB5762048 /* Sources */,
 				09093D282592E519C8B6E441497CEDB6 /* Frameworks */,
 				45DC51F14E4CAB9F296095487428F971 /* Resources */,
@@ -370,6 +371,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5D12DCA822244B350074DB29 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\necho \"moep\"\necho ${TARGET_NAME}\necho \"moep\"\ncd ../../${TARGET_NAME}\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B7B224540DBEFB2E1218EB8FB5762048 /* Sources */ = {
