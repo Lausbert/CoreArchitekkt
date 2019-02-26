@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct AccessRequirement {
+public struct AccessRequirement: Hashable {
 
     // MARK: - Public -
 
