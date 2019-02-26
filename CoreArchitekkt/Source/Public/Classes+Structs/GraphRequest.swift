@@ -10,7 +10,7 @@ public struct GraphRequest {
     public let options: [Parameter: Option]
     public let accessibleUrls: [AccessRequirement: URL]?
 
-    public init(url: URL, options: [Parameter: Option], accessibleUrls: [AccessRequirement: URL]? = nil) {
+    public init(url: URL, options: [Parameter: Option], accessibleUrls: [AccessRequirement:URL]? = nil) {
         self.url = url
         self.options = options
         self.accessibleUrls = accessibleUrls
