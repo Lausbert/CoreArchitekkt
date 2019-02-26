@@ -28,7 +28,7 @@ platform :mac do
     version = version_bump_podspec(path: ENV["PODSPEC_NAME"],
                                    bump_type: type)
     git_add(path: ENV["PODSPEC_NAME"])
-    if !system("git diff --exit-code")
+    if system("git diff --exit-code")
         git_commit(path: [ENV["PODSPEC_NAME"]],
                message: "#{version} release")
     end
