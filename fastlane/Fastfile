@@ -21,7 +21,7 @@ platform :mac do
     ensure_git_status_clean
     swiftlint(mode: :autocorrect)
     git_add
-    if !system("git diff --exit-code")
+    if !system("git diff --exit-code") // check if there is something to commit
         git_commit(path: "./*", message: "swiftlint autocorrect")
     end
     pod_lib_lint(allow_warnings: true,
