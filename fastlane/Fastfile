@@ -21,14 +21,17 @@ platform :mac do
     ensure_git_status_clean
     swiftlint(mode: :autocorrect)
     git_add
+    
     git_commit(path: "./*", message: "swiftlint autocorrect")
     pod_lib_lint(allow_warnings: true,
 		 sources: [ENV["PODSPEC_SOURCE"]])
     version = version_bump_podspec(path: ENV["PODSPEC_NAME"],
                                    bump_type: type)
     git_add(path: ENV["PODSPEC_NAME"])
-    git_commit(path: [ENV["PODSPEC_NAME"]],
+    if !system("git diff --exit-code")
+        git_commit(path: [ENV["PODSPEC_NAME"]],
                message: "#{version} release")
+    end
     add_git_tag(tag: "#{version}")
     push_to_git_remote
     pod_push(path: ENV["PODSPEC_NAME"],
