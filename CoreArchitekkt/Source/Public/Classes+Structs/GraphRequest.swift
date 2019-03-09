@@ -36,7 +36,6 @@ public struct GraphRequest {
     /// - failure: todo
     public enum Result {
         case success(GraphRequest, Node)
-        case accessDenied(GraphRequest, AccessRequirement)
         case decisionNeeded(GraphRequest, [Parameter:[Option]])
         case failure(GraphRequest, Error)
     }
