@@ -13,8 +13,8 @@ public struct Shell {
 
     @discardableResult public static func launch(path: String, arguments: [String]) -> String? {
         let task = Process()
-        task.launchPath = path
-        task.arguments = arguments
+        task.launchPath = path.replacingOccurrences(of: "file://", with: "")
+        task.arguments = arguments.map { $0.replacingOccurrences(of: "file://", with: "") }
 
         let pipe = Pipe()
         task.standardOutput = pipe
