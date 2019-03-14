@@ -112,7 +112,7 @@ public class Node: NSObject, Codable {
         _arcs = try container.decodeIfPresent([Node].self, forKey: .arcs)
 
         super.init()
-        
+
         _children?.forEach { $0.parent = self }
 
         if isRoot {
