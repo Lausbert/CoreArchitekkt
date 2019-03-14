@@ -2,7 +2,7 @@
 
 import Foundation
 
-public class Node: Codable {
+public class Node: NSObject, Codable {
 
     // MARK: - Public -
 
@@ -111,6 +111,8 @@ public class Node: Codable {
         _children = try container.decodeIfPresent([Node].self, forKey: .children)
         _arcs = try container.decodeIfPresent([Node].self, forKey: .arcs)
 
+        super.init()
+        
         _children?.forEach { $0.parent = self }
 
         if isRoot {
