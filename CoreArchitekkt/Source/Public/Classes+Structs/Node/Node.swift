@@ -43,9 +43,10 @@ public class Node: NSObject, Codable {
     }
 
     public func add(child: Node) {
-        // no node should reference its children within _arcs
-        if arcs.contains(child) {
-            _arcs?.remove(element: child)
+        // no node or its descendants should reference their children within _arcs; no node should reference a child twice
+        ([self] + allDescendants).forEach { node in
+            node.remove(arc: node)
+            node.remove(child: node)
         }
 
         if _children == nil {
@@ -89,12 +90,12 @@ public class Node: NSObject, Codable {
             try container.encode(identifier, forKey: .identifier)
         }
         try container.encode(scope, forKey: .scope)
-        if let children = _children {
+        if let children = _children, !children.isEmpty {
             try container.encode(children, forKey: .children)
         }
 
         // reinitialize nodes in _arcs without children and arcs to avoid circular dependencies
-        if let arcs = _arcs?.map({ Node(identifier: $0.identifier, scope: $0.scope, isRoot: $0.isRoot) }) {
+        if let arcs = _arcs?.map({ Node(identifier: $0.identifier, scope: $0.scope, isRoot: $0.isRoot) }), !arcs.isEmpty {
             try container.encode(arcs, forKey: .arcs)
         }
     }
@@ -179,6 +180,18 @@ public class Node: NSObject, Codable {
     private func replace(arc: Node, with namedNode: Node) {
         if let index = _arcs?.firstIndex(of: arc) {
             _arcs?[index] = namedNode
+        }
+    }
+    
+    private func remove(arc: Node) {
+        if arcs.contains(arc) {
+            _arcs?.remove(element: arc)
+        }
+    }
+    
+    private func remove(child: Node) {
+        if children.contains(child) {
+            _children?.remove(element: child)
         }
     }
 
