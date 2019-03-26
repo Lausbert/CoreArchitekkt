@@ -43,12 +43,6 @@ public class Node: NSObject, Codable {
     }
 
     public func add(child: Node) {
-        // no node or its descendants should reference their children within _arcs; no node should reference a child twice
-        ([self] + allDescendants).forEach { node in
-            node.remove(arc: node)
-            node.remove(child: node)
-        }
-
         if _children == nil {
             _children = []
         }
@@ -180,18 +174,6 @@ public class Node: NSObject, Codable {
     private func replace(arc: Node, with namedNode: Node) {
         if let index = _arcs?.firstIndex(of: arc) {
             _arcs?[index] = namedNode
-        }
-    }
-
-    private func remove(arc: Node) {
-        if arcs.contains(arc) {
-            _arcs?.remove(element: arc)
-        }
-    }
-
-    private func remove(child: Node) {
-        if children.contains(child) {
-            _children?.remove(element: child)
         }
     }
 
