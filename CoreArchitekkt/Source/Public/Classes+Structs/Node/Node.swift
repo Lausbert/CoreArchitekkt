@@ -182,13 +182,13 @@ public class Node: NSObject, Codable {
             _arcs?[index] = namedNode
         }
     }
-    
+
     private func remove(arc: Node) {
         if arcs.contains(arc) {
             _arcs?.remove(element: arc)
         }
     }
-    
+
     private func remove(child: Node) {
         if children.contains(child) {
             _children?.remove(element: child)
