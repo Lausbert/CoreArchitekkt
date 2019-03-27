@@ -77,7 +77,7 @@ public class Node: NSObject, Codable {
         }
         _arcs?.append(arc)
     }
-    
+
     public func add(tag: String) {
         if _tags == nil {
             _tags = []
