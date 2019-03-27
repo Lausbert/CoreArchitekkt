@@ -18,7 +18,7 @@ public class Node: NSObject, Codable {
     public var arcs: [Node] {
         return _arcs ?? []
     }
-    public var tags: [String] {
+    public var tags: Set<String> {
         return _tags ?? []
     }
     public private(set) weak var parent: Node?
@@ -82,7 +82,7 @@ public class Node: NSObject, Codable {
         if _tags == nil {
             _tags = []
         }
-        _tags?.append(tag)
+        _tags?.insert(tag)
     }
 
     // MARK: Codable
@@ -117,7 +117,7 @@ public class Node: NSObject, Codable {
         scope = try container.decode(Scope.self, forKey: .scope)
         _children = try container.decodeIfPresent([Node].self, forKey: .children)
         _arcs = try container.decodeIfPresent([Node].self, forKey: .arcs)
-        _tags = try container.decodeIfPresent([String].self, forKey: .tags)
+        _tags = try container.decodeIfPresent(Set<String>.self, forKey: .tags)
 
         super.init()
 
@@ -158,7 +158,7 @@ public class Node: NSObject, Codable {
 
     private var _children: [Node]?
     private var _arcs: [Node]?
-    private var _tags: [String]?
+    private var _tags: Set<String>?
 
     // MARK: Codable
 
