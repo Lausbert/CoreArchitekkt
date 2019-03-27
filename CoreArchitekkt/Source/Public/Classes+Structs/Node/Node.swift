@@ -11,12 +11,15 @@ public class Node: NSObject, Codable {
     public let isRoot: Bool
     public let identifier: String?
     public private(set) var scope: Scope
-    // for cleaner encoded nodes _children and _arcs should be optional; for cleaner API children and arcs should not
+    // for cleaner encoded nodes _children, _arcs and _tags should be optional; for cleaner API children, arcs and tags should not
     public var children: [Node] {
         return _children ?? []
     }
     public var arcs: [Node] {
         return _arcs ?? []
+    }
+    public var tags: [String] {
+        return _tags ?? []
     }
     public private(set) weak var parent: Node?
 
@@ -74,6 +77,13 @@ public class Node: NSObject, Codable {
         }
         _arcs?.append(arc)
     }
+    
+    public func add(tag: String) {
+        if _tags == nil {
+            _tags = []
+        }
+        _tags?.append(tag)
+    }
 
     // MARK: Codable
 
@@ -87,10 +97,12 @@ public class Node: NSObject, Codable {
         if let children = _children, !children.isEmpty {
             try container.encode(children, forKey: .children)
         }
-
         // reinitialize nodes in _arcs without children and arcs to avoid circular dependencies
         if let arcs = _arcs?.map({ Node(identifier: $0.identifier, scope: $0.scope, isRoot: $0.isRoot) }), !arcs.isEmpty {
             try container.encode(arcs, forKey: .arcs)
+        }
+        if let tags = _tags {
+            try container.encode(tags, forKey: .tags)
         }
     }
 
@@ -105,6 +117,7 @@ public class Node: NSObject, Codable {
         scope = try container.decode(Scope.self, forKey: .scope)
         _children = try container.decodeIfPresent([Node].self, forKey: .children)
         _arcs = try container.decodeIfPresent([Node].self, forKey: .arcs)
+        _tags = try container.decodeIfPresent([String].self, forKey: .tags)
 
         super.init()
 
@@ -145,6 +158,7 @@ public class Node: NSObject, Codable {
 
     private var _children: [Node]?
     private var _arcs: [Node]?
+    private var _tags: [String]?
 
     // MARK: Codable
 
@@ -154,6 +168,7 @@ public class Node: NSObject, Codable {
         case scope
         case children
         case arcs
+        case tags
         // parent is missing on purpose to avoid circular dependencies during encoding
     }
 
