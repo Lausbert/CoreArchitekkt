@@ -102,7 +102,11 @@ public class Node: NSObject, Codable {
             try container.encode(arcs, forKey: .arcs)
         }
         if let tags = _tags {
+            #if DEBUG
+            try container.encode(tags.sorted(), forKey: .tags)
+            #else
             try container.encode(tags, forKey: .tags)
+            #endif
         }
     }
 
