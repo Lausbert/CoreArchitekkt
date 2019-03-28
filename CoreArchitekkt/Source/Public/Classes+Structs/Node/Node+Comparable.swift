@@ -6,10 +6,6 @@ extension Node: Comparable {
 
     // MARK: - Public -
 
-    public static func == (lhs: Node, rhs: Node) -> Bool {
-        return lhs === rhs
-    }
-
     public static func < (lhs: Node, rhs: Node) -> Bool {
         if let firstIdentifierLhs = getFirstIdentifier(node: lhs), let firstIdentifierRhs = getFirstIdentifier(node: rhs) {
             return firstIdentifierLhs < firstIdentifierRhs
