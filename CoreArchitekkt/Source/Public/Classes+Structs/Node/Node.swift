@@ -62,7 +62,7 @@ public class Node: NSObject, Codable {
     public func set(children: [Node]) {
         self._children = children
     }
-    
+
     public func set(arcs: [Node]) {
         self._arcs = arcs
     }
