@@ -15,11 +15,11 @@ public struct Regex {
         let regex = try NSRegularExpression(pattern: regex, options: [])
         return regex.matches(in: text, options: [], range: NSRange(text.startIndex..., in: text))
     }
-    
+
     public static func getMatches(for regex: StaticString, text: String) -> [NSTextCheckingResult] {
         return try! getMatches(for: "\(regex)", text: text)
     }
-    
+
     public static func getMatchingStrings(for regex: String, text: String, captureGroup: Int) throws -> [String] {
         let matches = try getMatches(for: regex, text: text)
         var matchingStrings: [String] = []
@@ -30,7 +30,7 @@ public struct Regex {
         }
         return matchingStrings
     }
-    
+
     public static func getMatchingStrings(for regex: StaticString, text: String, captureGroup: Int) -> [String] {
         return try! getMatchingStrings(for: "\(regex)", text: text, captureGroup: captureGroup)
     }
