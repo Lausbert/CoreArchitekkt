@@ -60,8 +60,11 @@ public class Node: NSObject, Codable {
     }
 
     public func set(children: [Node]) {
-        assert(isRoot, "Set children for a non-root node.")
         self._children = children
+    }
+    
+    public func set(arcs: [Node]) {
+        self._arcs = arcs
     }
 
     public func add(arc: Node) {
