@@ -10,6 +10,7 @@
 		1910A7619D0611BE07CCD4B23981CBFA /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B125CFAA0CF3CE49593BDF292EFBE7C /* DispatchQueue.swift */; };
 		38D09164567C1F969C1F06578094F5C6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F940C819049CFF8741C0F5E3E075E607 /* Cocoa.framework */; };
 		45E7E8108555FE83EE97B44E34EB57B5 /* CoreArchitekkt-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DAE35659C8C7C555DA2705B2017D60 /* CoreArchitekkt-dummy.m */; };
+		5D2DF12122249E3D001D0C72 /* AccessRequirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2DF12022249E3D001D0C72 /* AccessRequirement.swift */; };
 		70CF2DC5A6F76D08A8A343339A90AD13 /* GraphRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F8D14204D163A65A1B8C4AEAD07B8 /* GraphRequest.swift */; };
 		73C2A462B8515CE85E8CD3679BCCE644 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFAE3B78FDB1652C3D82F8877C1DDC6 /* Array.swift */; };
 		822C606240E918B24A570B62BB97C77C /* Pods-CoreArchitekkt_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B8AC13D6E8B315F352EEBE2750F377A /* Pods-CoreArchitekkt_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -46,6 +47,7 @@
 		45DFA6347309D297DBDD1EEABDF8E8B8 /* Pods-CoreArchitekkt_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CoreArchitekkt_Tests.modulemap"; sourceTree = "<group>"; };
 		48D94AA494A4FB23C99809A4482AF9AD /* GraphRequestHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GraphRequestHandler.swift; sourceTree = "<group>"; };
 		5372EB65C0B00CC36817E85468CA15C3 /* CoreArchitekkt-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CoreArchitekkt-Info.plist"; sourceTree = "<group>"; };
+		5D2DF12022249E3D001D0C72 /* AccessRequirement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessRequirement.swift; sourceTree = "<group>"; };
 		5DFAE3B78FDB1652C3D82F8877C1DDC6 /* Array.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		661BB6D2536E899DD87E2AB0469249E6 /* RootNodeHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RootNodeHandler.swift; sourceTree = "<group>"; };
 		6B8AC13D6E8B315F352EEBE2750F377A /* Pods-CoreArchitekkt_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CoreArchitekkt_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 		D8BA8B0CEBAD3684E177AD61ADB03857 /* Classes+Structs */ = {
 			isa = PBXGroup;
 			children = (
+				5D2DF12022249E3D001D0C72 /* AccessRequirement.swift */,
 				F35F8D14204D163A65A1B8C4AEAD07B8 /* GraphRequest.swift */,
 				820CB5D6638115AFB6BB1D07C150DC12 /* Node */,
 			);
@@ -340,7 +343,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -388,6 +390,7 @@
 				A485D62A8693EC98C46FD5B86323FBD9 /* Regex.swift in Sources */,
 				AF116C1F7161DC822ADE280D8596F20B /* RootNodeHandler.swift in Sources */,
 				D17132CE6FA5F531E35AE51423444147 /* Shell.swift in Sources */,
+				5D2DF12122249E3D001D0C72 /* AccessRequirement.swift in Sources */,
 				B78FE1E948DE8406BED7FDC7D2EFCA60 /* StoryBoardLoadable.swift in Sources */,
 				9FA2289473F13247E99FD79A29F32C35 /* String.swift in Sources */,
 			);
