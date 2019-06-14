@@ -4,7 +4,7 @@ import Foundation
 
 public protocol GraphRequestHandler {
 
-    var urlRequirements: [ConsistentUrlRequirement]? { get }
+    var consistentUrlRequirements: [ConsistentUrlRequirement]? { get }
 
     var handableFileExtensions: [String] { get }
 
