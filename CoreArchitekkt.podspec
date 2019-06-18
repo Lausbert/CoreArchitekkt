@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'CoreArchitekkt'
-    s.version          = '0.1.28'
+    s.version          = '0.1.29'
     s.summary          = 'A collection of shared components commonly used across Architekkt projects.'
 
     s.description      = <<-DESC
