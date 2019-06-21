@@ -8,7 +8,7 @@ public protocol StoryBoardLoadable {
 
 }
 
-public extension StoryBoardLoadable where Self: NSViewController {
+public extension StoryBoardLoadable where Self: NSResponder {
 
     static func createFromStoryBoard() -> Self {
         let name = String(describing: Self.self)
