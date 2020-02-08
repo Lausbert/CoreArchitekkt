@@ -14,6 +14,8 @@
 		70CF2DC5A6F76D08A8A343339A90AD13 /* GraphRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F8D14204D163A65A1B8C4AEAD07B8 /* GraphRequest.swift */; };
 		73C2A462B8515CE85E8CD3679BCCE644 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFAE3B78FDB1652C3D82F8877C1DDC6 /* Array.swift */; };
 		822C606240E918B24A570B62BB97C77C /* Pods-CoreArchitekkt_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B8AC13D6E8B315F352EEBE2750F377A /* Pods-CoreArchitekkt_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8DFBDD7223EEF6CB001F63BB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DFBDD7123EEF6CB001F63BB /* Colors.xcassets */; };
+		8DFBDD7423EEF716001F63BB /* NSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFBDD7323EEF716001F63BB /* NSColor.swift */; };
 		937A57EE451499A9CD69A7832E37044A /* ObjectAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED81A21B4F3922CD26AB9ADD838212 /* ObjectAssociation.swift */; };
 		9FA2289473F13247E99FD79A29F32C35 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE83058C7032C248D0471A63CF9FF5BB /* String.swift */; };
 		A485D62A8693EC98C46FD5B86323FBD9 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D57CD392F24F1F7ED99D334D5AA1C3A /* Regex.swift */; };
@@ -56,6 +58,8 @@
 		84AD8F849051E2766B59D1FE192C818C /* CoreArchitekkt.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CoreArchitekkt.modulemap; sourceTree = "<group>"; };
 		8B125CFAA0CF3CE49593BDF292EFBE7C /* DispatchQueue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		8DE444C9BB0EF78430894AF15E2637E1 /* Node.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		8DFBDD7123EEF6CB001F63BB /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = CoreArchitekkt/Source/Public/Colors.xcassets; sourceTree = "<group>"; };
+		8DFBDD7323EEF716001F63BB /* NSColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSColor.swift; sourceTree = "<group>"; };
 		96C4A422A63421E5005BAC3FFF29C846 /* Pods-CoreArchitekkt_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CoreArchitekkt_Tests-dummy.m"; sourceTree = "<group>"; };
 		9A6BDDD371AFF482FDE9F1B113C15A77 /* Shell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -116,6 +120,7 @@
 		13EA16E5D4CBBAA2F6F5A4575AC3B8AB /* CoreArchitekkt */ = {
 			isa = PBXGroup;
 			children = (
+				8DFBDD7123EEF6CB001F63BB /* Colors.xcassets */,
 				D8BA8B0CEBAD3684E177AD61ADB03857 /* Classes+Structs */,
 				A909D757099FC212E73EC06955498149 /* Extensions */,
 				6E9E3CA732971EE942064B4DBDEF365A /* Pod */,
@@ -208,6 +213,7 @@
 				5DFAE3B78FDB1652C3D82F8877C1DDC6 /* Array.swift */,
 				8B125CFAA0CF3CE49593BDF292EFBE7C /* DispatchQueue.swift */,
 				BE83058C7032C248D0471A63CF9FF5BB /* String.swift */,
+				8DFBDD7323EEF716001F63BB /* NSColor.swift */,
 			);
 			name = Extensions;
 			path = CoreArchitekkt/Source/Public/Extensions;
@@ -370,6 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DFBDD7223EEF6CB001F63BB /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73C2A462B8515CE85E8CD3679BCCE644 /* Array.swift in Sources */,
+				8DFBDD7423EEF716001F63BB /* NSColor.swift in Sources */,
 				45E7E8108555FE83EE97B44E34EB57B5 /* CoreArchitekkt-dummy.m in Sources */,
 				1910A7619D0611BE07CCD4B23981CBFA /* DispatchQueue.swift in Sources */,
 				70CF2DC5A6F76D08A8A343339A90AD13 /* GraphRequest.swift in Sources */,
