@@ -16,5 +16,4 @@ A collection of shared components commonly used across Architekkt projects.
     s.swift_version = '5.0'
   
   s.source_files = 'CoreArchitekkt/Source/**/*'
-  s.resources = 'CoreArchitekkt/Resource/**/*'
 end
