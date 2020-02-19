@@ -22,7 +22,7 @@ public struct Regex {
         let regex: String
         let text: String
     }
-    
+
     public static func getMatchingStrings(for regex: StaticString, text: String, captureGroup: Int) -> [Result] {
         return getMatchingStrings(for: regex, text: text, captureGroups: captureGroup).flatMap { $0.results }
     }
