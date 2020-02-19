@@ -12,15 +12,15 @@ public struct Regex {
     // MARK: - Public -
 
     public struct CombinedResult {
-        let results: [Result]
+        public let results: [Result]
     }
 
     public struct Result {
-        let captureGroup: Int
-        let string: String
-        let range: Range<String.Index>
-        let regex: String
-        let text: String
+        public let captureGroup: Int
+        public let string: String
+        public let range: Range<String.Index>
+        public let regex: String
+        public let text: String
     }
 
     public static func getResult(for regex: StaticString, text: String, captureGroup: Int) -> [Result] {
