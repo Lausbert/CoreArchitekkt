@@ -2,7 +2,7 @@
 
 import Foundation
 
-public class Node: NSObject, Codable {
+public class Node: Codable {
 
     // MARK: - Public -
 
