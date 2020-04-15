@@ -52,28 +52,28 @@ public class Node: NSObject, Codable {
         self._children = children
     }
 
-    public func set(arcNodes: [Node]) {
-        self._arcs = arcNodes.map { $0.identifier }
+    public func set(arcs: [String]) {
+        self._arcs = arcs
     }
 
-    public func add(arcNode: Node) {
+    public func add(arc: String) {
         // no node should have more than one arc to the same other node
-        guard !arcs.contains(arcNode.identifier) else { return }
+        guard !arcs.contains(arc) else { return }
 
         // no node should reference itself within _arcs
-        guard arcNode != self else { return }
+        guard arc != self.identifier else { return }
 
         // no node should reference its parents within _arcs
         var node = self
         while let parent = node.parent {
-            if parent == arcNode { return }
+            if parent.identifier == arc { return }
             node = parent
         }
 
         if _arcs == nil {
             _arcs = []
         }
-        _arcs?.append(arcNode.identifier)
+        _arcs?.append(identifier)
     }
 
     public func add(tag: String) {
