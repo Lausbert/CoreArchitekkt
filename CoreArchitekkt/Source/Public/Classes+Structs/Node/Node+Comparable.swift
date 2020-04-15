@@ -7,19 +7,19 @@ extension Node: Comparable {
     // MARK: - Public -
 
     public static func < (lhs: Node, rhs: Node) -> Bool {
-        if let firstIdentifierLhs = getFirstIdentifier(node: lhs), let firstIdentifierRhs = getFirstIdentifier(node: rhs) {
-            return firstIdentifierLhs < firstIdentifierRhs
+        if let firstNameLhs = getFirstName(node: lhs), let firstNameRhs = getFirstName(node: rhs) {
+            return firstNameLhs < firstNameRhs
         }
         return false
     }
 
     // MARK: - Private -
 
-    private static func getFirstIdentifier(node: Node) -> String? {
-        guard node.identifier == nil else { return node.identifier }
+    private static func getFirstName(node: Node) -> String? {
+        guard node.name == nil else { return node.name }
         for child in node.children {
-            if let identifier = child.identifier {
-                return identifier
+            if let name = child.name {
+                return name
             }
         }
         return nil
