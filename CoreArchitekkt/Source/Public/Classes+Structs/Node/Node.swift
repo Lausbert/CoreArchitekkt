@@ -6,7 +6,7 @@ public class Node: Codable {
 
     // MARK: - Public -
 
-    public let identifier: String = UUID().uuidString
+    public let identifier: String
     public let isRoot: Bool
     public private(set) var scope: String
     public private(set) var name: String?
@@ -27,6 +27,7 @@ public class Node: Codable {
     }
 
     public init(scope: String, name: String? = nil, isRoot: Bool = false) {
+        self.identifier = UUID().uuidString
         self.scope = scope
         self.name = name
         self.isRoot = isRoot
