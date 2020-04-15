@@ -31,7 +31,7 @@ public class Node: NSObject, Codable {
         self.name = name
         self.isRoot = isRoot
     }
-    
+
     public func set(scope: String) {
         self.scope = scope
     }

@@ -36,7 +36,7 @@ public struct GraphRequest {
     /// - failure: todo
     public enum Result {
         case success(GraphRequest, Node)
-        case decisionNeeded(GraphRequest, [Parameter:[Option]])
+        case decisionNeeded(GraphRequest, [Parameter: [Option]])
         case failure(GraphRequest, Error)
     }
 
