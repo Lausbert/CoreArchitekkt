@@ -10,17 +10,11 @@ public class Node: Codable {
     public let isRoot: Bool
     public private(set) var scope: String
     public private(set) var name: String?
-    // for cleaner encoded nodes _children, _arcs and _tags should be optional; for cleaner API children, arcs and tags should not
-    public var children: [Node] {
-        return _children ?? []
-    }
-    public var arcs: [String] {
-        return _arcs ?? []
-    }
-    public var tags: Set<String> {
-        return _tags ?? []
-    }
+    public private(set) var children: [Node]
+    public private(set) var arcs: [String]
+    public private(set) var tags: Set<String>
     public private(set) weak var parent: Node?
+    
     public var allDescendants: [Node] {
         guard !children.isEmpty else { return [] }
         return children + children.flatMap { $0.allDescendants }
@@ -28,9 +22,12 @@ public class Node: Codable {
 
     public init(scope: String, name: String? = nil, isRoot: Bool = false) {
         self.identifier = UUID().uuidString
+        self.isRoot = isRoot
         self.scope = scope
         self.name = name
-        self.isRoot = isRoot
+        self.children = []
+        self.arcs = []
+        self.tags = []
     }
 
     public func set(scope: String) {
@@ -42,52 +39,35 @@ public class Node: Codable {
     }
 
     public func add(child: Node) {
-        if _children == nil {
-            _children = []
-        }
-        _children?.append(child)
+        children.append(child)
         child.parent = self
     }
 
     public func set(children: [Node]) {
-        self._children = children
+        self.children = children
+        children.forEach { $0.parent = self }
     }
 
     public func set(arcs: [String]) {
-        self._arcs = arcs
+        self.arcs = arcs
     }
 
     public func add(arc: String) {
         // no node should have more than one arc to the same other node
         guard !arcs.contains(arc) else { return }
 
-        // no node should reference itself within _arcs
-        guard arc != self.identifier else { return }
-
-        // no node should reference its parents within _arcs
-        var node = self
-        while let parent = node.parent {
-            if parent.identifier == arc { return }
-            node = parent
+        // no node should reference itself or its parents within _arcs
+        var node: Node? = self
+        while let selfOrAncestor = node {
+            if selfOrAncestor.identifier == arc { return }
+            node = selfOrAncestor.parent
         }
 
-        if _arcs == nil {
-            _arcs = []
-        }
-        _arcs?.append(identifier)
+        arcs.append(identifier)
     }
 
     public func add(tag: String) {
-        if _tags == nil {
-            _tags = []
-        }
-        _tags?.insert(tag)
+        tags.insert(tag)
     }
-
-    // MARK: - Private -
-
-    private var _children: [Node]?
-    private var _arcs: [String]?
-    private var _tags: Set<String>?
 
 }
