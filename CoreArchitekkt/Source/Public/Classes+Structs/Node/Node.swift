@@ -14,7 +14,7 @@ public class Node: Codable {
     public private(set) var arcs: [String]
     public private(set) var tags: Set<String>
     public private(set) weak var parent: Node?
-    
+
     public var allDescendants: [Node] {
         guard !children.isEmpty else { return [] }
         return children + children.flatMap { $0.allDescendants }
