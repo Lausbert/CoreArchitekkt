@@ -3,7 +3,7 @@
 import Foundation
 
 public class Node: NSObject, Codable, Identifiable {
-    
+
     // MARK: - Public -
 
     public let id: UUID
