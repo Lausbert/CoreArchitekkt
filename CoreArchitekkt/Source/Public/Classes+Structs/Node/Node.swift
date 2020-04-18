@@ -27,7 +27,7 @@ public class Node: NSObject, Codable, Identifiable {
         self.arcs = []
         self.tags = []
     }
-    
+
     public func set(scope: String) {
         self.scope = scope
     }
