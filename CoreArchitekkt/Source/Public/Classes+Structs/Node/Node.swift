@@ -15,7 +15,6 @@ public class Node: NSObject, Codable, Identifiable {
     public private(set) var tags: Set<String>
     public private(set) weak var parent: Node?
     public var allDescendants: [Node] {
-        guard !children.isEmpty else { return [] }
         return children + children.flatMap { $0.allDescendants }
     }
 
