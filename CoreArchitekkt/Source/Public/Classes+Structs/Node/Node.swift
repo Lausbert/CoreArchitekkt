@@ -8,8 +8,8 @@ public class Node: NSObject, Codable, Identifiable {
 
     public let id: UUID
     public let isRoot: Bool
-    public private(set) var name: String?
     public private(set) var scope: String
+    public private(set) var name: String?
     public private(set) var children: [Node]
     public private(set) var arcs: [UUID]
     public private(set) var tags: Set<String>
@@ -28,13 +28,13 @@ public class Node: NSObject, Codable, Identifiable {
         self.arcs = []
         self.tags = []
     }
+    
+    public func set(scope: String) {
+        self.scope = scope
+    }
 
     public func set(name: String) {
         self.name = name
-    }
-
-    public func set(scope: String) {
-        self.scope = scope
     }
 
     public func add(child: Node) {
@@ -76,12 +76,12 @@ public class Node: NSObject, Codable, Identifiable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .identifier)
+        try container.encode(id, forKey: .id)
         try container.encode(isRoot, forKey: .isRoot)
+        try container.encode(scope, forKey: .scope)
         if let name = name {
             try container.encode(name, forKey: .name)
         }
-        try container.encode(scope, forKey: .scope)
         try container.encode(children, forKey: .children)
         try container.encode(arcs, forKey: .arcs)
         try container.encode(tags.sorted(), forKey: .tags)
@@ -93,10 +93,10 @@ public class Node: NSObject, Codable, Identifiable {
     /// - Throws: This function throws
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(UUID.self, forKey: .identifier)
+        id = try container.decode(UUID.self, forKey: .id)
         isRoot = try container.decode(Bool.self, forKey: .isRoot)
-        name = try container.decodeIfPresent(String.self, forKey: .name)
         scope = try container.decode(String.self, forKey: .scope)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
         children = try container.decode([Node].self, forKey: .children)
         arcs = try container.decode([UUID].self, forKey: .arcs)
         tags = try container.decode(Set<String>.self, forKey: .tags)
@@ -109,10 +109,10 @@ public class Node: NSObject, Codable, Identifiable {
     // MARK: - Private -
 
     private enum CodingKeys: CodingKey {
-        case identifier
+        case id
         case isRoot
-        case name
         case scope
+        case name
         case children
         case arcs
         case tags
