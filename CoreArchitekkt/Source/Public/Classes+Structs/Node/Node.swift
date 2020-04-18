@@ -47,6 +47,7 @@ public class Node: NSObject, Codable, Identifiable {
     }
 
     public func set(arcs: [UUID]) {
+        self.arcs = []
         arcs.forEach { add(arc: $0) }
     }
 
