@@ -13,6 +13,7 @@
 		70CF2DC5A6F76D08A8A343339A90AD13 /* GraphRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F8D14204D163A65A1B8C4AEAD07B8 /* GraphRequest.swift */; };
 		822C606240E918B24A570B62BB97C77C /* Pods-CoreArchitekkt_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B8AC13D6E8B315F352EEBE2750F377A /* Pods-CoreArchitekkt_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D138C4A240A9F5F00D85FFE /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D138C49240A9F5F00D85FFE /* DispatchQueue.swift */; };
+		8DF92A752453727100755C77 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF92A742453727100755C77 /* Array.swift */; };
 		937A57EE451499A9CD69A7832E37044A /* ObjectAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED81A21B4F3922CD26AB9ADD838212 /* ObjectAssociation.swift */; };
 		A485D62A8693EC98C46FD5B86323FBD9 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D57CD392F24F1F7ED99D334D5AA1C3A /* Regex.swift */; };
 		AF116C1F7161DC822ADE280D8596F20B /* RootNodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661BB6D2536E899DD87E2AB0469249E6 /* RootNodeHandler.swift */; };
@@ -53,6 +54,7 @@
 		84AD8F849051E2766B59D1FE192C818C /* CoreArchitekkt.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CoreArchitekkt.modulemap; sourceTree = "<group>"; };
 		8D138C49240A9F5F00D85FFE /* DispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		8DE444C9BB0EF78430894AF15E2637E1 /* Node.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		8DF92A742453727100755C77 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		96C4A422A63421E5005BAC3FFF29C846 /* Pods-CoreArchitekkt_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CoreArchitekkt_Tests-dummy.m"; sourceTree = "<group>"; };
 		9A6BDDD371AFF482FDE9F1B113C15A77 /* Shell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Shell.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				8D138C49240A9F5F00D85FFE /* DispatchQueue.swift */,
+				8DF92A742453727100755C77 /* Array.swift */,
 			);
 			name = Extensions;
 			path = CoreArchitekkt/Source/Public/Extensions;
@@ -383,6 +386,7 @@
 				A485D62A8693EC98C46FD5B86323FBD9 /* Regex.swift in Sources */,
 				AF116C1F7161DC822ADE280D8596F20B /* RootNodeHandler.swift in Sources */,
 				D17132CE6FA5F531E35AE51423444147 /* Shell.swift in Sources */,
+				8DF92A752453727100755C77 /* Array.swift in Sources */,
 				5D2DF12122249E3D001D0C72 /* ConsistentUrlRequirement.swift in Sources */,
 				B78FE1E948DE8406BED7FDC7D2EFCA60 /* StoryBoardLoadable.swift in Sources */,
 				8D138C4A240A9F5F00D85FFE /* DispatchQueue.swift in Sources */,
