@@ -19,7 +19,7 @@ public final class ObjectAssociation<T: Any> {
     /// - Parameter index: An object whose associated object is to be accessed.
     public subscript(index: Any) -> T? {
         // swiftlint:disable force_cast
-        get { return objc_getAssociatedObject(index, Unmanaged.passUnretained(self).toOpaque()) as! T? }
+        get { return objc_getAssociatedObject(index, Unmanaged.passUnretained(self).toOpaque()) as? T }
         // swiftlint:enable force_cast
         set { objc_setAssociatedObject(index, Unmanaged.passUnretained(self).toOpaque(), newValue, policy) }
     }
