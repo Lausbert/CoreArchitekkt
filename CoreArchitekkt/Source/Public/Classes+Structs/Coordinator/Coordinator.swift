@@ -73,9 +73,9 @@ open class Coordinator<Dependencies>: NSViewController {
 
 }
 
-public extension NSWindowController {
+extension NSWindowController {
 
-    @objc func didLoadContentViewController() {
+    @objc open func didLoadContentViewController() {
 
     }
 
