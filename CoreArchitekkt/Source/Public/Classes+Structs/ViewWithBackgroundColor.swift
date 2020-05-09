@@ -2,8 +2,8 @@
 
 import Cocoa
 
-public class ViewWithBackgroundColor: NSView {
-    @IBInspectable var backgroundColor: NSColor? {
+open class ViewWithBackgroundColor: NSView {
+    @IBInspectable public var backgroundColor: NSColor? {
         get {
             guard let layer = layer, let backgroundColor = layer.backgroundColor else { return nil }
             return NSColor(cgColor: backgroundColor)
@@ -15,7 +15,7 @@ public class ViewWithBackgroundColor: NSView {
         }
     }
 
-    @IBInspectable var cornerRadius: CGFloat {
+    @IBInspectable public var cornerRadius: CGFloat {
         get {
             return layer?.cornerRadius ?? 0.0
         }
@@ -26,11 +26,11 @@ public class ViewWithBackgroundColor: NSView {
         }
     }
 
-    override init(frame frameRect: NSRect) {
+    override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
     }
 
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 }

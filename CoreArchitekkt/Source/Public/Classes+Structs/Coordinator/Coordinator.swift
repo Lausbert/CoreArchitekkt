@@ -2,17 +2,17 @@
 
 import Cocoa
 
-public class Coordinator<Dependencies>: NSViewController {
+open class Coordinator<Dependencies>: NSViewController {
 
     // MARK: - Internal -
 
-    var dependencies: Dependencies? {
+    public var dependencies: Dependencies? {
         didSet {
             dependencyUpdaterDictionary.values.forEach { $0() }
         }
     }
 
-    func open<U: NSWindowController, T: Coordinator<Dependency>, Dependency>(windowController: U.Type, with coordinator: T.Type) -> (U, T) {
+    public func open<U: NSWindowController, T: Coordinator<Dependency>, Dependency>(windowController: U.Type, with coordinator: T.Type) -> (U, T) {
         let windowController = U.createFromStoryBoard()
         let coordinator = T.createFromStoryBoard()
         updateDependenciesFor(child: coordinator)
@@ -22,16 +22,16 @@ public class Coordinator<Dependencies>: NSViewController {
         return (windowController, coordinator)
     }
 
-    func close(coordinator: Coordinator) {
+    public func close(coordinator: Coordinator) {
         dependencyUpdaterDictionary.removeValue(forKey: coordinator)
     }
 
-    func transition<T: Coordinator<Dependency>, Dependency>(toCoordinator to: T, in containerView: NSView, options: NSViewController.TransitionOptions = [.crossfade], completionHandler: (() -> Void)? = nil ) {
+    public func transition<T: Coordinator<Dependency>, Dependency>(toCoordinator to: T, in containerView: NSView, options: NSViewController.TransitionOptions = [.crossfade], completionHandler: (() -> Void)? = nil ) {
         updateDependenciesFor(child: to)
         transition(toViewController: to, in: containerView, options: options, completionHandler: completionHandler)
     }
 
-    func transition(toViewController to: NSViewController, in containerView: NSView, options: NSViewController.TransitionOptions = [.crossfade], completionHandler: (() -> Void)? = nil ) {
+    public func transition(toViewController to: NSViewController, in containerView: NSView, options: NSViewController.TransitionOptions = [.crossfade], completionHandler: (() -> Void)? = nil ) {
         guard let from = childrenDictionary[containerView] else {
             embed(viewController: to, in: containerView)
             return
