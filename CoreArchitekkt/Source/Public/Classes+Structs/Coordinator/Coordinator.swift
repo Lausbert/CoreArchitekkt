@@ -73,7 +73,7 @@ open class Coordinator<Dependencies>: NSViewController {
 
 }
 
-extension NSWindowController {
+public extension NSWindowController {
 
     @objc func didLoadContentViewController() {
 
