@@ -3,15 +3,15 @@
 import Foundation
 
 protocol DependenciesUpdating: class {
-    
+
     var dependencyUpdaterDictionary: [NSViewController: () -> Void] { get set }
-    
+
     func updateDependenciesFor<T: NSViewController & Coordinating>(child: T)
-    
+
 }
 
 extension DependenciesUpdating where Self: Coordinating {
-    
+
     func updateDependenciesFor<T: NSViewController & Coordinating>(child: T) {
         let dependencyUpdater = { [weak self] in
             guard let self = self else { return }
@@ -24,5 +24,5 @@ extension DependenciesUpdating where Self: Coordinating {
         dependencyUpdater()
         dependencyUpdaterDictionary[child] = dependencyUpdater
     }
-    
+
 }

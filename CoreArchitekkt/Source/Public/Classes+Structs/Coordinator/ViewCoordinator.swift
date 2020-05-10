@@ -29,9 +29,9 @@ open class ViewCoordinator<Dependencies>: NSViewController, Coordinating, Depend
         dependencyUpdaterDictionary.removeValue(forKey: from)
         childrenDictionary[containerView] = to
     }
-    
+
     // MARK: - Internal -
-    
+
     var dependencyUpdaterDictionary: [NSViewController: () -> Void] = [:]
 
     // MARK: - Private -
@@ -48,5 +48,3 @@ open class ViewCoordinator<Dependencies>: NSViewController, Coordinating, Depend
     }
 
 }
-
-

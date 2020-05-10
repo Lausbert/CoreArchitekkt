@@ -3,18 +3,18 @@
 import Foundation
 
 public protocol Coordinating: class {
-    
+
     associatedtype Dependencies
-    
+
     var dependencies: Dependencies? { get set }
 
     func open<U: NSWindowController, T: NSViewController & Coordinating>(windowController: U.Type, with coordinator: T.Type) -> (U, T)
     func close<U: NSViewController & Coordinating>(coordinator: U)
-    
+
 }
 
 extension Coordinating where Self: NSResponder {
-    
+
     public func open<U: NSWindowController, T: NSViewController & Coordinating>(windowController: U.Type, with coordinator: T.Type) -> (U, T) {
         let windowController = U.createFromStoryBoard()
         let coordinator = T.createFromStoryBoard()
@@ -32,7 +32,7 @@ extension Coordinating where Self: NSResponder {
             dependencyUpdater.dependencyUpdaterDictionary.removeValue(forKey: coordinator)
         }
     }
-    
+
 }
 
 extension NSWindowController {
