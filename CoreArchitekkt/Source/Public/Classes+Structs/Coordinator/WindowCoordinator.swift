@@ -2,25 +2,20 @@
 
 import Foundation
 
-public protocol Coordinating: class {
+open class WindowCoordinator<Dependencies>: NSResponder, Coordinating, DependenciesUpdating {
+    
+    // MARK: - Public -
 
-    associatedtype Dependencies
-
-    var dependencies: Dependencies? { get set }
-
-    func open<U: NSWindowController, T: NSViewController & Coordinating>(windowController: U.Type, with coordinator: T.Type) -> (U, T)
-    func close<U: NSViewController & Coordinating>(coordinator: U)
-
-}
-
-extension Coordinating where Self: NSResponder {
-
+    public var dependencies: Dependencies? {
+        didSet {
+            updateChildrenDependencies()
+        }
+    }
+    
     public func open<U: NSWindowController, T: NSViewController & Coordinating>(windowController: U.Type, with coordinator: T.Type) -> (U, T) {
         let windowController = U.createFromStoryBoard()
         let coordinator = T.createFromStoryBoard()
-        if let dependencyUpdater = self as? DependenciesUpdating {
-            dependencyUpdater.updateDependenciesFor(child: coordinator)
-        }
+        updateDependenciesFor(child: coordinator)
         windowController.contentViewController = coordinator
         windowController.didLoadContentViewController()
         windowController.nextResponder = self
@@ -28,11 +23,13 @@ extension Coordinating where Self: NSResponder {
     }
 
     public func close<U: NSViewController & Coordinating>(coordinator: U) {
-        if let dependencyUpdater = self as? DependenciesUpdating {
-            dependencyUpdater.dependencyUpdaterDictionary.removeValue(forKey: coordinator)
-        }
+        dependencyUpdaterDictionary.removeValue(forKey: coordinator)
     }
-
+    
+    // MARK: - Internal -
+    
+    var dependencyUpdaterDictionary: [NSResponder : () -> Void] = [:]
+    
 }
 
 extension NSWindowController {
@@ -42,3 +39,4 @@ extension NSWindowController {
     }
 
 }
+

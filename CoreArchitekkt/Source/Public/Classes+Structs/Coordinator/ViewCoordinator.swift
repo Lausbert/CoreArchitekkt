@@ -8,7 +8,7 @@ open class ViewCoordinator<Dependencies>: NSViewController, Coordinating, Depend
 
     public var dependencies: Dependencies? {
         didSet {
-            dependencyUpdaterDictionary.values.forEach { $0() }
+            updateChildrenDependencies()
         }
     }
 
@@ -32,7 +32,7 @@ open class ViewCoordinator<Dependencies>: NSViewController, Coordinating, Depend
 
     // MARK: - Internal -
 
-    var dependencyUpdaterDictionary: [NSViewController: () -> Void] = [:]
+    var dependencyUpdaterDictionary: [NSResponder: () -> Void] = [:]
 
     // MARK: - Private -
 

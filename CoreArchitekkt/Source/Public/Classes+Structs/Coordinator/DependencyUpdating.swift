@@ -4,15 +4,17 @@ import Foundation
 
 protocol DependenciesUpdating: class {
 
-    var dependencyUpdaterDictionary: [NSViewController: () -> Void] { get set }
+    var dependencyUpdaterDictionary: [NSResponder: () -> Void] { get set }
 
-    func updateDependenciesFor<T: NSViewController & Coordinating>(child: T)
+    func updateDependenciesFor<T: NSResponder & Coordinating>(child: T)
+    
+    func updateChildrenDependencies()
 
 }
 
 extension DependenciesUpdating where Self: Coordinating {
 
-    func updateDependenciesFor<T: NSViewController & Coordinating>(child: T) {
+    func updateDependenciesFor<T: NSResponder & Coordinating>(child: T) {
         let dependencyUpdater = { [weak self] in
             guard let self = self else { return }
             if let dependencies = self.dependencies as? T.Dependencies? {
@@ -23,6 +25,10 @@ extension DependenciesUpdating where Self: Coordinating {
         }
         dependencyUpdater()
         dependencyUpdaterDictionary[child] = dependencyUpdater
+    }
+    
+    func updateChildrenDependencies() {
+        dependencyUpdaterDictionary.values.forEach { $0() }
     }
 
 }

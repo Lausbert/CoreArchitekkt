@@ -13,11 +13,12 @@
 		70CF2DC5A6F76D08A8A343339A90AD13 /* GraphRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F8D14204D163A65A1B8C4AEAD07B8 /* GraphRequest.swift */; };
 		822C606240E918B24A570B62BB97C77C /* Pods-CoreArchitekkt_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B8AC13D6E8B315F352EEBE2750F377A /* Pods-CoreArchitekkt_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D0941CE2467EC6000674F74 /* DependencyUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0941CD2467EC6000674F74 /* DependencyUpdating.swift */; };
+		8D0941D0246820D300674F74 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0941CF246820D300674F74 /* WindowCoordinator.swift */; };
 		8D138C4A240A9F5F00D85FFE /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D138C49240A9F5F00D85FFE /* DispatchQueue.swift */; };
 		8D351F6124674134002C19D9 /* NSResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D351F6024674134002C19D9 /* NSResponder.swift */; };
 		8D351F6424674667002C19D9 /* ViewWithBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D351F6224674667002C19D9 /* ViewWithBackgroundColor.swift */; };
 		8D351F6524674667002C19D9 /* ViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D351F6324674667002C19D9 /* ViewCoordinator.swift */; };
-		8D832D2B2467E0800038F06A /* Coordindating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D832D2A2467E0800038F06A /* Coordindating.swift */; };
+		8D832D2B2467E0800038F06A /* Coordinating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D832D2A2467E0800038F06A /* Coordinating.swift */; };
 		8DF92A752453727100755C77 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF92A742453727100755C77 /* Array.swift */; };
 		937A57EE451499A9CD69A7832E37044A /* ObjectAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ED81A21B4F3922CD26AB9ADD838212 /* ObjectAssociation.swift */; };
 		A485D62A8693EC98C46FD5B86323FBD9 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D57CD392F24F1F7ED99D334D5AA1C3A /* Regex.swift */; };
@@ -58,11 +59,12 @@
 		6F7FEAE89F5E2B6C3B918C50738C460F /* CoreArchitekkt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreArchitekkt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AD8F849051E2766B59D1FE192C818C /* CoreArchitekkt.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CoreArchitekkt.modulemap; sourceTree = "<group>"; };
 		8D0941CD2467EC6000674F74 /* DependencyUpdating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyUpdating.swift; sourceTree = "<group>"; };
+		8D0941CF246820D300674F74 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		8D138C49240A9F5F00D85FFE /* DispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		8D351F6024674134002C19D9 /* NSResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSResponder.swift; sourceTree = "<group>"; };
 		8D351F6224674667002C19D9 /* ViewWithBackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewWithBackgroundColor.swift; sourceTree = "<group>"; };
 		8D351F6324674667002C19D9 /* ViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewCoordinator.swift; sourceTree = "<group>"; };
-		8D832D2A2467E0800038F06A /* Coordindating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordindating.swift; sourceTree = "<group>"; };
+		8D832D2A2467E0800038F06A /* Coordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinating.swift; sourceTree = "<group>"; };
 		8DE444C9BB0EF78430894AF15E2637E1 /* Node.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		8DF92A742453727100755C77 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		96C4A422A63421E5005BAC3FFF29C846 /* Pods-CoreArchitekkt_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CoreArchitekkt_Tests-dummy.m"; sourceTree = "<group>"; };
@@ -206,8 +208,9 @@
 		8D351F66246746A7002C19D9 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				8D0941CF246820D300674F74 /* WindowCoordinator.swift */,
 				8D351F6324674667002C19D9 /* ViewCoordinator.swift */,
-				8D832D2A2467E0800038F06A /* Coordindating.swift */,
+				8D832D2A2467E0800038F06A /* Coordinating.swift */,
 				8D0941CD2467EC6000674F74 /* DependencyUpdating.swift */,
 			);
 			path = Coordinator;
@@ -382,13 +385,14 @@
 				F0C49EC167A1347BAD1943F798781E05 /* GraphRequestHandler.swift in Sources */,
 				C55BB927129416494FDCE84ADB5E69A5 /* Node+Comparable.swift in Sources */,
 				BB1E69C2D41A1A22AEEABB20D4D47D67 /* Node.swift in Sources */,
+				8D0941D0246820D300674F74 /* WindowCoordinator.swift in Sources */,
 				8D351F6124674134002C19D9 /* NSResponder.swift in Sources */,
 				937A57EE451499A9CD69A7832E37044A /* ObjectAssociation.swift in Sources */,
 				A485D62A8693EC98C46FD5B86323FBD9 /* Regex.swift in Sources */,
 				AF116C1F7161DC822ADE280D8596F20B /* RootNodeHandler.swift in Sources */,
 				D17132CE6FA5F531E35AE51423444147 /* Shell.swift in Sources */,
 				8DF92A752453727100755C77 /* Array.swift in Sources */,
-				8D832D2B2467E0800038F06A /* Coordindating.swift in Sources */,
+				8D832D2B2467E0800038F06A /* Coordinating.swift in Sources */,
 				5D2DF12122249E3D001D0C72 /* ConsistentUrlRequirement.swift in Sources */,
 				B78FE1E948DE8406BED7FDC7D2EFCA60 /* StoryBoardLoadable.swift in Sources */,
 				8D138C4A240A9F5F00D85FFE /* DispatchQueue.swift in Sources */,
