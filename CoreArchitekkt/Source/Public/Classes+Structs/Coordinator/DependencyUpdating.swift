@@ -7,7 +7,7 @@ protocol DependenciesUpdating: class {
     var dependencyUpdaterDictionary: [NSResponder: () -> Void] { get set }
 
     func updateDependenciesFor<T: NSResponder & Coordinating>(child: T)
-    
+
     func updateChildrenDependencies()
 
 }
@@ -26,7 +26,7 @@ extension DependenciesUpdating where Self: Coordinating {
         dependencyUpdater()
         dependencyUpdaterDictionary[child] = dependencyUpdater
     }
-    
+
     func updateChildrenDependencies() {
         dependencyUpdaterDictionary.values.forEach { $0() }
     }
