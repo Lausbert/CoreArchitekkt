@@ -12,7 +12,7 @@ protocol DependenciesUpdating: class {
 
 }
 
-extension DependenciesUpdating where Self: Coordinating {
+internal extension DependenciesUpdating where Self: Coordinating {
 
     func updateDependenciesFor<T: NSResponder & Coordinating>(child: T) {
         let dependencyUpdater = { [weak self] in

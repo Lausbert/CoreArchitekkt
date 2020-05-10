@@ -12,12 +12,12 @@ open class ViewCoordinator<Dependencies>: NSViewController, Coordinating, Depend
         }
     }
 
-    public func transition<T: NSViewController & Coordinating>(toCoordinator to: T, in containerView: NSView, options: NSViewController.TransitionOptions = [.crossfade], completionHandler: (() -> Void)? = nil ) {
+    open func transition<T: NSViewController & Coordinating>(toCoordinator to: T, in containerView: NSView, options: NSViewController.TransitionOptions = [.crossfade], completionHandler: (() -> Void)? = nil ) {
         updateDependenciesFor(child: to)
         transition(toViewController: to, in: containerView, options: options, completionHandler: completionHandler)
     }
 
-    public func transition(toViewController to: NSViewController, in containerView: NSView, options: NSViewController.TransitionOptions = [.crossfade], completionHandler: (() -> Void)? = nil ) {
+    open func transition(toViewController to: NSViewController, in containerView: NSView, options: NSViewController.TransitionOptions = [.crossfade], completionHandler: (() -> Void)? = nil ) {
         guard let from = childrenDictionary[containerView] else {
             embed(viewController: to, in: containerView)
             return

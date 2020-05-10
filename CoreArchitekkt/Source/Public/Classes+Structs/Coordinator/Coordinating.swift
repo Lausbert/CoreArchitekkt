@@ -3,7 +3,7 @@
 import Foundation
 
 public protocol Coordinating: class {
-
+    
     associatedtype Dependencies
 
     var dependencies: Dependencies? { get set }

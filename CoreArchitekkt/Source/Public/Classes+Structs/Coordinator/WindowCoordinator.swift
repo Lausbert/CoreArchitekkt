@@ -12,7 +12,7 @@ open class WindowCoordinator<Dependencies>: NSResponder, Coordinating, Dependenc
         }
     }
 
-    public func open<U: NSWindowController, T: NSViewController & Coordinating>(windowController: U.Type, with coordinator: T.Type) -> (U, T) {
+    open func open<U: NSWindowController, T: NSViewController & Coordinating>(windowController: U.Type, with coordinator: T.Type) -> (U, T) {
         let windowController = U.createFromStoryBoard()
         let coordinator = T.createFromStoryBoard()
         updateDependenciesFor(child: coordinator)
@@ -22,7 +22,7 @@ open class WindowCoordinator<Dependencies>: NSResponder, Coordinating, Dependenc
         return (windowController, coordinator)
     }
 
-    public func close<U: NSViewController & Coordinating>(coordinator: U) {
+    open func close<U: NSViewController & Coordinating>(coordinator: U) {
         dependencyUpdaterDictionary.removeValue(forKey: coordinator)
     }
 
