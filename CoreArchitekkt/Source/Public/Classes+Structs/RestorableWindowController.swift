@@ -22,6 +22,14 @@ open class RestorableWindowController: NSWindowController {
             window?.setFrame(frame, display: true)
         }
     }
+    
+    open override var contentViewController: NSViewController? {
+        didSet {
+            if let frame = storedFrame {
+                window?.setFrame(frame, display: true)
+            }
+        }
+    }
 
     // MARK: - Private -
 
