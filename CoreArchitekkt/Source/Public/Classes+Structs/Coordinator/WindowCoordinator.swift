@@ -15,16 +15,12 @@ open class WindowCoordinator<Dependencies>: NSResponder, Coordinating, Dependenc
     open func open<U: NSWindowController, T: NSViewController & Coordinating>(
         windowController: U.Type,
         with coordinator: T.Type,
-        inheritDependencies: Bool = true,
-        preferredContentSize: CGSize? = nil
+        inheritDependencies: Bool = true
     ) -> (U, T) {
         let windowController = U.createFromStoryBoard()
         let coordinator = T.createFromStoryBoard()
         if inheritDependencies {
             updateDependenciesFor(child: coordinator)
-        }
-        if let preferredContentSize = preferredContentSize {
-            coordinator.preferredContentSize = preferredContentSize
         }
         windowController.contentViewController = coordinator
         windowController.didLoadContentViewController()
