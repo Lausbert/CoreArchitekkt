@@ -29,6 +29,8 @@ open class WindowCoordinator<Dependencies>: NSResponder, Coordinating, Dependenc
         windowController.contentViewController = coordinator
         windowController.didLoadContentViewController()
         windowController.nextResponder = self
+        windowController.showWindow(self)
+        windowController.window?.orderFrontRegardless()
         return (windowController, coordinator)
     }
 
