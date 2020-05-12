@@ -19,6 +19,7 @@
 		8D0941E52469DDC300674F74 /* NSWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0941E22469DDC300674F74 /* NSWindowController.swift */; };
 		8D0941E62469DDC300674F74 /* NSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0941E32469DDC300674F74 /* NSViewController.swift */; };
 		8D0941E72469DDC300674F74 /* NSRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0941E42469DDC300674F74 /* NSRect.swift */; };
+		8D0941F1246B187800674F74 /* RestorableWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0941F0246B187800674F74 /* RestorableWindowController.swift */; };
 		8D138C4A240A9F5F00D85FFE /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D138C49240A9F5F00D85FFE /* DispatchQueue.swift */; };
 		8D351F6124674134002C19D9 /* NSResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D351F6024674134002C19D9 /* NSResponder.swift */; };
 		8D351F6424674667002C19D9 /* ViewWithBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D351F6224674667002C19D9 /* ViewWithBackgroundColor.swift */; };
@@ -70,6 +71,7 @@
 		8D0941E22469DDC300674F74 /* NSWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSWindowController.swift; sourceTree = "<group>"; };
 		8D0941E32469DDC300674F74 /* NSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSViewController.swift; sourceTree = "<group>"; };
 		8D0941E42469DDC300674F74 /* NSRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRect.swift; sourceTree = "<group>"; };
+		8D0941F0246B187800674F74 /* RestorableWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestorableWindowController.swift; sourceTree = "<group>"; };
 		8D138C49240A9F5F00D85FFE /* DispatchQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		8D351F6024674134002C19D9 /* NSResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSResponder.swift; sourceTree = "<group>"; };
 		8D351F6224674667002C19D9 /* ViewWithBackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewWithBackgroundColor.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				5D2DF12022249E3D001D0C72 /* ConsistentUrlRequirement.swift */,
 				F35F8D14204D163A65A1B8C4AEAD07B8 /* GraphRequest.swift */,
 				820CB5D6638115AFB6BB1D07C150DC12 /* Node */,
+				8D0941F0246B187800674F74 /* RestorableWindowController.swift */,
 			);
 			name = "Classes+Structs";
 			path = "CoreArchitekkt/Source/Public/Classes+Structs";
@@ -411,6 +414,7 @@
 				D17132CE6FA5F531E35AE51423444147 /* Shell.swift in Sources */,
 				8DF92A752453727100755C77 /* Array.swift in Sources */,
 				8D0941D4246839BC00674F74 /* TabViewCoordinator.swift in Sources */,
+				8D0941F1246B187800674F74 /* RestorableWindowController.swift in Sources */,
 				8D832D2B2467E0800038F06A /* Coordinating.swift in Sources */,
 				5D2DF12122249E3D001D0C72 /* ConsistentUrlRequirement.swift in Sources */,
 				B78FE1E948DE8406BED7FDC7D2EFCA60 /* StoryBoardLoadable.swift in Sources */,
