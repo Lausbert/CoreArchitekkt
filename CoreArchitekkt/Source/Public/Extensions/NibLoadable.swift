@@ -8,7 +8,7 @@ public protocol NibLoadable {
 
 }
 
-extension NSView: NibLoadable {
+extension NibLoadable where Self: NSView {
 
     public static func createFromNib() -> Self {
         let name = String(describing: Self.self)
@@ -21,7 +21,7 @@ extension NSView: NibLoadable {
 
 }
 
-extension NSCollectionViewItem: NibLoadable {
+extension NibLoadable where Self: NSCollectionViewItem {
 
     public static func createFromNib() -> Self {
         let name = String(describing: Self.self)
