@@ -24,6 +24,7 @@
 		8D351F6124674134002C19D9 /* NSResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D351F6024674134002C19D9 /* NSResponder.swift */; };
 		8D351F6424674667002C19D9 /* ViewWithBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D351F6224674667002C19D9 /* ViewWithBackgroundColor.swift */; };
 		8D351F6524674667002C19D9 /* ViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D351F6324674667002C19D9 /* ViewCoordinator.swift */; };
+		8D4001092479D2D70004C222 /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4001082479D2D70004C222 /* NibLoadable.swift */; };
 		8D4F79A52477D91B00EFB0E2 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4F79A32477D91B00EFB0E2 /* Optional.swift */; };
 		8D832D2B2467E0800038F06A /* Coordinating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D832D2A2467E0800038F06A /* Coordinating.swift */; };
 		8DF92A752453727100755C77 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF92A742453727100755C77 /* Array.swift */; };
@@ -77,6 +78,7 @@
 		8D351F6024674134002C19D9 /* NSResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSResponder.swift; sourceTree = "<group>"; };
 		8D351F6224674667002C19D9 /* ViewWithBackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewWithBackgroundColor.swift; sourceTree = "<group>"; };
 		8D351F6324674667002C19D9 /* ViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewCoordinator.swift; sourceTree = "<group>"; };
+		8D4001082479D2D70004C222 /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
 		8D4F79A32477D91B00EFB0E2 /* Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
 		8D832D2A2467E0800038F06A /* Coordinating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinating.swift; sourceTree = "<group>"; };
 		8DE444C9BB0EF78430894AF15E2637E1 /* Node.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				8D0941E42469DDC300674F74 /* NSRect.swift */,
 				8D0941E32469DDC300674F74 /* NSViewController.swift */,
 				8D0941E22469DDC300674F74 /* NSWindowController.swift */,
+				8D4001082479D2D70004C222 /* NibLoadable.swift */,
 			);
 			name = Extensions;
 			path = CoreArchitekkt/Source/Public/Extensions;
@@ -402,6 +405,7 @@
 				8D351F6524674667002C19D9 /* ViewCoordinator.swift in Sources */,
 				45E7E8108555FE83EE97B44E34EB57B5 /* CoreArchitekkt-dummy.m in Sources */,
 				8D0941CE2467EC6000674F74 /* DependencyUpdating.swift in Sources */,
+				8D4001092479D2D70004C222 /* NibLoadable.swift in Sources */,
 				70CF2DC5A6F76D08A8A343339A90AD13 /* GraphRequest.swift in Sources */,
 				8D0941E62469DDC300674F74 /* NSViewController.swift in Sources */,
 				8D0941D2246837DD00674F74 /* SplitViewCoordinator.swift in Sources */,
