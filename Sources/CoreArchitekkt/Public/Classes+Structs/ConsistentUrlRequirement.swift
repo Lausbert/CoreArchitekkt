@@ -12,7 +12,7 @@ public class ConsistentUrlRequirement: NSObject {
     public let fileType: String
 
     public init(key: String, hint: String, fileName: String, fileType: String) {
-        self.key = key
+        self.key = keys
         self.hint = hint
         self.fileName = fileName
         self.fileType = fileType
