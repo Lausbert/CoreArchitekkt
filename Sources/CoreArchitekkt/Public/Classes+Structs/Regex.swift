@@ -27,7 +27,7 @@ public struct Regex {
         return getCombinedResult(for: regex, text: text, captureGroups: captureGroup).flatMap { $0.results }
     }
 
-    public static func getResult(for regex: String, text: String, captureGroup: Int) throws -> [Result] {
+    public static func getResults(for regex: String, text: String, captureGroup: Int) throws -> [Result] {
         return try getCombinedResult(for: regex, text: text, captureGroups: captureGroup).flatMap { $0.results }
     }
 
