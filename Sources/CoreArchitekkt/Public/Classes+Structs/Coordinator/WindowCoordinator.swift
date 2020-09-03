@@ -12,7 +12,7 @@ open class WindowCoordinator<Dependencies>: NSResponder, Coordinating, Dependenc
         }
     }
 
-    open func open<U: NSWindowController, T: NSViewController & Coordinating>(
+    open func open<U: NSWindowController & StoryBoardLoadable, T: NSViewController & Coordinating & StoryBoardLoadable>(
         windowController: U.Type,
         with coordinator: T.Type,
         inheritDependencies: Bool = true
