@@ -1,7 +1,6 @@
 // Copyright © 2020 Stephan Lerner. All rights reserved.
 
 import AppKit
-import CoreArchitekkt
 
 struct VirtualNode: Identifiable, Equatable {
 
