@@ -4,31 +4,40 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 public extension UTType {
-    static var exampleText: UTType {
-        UTType(importedAs: "com.example.plain-text")
-    }
+    static let architekktGraph = UTType(exportedAs: "io.Architekkt.graph")
 }
 
-public struct Document: FileDocument {
-    public var text: String
+public struct Document: FileDocument, Codable {
+    public private(set) var graph: Node
+    public let settings: Settings
+    public private(set) var isNew: Bool
 
-    public init(text: String = "Hello, world!") {
-        self.text = text
+    public init(node: Node? = nil) {
+        self.graph = node ?? Node(scope: "new")
+        self.settings = Settings()
+        self.isNew = node == nil
+    }
+    
+    mutating public func set(graph: Node) {
+        guard isNew else {
+            assertionFailure()
+            return
+        }
+        self.graph = graph
+        self.isNew = false
     }
 
-    public static var readableContentTypes: [UTType] { [.exampleText] }
+    public static var readableContentTypes: [UTType] { [.architekktGraph] }
 
     public init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let string = String(data: data, encoding: .utf8)
-        else {
+        guard let data = configuration.file.regularFileContents else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        text = string
+        self = try JSONDecoder().decode(Document.self, from: data)
     }
     
     public func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let data = text.data(using: .utf8)!
+        let data = try JSONEncoder().encode(self)
         return .init(regularFileWithContents: data)
     }
 }
