@@ -2,15 +2,15 @@
 
 import Foundation
 
-struct VirtualArc: Hashable {
+public struct VirtualArc: Hashable {
 
-    // MARK: - Internal -
+    // MARK: - Public -
 
-    let sourceIdentifier: UUID
-    let destinationIdentifier: UUID
-    let weight: Int
+    public let sourceIdentifier: UUID
+    public let destinationIdentifier: UUID
+    public let weight: Int
 
-    static func createVirtualArcs(from node: Node, with transformations: Set<VirtualTransformation>) -> [VirtualArc] {
+    public static func createVirtualArcs(from node: Node, with transformations: Set<VirtualTransformation>) -> [VirtualArc] {
         let virtualArcContext = createVirtualArcContext(
             from: node,
             with: transformations
@@ -222,7 +222,7 @@ extension VirtualArc: CustomStringConvertible {
 
     // MARK: - Internal -
 
-    var description: String {
+    public var description: String {
         """
 
 sourceIdentifier:      \(sourceIdentifier.uuidString)

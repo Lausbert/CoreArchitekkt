@@ -8,7 +8,7 @@ public class Settings: Codable {
     // MARK: - Public -
 
     public var settingsItems: [SettingsItem] {
-        return (forceSettingsGroups + visibilitySettingsGroups).flatMap { $0.settingsItems }
+        (forceSettingsGroups + visibilitySettingsGroups).flatMap { $0.settingsItems }
     }
     
     public init() {
@@ -33,6 +33,16 @@ public class Settings: Codable {
     }
 
     // MARK: Force
+    
+    public lazy var forceSettingsGroups: [SettingsGroup] = {
+        [
+            decayPowerSettingsGroup,
+            radialGravitationForceOnChildrenMultiplierSettingsGroup,
+            negativeRadialGravitationalForceOnSiblingsPowerSettingsGroup,
+            springForceBetweenConnectedNodesPowerSettingsGroup,
+            areaBasedOnTotalChildrensAreaMultiplierSettingsGroup
+        ]
+    }()
 
     public var decayPower: Double {
         if case let .range(value, _, _) = decayPowerSettingsItem.value {
@@ -75,20 +85,10 @@ public class Settings: Codable {
         }
     }
 
-    public lazy var forceSettingsGroups: [SettingsGroup] = {
-        return [
-            decayPowerSettingsGroup,
-            radialGravitationForceOnChildrenMultiplierSettingsGroup,
-            negativeRadialGravitationalForceOnSiblingsPowerSettingsGroup,
-            springForceBetweenConnectedNodesPowerSettingsGroup,
-            areaBasedOnTotalChildrensAreaMultiplierSettingsGroup
-        ]
-    }()
-
     // MARK: Visibility
 
     public lazy var visibilitySettingsGroups: [SettingsGroup] = {
-        return [
+        [
             unfoldedNodesSettingsGroup,
             hiddenNodesSettingsGroup,
             flattendedNodesSettingsGroup,
@@ -97,6 +97,17 @@ public class Settings: Codable {
             flattendedScopesSettingsGroup
         ]
     }()
+    
+    public var virtualTransformations: [VirtualTransformation] {
+        settingsItems.compactMap { settingsItem in
+            switch settingsItem.value {
+            case let .deletable(transformation):
+                return transformation
+            default:
+                return nil
+            }
+        }
+    }
 
     // MARK: - Internal -
     

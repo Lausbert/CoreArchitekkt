@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum VirtualTransformation: Hashable, Codable {
+public enum VirtualTransformation: Hashable, Codable {
 
     // MARK: - Internal -
 
@@ -22,7 +22,7 @@ enum VirtualTransformation: Hashable, Codable {
         case flattenScope
     }
 
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let key = container.allKeys.first
 
@@ -55,7 +55,7 @@ enum VirtualTransformation: Hashable, Codable {
         }
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         switch self {

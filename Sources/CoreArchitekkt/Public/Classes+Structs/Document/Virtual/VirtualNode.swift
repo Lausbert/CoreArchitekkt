@@ -2,25 +2,25 @@
 
 import AppKit
 
-struct VirtualNode: Identifiable, Equatable {
+public struct VirtualNode: Identifiable, Equatable {
 
-    // MARK: - Internal -
+    // MARK: - Public -
 
-    struct Settings {
+    public struct Settings {
         let colorDictionary: [String: NSColor]
         let defaultColor: NSColor
         let baseRadius: CGFloat
         let areaMultiplier: CGFloat
     }
 
-    let id: UUID
-    let scope: String
-    let name: String?
-    let children: [VirtualNode]
-    let color: NSColor
-    let radius: CGFloat
+    public let id: UUID
+    public let scope: String
+    public let name: String?
+    public let children: [VirtualNode]
+    public let color: NSColor
+    public let radius: CGFloat
 
-    static func createVirtualNodes(from node: Node, with transformations: Set<VirtualTransformation>, and settings: VirtualNode.Settings) -> [VirtualNode] {
+    public static func createVirtualNodes(from node: Node, with transformations: Set<VirtualTransformation>, and settings: VirtualNode.Settings) -> [VirtualNode] {
 
         if transformations.contains(.hideNode(id: node.id)) || transformations.contains(.hideScope(scope: node.scope)) {
             return []
@@ -63,9 +63,9 @@ struct VirtualNode: Identifiable, Equatable {
 
 extension VirtualNode: CustomStringConvertible {
 
-    // MARK: - Internal -
+    // MARK: - Public -
 
-    var description: String {
+    public var description: String {
         description(forNestingLevel: 0) + "\n"
     }
 
