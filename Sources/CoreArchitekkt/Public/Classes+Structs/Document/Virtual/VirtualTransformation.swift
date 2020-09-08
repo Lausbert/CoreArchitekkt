@@ -4,7 +4,7 @@ import Foundation
 
 public enum VirtualTransformation: Hashable, Codable {
 
-    // MARK: - Internal -
+    // MARK: - Public -
 
     case unfoldNode(id: UUID)
     case hideNode(id: UUID)
