@@ -98,65 +98,89 @@ public class Settings: Codable {
         ]
     }()
     
-    public var virtualTransformations: [VirtualTransformation] {
-        settingsItems.compactMap { settingsItem in
-            switch settingsItem.value {
-            case let .deletable(transformation):
-                return transformation
-            default:
-                return nil
+    public var virtualTransformations: Set<VirtualTransformation> {
+        Set(
+            settingsItems.compactMap { settingsItem in
+                switch settingsItem.value {
+                case let .deletable(transformation):
+                    return transformation
+                default:
+                    return nil
+                }
             }
+        )
+    }
+    
+    public func toggle(settingsItem: SettingsItem) {
+        switch settingsItem.value {
+        case let .deletable(virtualTransformation):
+            switch virtualTransformation {
+            case .unfoldNode:
+                unfoldedNodesSettingsGroup.toggle(settingsItem: settingsItem)
+            case .hideNode:
+                hiddenNodesSettingsGroup.toggle(settingsItem: settingsItem)
+            case .flattenNode:
+                flattendedNodesSettingsGroup.toggle(settingsItem: settingsItem)
+            case .unfoldScope:
+                unfoldedScopesSettingsGroup.toggle(settingsItem: settingsItem)
+            case .hideScope:
+                hiddenScopesSettingsGroup.toggle(settingsItem: settingsItem)
+            case .flattenScope:
+                flattendedScopesSettingsGroup.toggle(settingsItem: settingsItem)
+            }
+        default:
+            assertionFailure()
         }
     }
 
-    // MARK: - Internal -
+    // MARK: - Private -
     
     // MARK: Force
     
-    lazy var decayPowerSettingsGroup = SettingsGroup(
+    private lazy var decayPowerSettingsGroup = SettingsGroup(
         name: "Friction",
         settingsItems: [
             decayPowerSettingsItem
         ]
     )
-    lazy var radialGravitationForceOnChildrenMultiplierSettingsGroup = SettingsGroup(
+    private lazy var radialGravitationForceOnChildrenMultiplierSettingsGroup = SettingsGroup(
         name: "Radial Gravitational Force On Children",
         settingsItems: [
             radialGravitationForceOnChildrenMultiplierSettingsItem
         ]
     )
-    lazy var negativeRadialGravitationalForceOnSiblingsPowerSettingsGroup = SettingsGroup(
+    private lazy var negativeRadialGravitationalForceOnSiblingsPowerSettingsGroup = SettingsGroup(
         name: "Negative Radial Gravitational Force On Siblings",
         settingsItems: [
             negativeRadialGravitationalForceOnSiblingsPowerSettingsItem
         ]
     )
-    lazy var springForceBetweenConnectedNodesPowerSettingsGroup = SettingsGroup(
+    private lazy var springForceBetweenConnectedNodesPowerSettingsGroup = SettingsGroup(
         name: "Spring Force Between Connected Nodes",
         settingsItems: [
             springForceBetweenConnectedNodesPowerSettingsItem
         ]
     )
-    lazy var areaBasedOnTotalChildrensAreaMultiplierSettingsGroup = SettingsGroup(
+    private lazy var areaBasedOnTotalChildrensAreaMultiplierSettingsGroup = SettingsGroup(
         name: "Area Based On Total Childrens Area",
         settingsItems: [
             areaBasedOnTotalChildrensAreaMultiplierSettingsItem
         ]
     )
     
-    let decayPowerSettingsItem: SettingsItem
-    let radialGravitationForceOnChildrenMultiplierSettingsItem: SettingsItem
-    let negativeRadialGravitationalForceOnSiblingsPowerSettingsItem: SettingsItem
-    let springForceBetweenConnectedNodesPowerSettingsItem: SettingsItem
-    let areaBasedOnTotalChildrensAreaMultiplierSettingsItem: SettingsItem
+    private let decayPowerSettingsItem: SettingsItem
+    private let radialGravitationForceOnChildrenMultiplierSettingsItem: SettingsItem
+    private let negativeRadialGravitationalForceOnSiblingsPowerSettingsItem: SettingsItem
+    private let springForceBetweenConnectedNodesPowerSettingsItem: SettingsItem
+    private let areaBasedOnTotalChildrensAreaMultiplierSettingsItem: SettingsItem
     
     // MARK: Visibility
     
-    let unfoldedNodesSettingsGroup: SettingsGroup
-    let hiddenNodesSettingsGroup: SettingsGroup
-    let flattendedNodesSettingsGroup: SettingsGroup
-    let unfoldedScopesSettingsGroup: SettingsGroup
-    let hiddenScopesSettingsGroup: SettingsGroup
-    let flattendedScopesSettingsGroup: SettingsGroup
+    private let unfoldedNodesSettingsGroup: SettingsGroup
+    private let hiddenNodesSettingsGroup: SettingsGroup
+    private let flattendedNodesSettingsGroup: SettingsGroup
+    private let unfoldedScopesSettingsGroup: SettingsGroup
+    private let hiddenScopesSettingsGroup: SettingsGroup
+    private let flattendedScopesSettingsGroup: SettingsGroup
 
 }

@@ -7,10 +7,17 @@ public struct VirtualNode: Identifiable, Equatable {
     // MARK: - Public -
 
     public struct Settings {
-        let colorDictionary: [String: NSColor]
-        let defaultColor: NSColor
-        let baseRadius: CGFloat
-        let areaMultiplier: CGFloat
+        public let colorDictionary: [String: NSColor]
+        public let defaultColor: NSColor
+        public let baseRadius: CGFloat
+        public let areaMultiplier: CGFloat
+        
+        public init(colorDictionary: [String: NSColor], defaultColor: NSColor, baseRadius: CGFloat, areaMultiplier: CGFloat) {
+            self.colorDictionary = colorDictionary
+            self.defaultColor = defaultColor
+            self.baseRadius = baseRadius
+            self.areaMultiplier = areaMultiplier
+        }
     }
 
     public let id: UUID

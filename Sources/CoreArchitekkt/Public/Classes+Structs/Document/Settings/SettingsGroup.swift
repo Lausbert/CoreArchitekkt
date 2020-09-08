@@ -19,20 +19,16 @@ public class SettingsGroup: ObservableObject, Codable {
         }
     }
 
-    public func add(settingsItem: SettingsItem) {
-        settingsItems.append(settingsItem)
+    public func toggle(settingsItem: SettingsItem) {
+        if settingsItems.contains(settingsItem) {
+            remove(settingsItem: settingsItem)
+        } else {
+            settingsItems.append(settingsItem)
+        }
     }
 
     public func remove(settingsItem: SettingsItem) {
         guard let index = settingsItems.firstIndex(of: settingsItem) else {
-            assertionFailure()
-            return
-        }
-        settingsItems.remove(at: index)
-    }
-
-    public func removeSettingsItemWith(settingsValue: SettingsValue) {
-        guard let index = settingsItems.firstIndex(where: { $0.value == settingsValue }) else {
             assertionFailure()
             return
         }
