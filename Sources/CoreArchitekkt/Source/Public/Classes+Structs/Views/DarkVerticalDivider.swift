@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-public struct DarkDivider: View {
+public struct DarkVerticalDivider: View {
     
     // MARK: - Public -
     
