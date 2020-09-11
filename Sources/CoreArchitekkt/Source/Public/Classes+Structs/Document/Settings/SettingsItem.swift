@@ -2,7 +2,7 @@
 
 import Foundation
 
-public class SettingsItem: ObservableObject, Codable {
+public class SettingsItem: ObservableObject, Codable, Hashable {
 
     // MARK: - Public -
 
@@ -29,6 +29,11 @@ public class SettingsItem: ObservableObject, Codable {
         try container.encode(initialValue, forKey: .initialValue)
     }
     
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(value)
+    }
     // MARK: - Internal -
     
     enum CodingKeys: CodingKey {

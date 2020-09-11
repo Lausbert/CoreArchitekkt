@@ -29,8 +29,7 @@ public struct SystemTabView: View {
                     Divider()
                     tabs
                         .map { $0.1 }[selection]
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                        .padding()
+                        .stretchTopLeading()
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .topLeading)
                 if case .left = side {

@@ -2,8 +2,8 @@
 
 import Foundation
 
-public class SettingsGroup: ObservableObject, Codable {
-
+public class SettingsGroup: ObservableObject, Codable, Hashable, Identifiable {
+    
     // MARK: - Public -
 
     public let name: String
@@ -53,6 +53,15 @@ public class SettingsGroup: ObservableObject, Codable {
             }
         }
         try container.encode(filteredSettingsItems, forKey: .settingsItems)
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(settingsItems)
+    }
+    
+    public static func == (lhs: SettingsGroup, rhs: SettingsGroup) -> Bool {
+        lhs.name == rhs.name && lhs.settingsItems == rhs.settingsItems
     }
     
     // MARK: - Internal -

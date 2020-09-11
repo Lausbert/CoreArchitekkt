@@ -2,7 +2,7 @@
 
 import Foundation
 
-public enum SettingsValue: Codable {
+public enum SettingsValue: Codable, Hashable {
 
     // MARK: - Internal -
 
