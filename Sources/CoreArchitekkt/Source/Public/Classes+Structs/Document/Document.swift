@@ -8,12 +8,12 @@ public extension UTType {
 }
 
 public struct Document: FileDocument, Codable {
-    public private(set) var graph: Node
+    public private(set) var node: Node
     public let settings: Settings
     public private(set) var isNew: Bool
 
     public init(node: Node? = nil) {
-        self.graph = node ?? Node(scope: "new")
+        self.node = node ?? Node(scope: "new")
         self.settings = Settings()
         self.isNew = node == nil
     }
@@ -23,7 +23,7 @@ public struct Document: FileDocument, Codable {
             assertionFailure()
             return
         }
-        self.graph = graph
+        self.node = graph
         self.isNew = false
     }
 
