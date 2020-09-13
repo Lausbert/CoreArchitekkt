@@ -19,22 +19,18 @@ public struct SystemTabView: View {
     }
         
     public var body: some View {
-        GeometryReader { geometry in
-            HStack(spacing: 0) {
-                if case .right = side {
-                    DarkVerticalDivider()
-                }
-                VStack(spacing: 0) {
-                    SystemSegmentControl(selection: $selection, systemImages: tabs.map { $0.0 })
-                    Divider()
-                    tabs
-                        .map { $0.1 }[selection]
-                        .stretchTopLeading()
-                }
-                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .topLeading)
-                if case .left = side {
-                    DarkVerticalDivider()
-                }
+        HStack(spacing: 0) {
+            if case .right = side {
+                DarkVerticalDivider()
+            }
+            VStack(spacing: 0) {
+                SystemSegmentControl(selection: $selection, systemImages: tabs.map { $0.0 })
+                Divider()
+                tabs
+                    .map { $0.1 }[selection]
+            }
+            if case .left = side {
+                DarkVerticalDivider()
             }
         }
         .frame(width: 250)
