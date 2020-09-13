@@ -8,7 +8,10 @@ public class Settings: Codable {
     // MARK: - Public -
 
     public var settingsItems: [SettingsItem] {
-        (forceSettingsGroups + visibilitySettingsGroups).flatMap { $0.settingsItems }
+        (firstDomains + secondDomains)
+            .compactMap { $0 }
+            .flatMap { $0.settingsGroups }
+            .flatMap { $0.settingsItems }
     }
     
     public init() {
@@ -17,12 +20,13 @@ public class Settings: Codable {
         let v2 = SettingsValue.range(value: 1, minValue: 0, maxValue: 2)
         let v3 = SettingsValue.range(value: -1.1, minValue: -2.1, maxValue: -0.1)
         let v4 = SettingsValue.range(value: 2.3, minValue: 1, maxValue: 3.6)
+        decayPowerSettingsItem = SettingsItem(name: "Friction", value: v1, initialValue: v1)
+        radialGravitationForceOnChildrenMultiplierSettingsItem = SettingsItem(name: "Radial Force on Children", value: v2, initialValue: v2)
+        negativeRadialGravitationalForceOnSiblingsPowerSettingsItem = SettingsItem(name: "Negative Radial Force on Siblings", value: v3, initialValue: v3)
+        springForceBetweenConnectedNodesPowerSettingsItem = SettingsItem(name: "Spring Force on Connected Nodes", value: v4, initialValue: v4)
+        // Area
         let v5 = SettingsValue.range(value: 4, minValue: 2, maxValue: 6)
-        decayPowerSettingsItem = SettingsItem(name: "Power", value: v1, initialValue: v1)
-        radialGravitationForceOnChildrenMultiplierSettingsItem = SettingsItem(name: "Multiplier", value: v2, initialValue: v2)
-        negativeRadialGravitationalForceOnSiblingsPowerSettingsItem = SettingsItem(name: "Power", value: v3, initialValue: v3)
-        springForceBetweenConnectedNodesPowerSettingsItem = SettingsItem(name: "Power", value: v4, initialValue: v4)
-        areaBasedOnTotalChildrensAreaMultiplierSettingsItem = SettingsItem(name: "Multiplier", value: v5, initialValue: v5)
+        areaBasedOnTotalChildrensAreaMultiplierSettingsItem = SettingsItem(name: "Parents Area", value: v5, initialValue: v5)
         // Visibility
         unfoldedNodesSettingsGroup = SettingsGroup(name: "Unfolded Nodes", settingsItems: [])
         hiddenNodesSettingsGroup = SettingsGroup(name: "Hidden Nodes", settingsItems: [])
@@ -31,17 +35,31 @@ public class Settings: Codable {
         hiddenScopesSettingsGroup = SettingsGroup(name: "Hidden Scopes", settingsItems: [])
         flattendedScopesSettingsGroup = SettingsGroup(name: "Flattened Scopes", settingsItems: [])
     }
+    
+    // MARK: Domains
+    
+    public lazy var firstDomains: [SettingsDomain] = {
+        [
+            forceSettingsDomain,
+            areaSettingsDomain
+        ]
+    }()
+    
+    public lazy var secondDomains: [SettingsDomain] = {
+        [
+            visibilitySettingsDomain
+        ]
+    }()
 
     // MARK: Force
     
-    public lazy var forceSettingsGroups: [SettingsGroup] = {
-        [
-            decayPowerSettingsGroup,
-            radialGravitationForceOnChildrenMultiplierSettingsGroup,
-            negativeRadialGravitationalForceOnSiblingsPowerSettingsGroup,
-            springForceBetweenConnectedNodesPowerSettingsGroup,
-            areaBasedOnTotalChildrensAreaMultiplierSettingsGroup
-        ]
+    public lazy var forceSettingsDomain: SettingsDomain = {
+        SettingsDomain(
+            name: "Force Settings",
+            settingsGroups: [
+                forceSettingsGroup
+            ]
+        )
     }()
 
     public var decayPower: Double {
@@ -76,6 +94,18 @@ public class Settings: Codable {
             return 2.3
         }
     }
+    
+    // MARK: Area
+    
+    public lazy var areaSettingsDomain: SettingsDomain = {
+        SettingsDomain(
+            name: "Area Settings",
+            settingsGroups: [
+                areaSettingsGroup
+            ]
+        )
+    }()
+
     public var areaBasedOnTotalChildrensAreaMultiplier: Double {
         if case let .range(value, _, _) = areaBasedOnTotalChildrensAreaMultiplierSettingsItem.value {
             return value
@@ -87,16 +117,21 @@ public class Settings: Codable {
 
     // MARK: Visibility
 
-    public lazy var visibilitySettingsGroups: [SettingsGroup] = {
-        [
-            unfoldedNodesSettingsGroup,
-            hiddenNodesSettingsGroup,
-            flattendedNodesSettingsGroup,
-            unfoldedScopesSettingsGroup,
-            hiddenScopesSettingsGroup,
-            flattendedScopesSettingsGroup
-        ]
+    public lazy var visibilitySettingsDomain: SettingsDomain = {
+        SettingsDomain(
+            name: "Visibility Settings",
+            settingsGroups: [
+                unfoldedNodesSettingsGroup,
+                hiddenNodesSettingsGroup,
+                flattendedNodesSettingsGroup,
+                unfoldedScopesSettingsGroup,
+                hiddenScopesSettingsGroup,
+                flattendedScopesSettingsGroup
+            ]
+        )
     }()
+    
+    // MARK: Other
     
     public var virtualTransformations: Set<VirtualTransformation> {
         Set(
@@ -137,34 +172,13 @@ public class Settings: Codable {
     
     // MARK: Force
     
-    private lazy var decayPowerSettingsGroup = SettingsGroup(
-        name: "Friction",
+    private lazy var forceSettingsGroup = SettingsGroup(
+        name: "",
         settingsItems: [
-            decayPowerSettingsItem
-        ]
-    )
-    private lazy var radialGravitationForceOnChildrenMultiplierSettingsGroup = SettingsGroup(
-        name: "Radial Gravitational Force On Children",
-        settingsItems: [
-            radialGravitationForceOnChildrenMultiplierSettingsItem
-        ]
-    )
-    private lazy var negativeRadialGravitationalForceOnSiblingsPowerSettingsGroup = SettingsGroup(
-        name: "Negative Radial Gravitational Force On Siblings",
-        settingsItems: [
-            negativeRadialGravitationalForceOnSiblingsPowerSettingsItem
-        ]
-    )
-    private lazy var springForceBetweenConnectedNodesPowerSettingsGroup = SettingsGroup(
-        name: "Spring Force Between Connected Nodes",
-        settingsItems: [
+            decayPowerSettingsItem,
+            radialGravitationForceOnChildrenMultiplierSettingsItem,
+            negativeRadialGravitationalForceOnSiblingsPowerSettingsItem,
             springForceBetweenConnectedNodesPowerSettingsItem
-        ]
-    )
-    private lazy var areaBasedOnTotalChildrensAreaMultiplierSettingsGroup = SettingsGroup(
-        name: "Area Based On Total Childrens Area",
-        settingsItems: [
-            areaBasedOnTotalChildrensAreaMultiplierSettingsItem
         ]
     )
     
@@ -172,6 +186,16 @@ public class Settings: Codable {
     private let radialGravitationForceOnChildrenMultiplierSettingsItem: SettingsItem
     private let negativeRadialGravitationalForceOnSiblingsPowerSettingsItem: SettingsItem
     private let springForceBetweenConnectedNodesPowerSettingsItem: SettingsItem
+    
+    // MARK: Area
+    
+    private lazy var areaSettingsGroup = SettingsGroup(
+        name: "",
+        settingsItems: [
+            areaBasedOnTotalChildrensAreaMultiplierSettingsItem
+        ]
+    )
+    
     private let areaBasedOnTotalChildrensAreaMultiplierSettingsItem: SettingsItem
     
     // MARK: Visibility

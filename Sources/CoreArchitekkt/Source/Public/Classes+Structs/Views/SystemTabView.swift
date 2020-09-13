@@ -19,7 +19,7 @@ public struct SystemTabView: View {
     }
         
     public var body: some View {
-        HStack(spacing: 0) {
+        HStack(alignment: .top, spacing: 0) {
             if case .right = side {
                 DarkVerticalDivider()
             }
