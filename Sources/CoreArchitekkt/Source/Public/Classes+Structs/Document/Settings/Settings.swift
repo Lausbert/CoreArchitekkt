@@ -28,7 +28,7 @@ public class Settings: Codable {
         let v5 = SettingsValue.range(value: 4, minValue: 2, maxValue: 6)
         areaBasedOnTotalChildrensAreaMultiplierSettingsItem = SettingsItem(name: "Parents Area", value: v5, initialValue: v5)
         // Visibility
-        unfoldedNodesSettingsGroup = SettingsGroup(name: "Unfolded Nodes", settingsItems: [SettingsItem(name: "test", value: .deletable(virtualTransformation: .flattenScope(scope: "test")))])
+        unfoldedNodesSettingsGroup = SettingsGroup(name: "Unfolded Nodes", settingsItems: [])
         hiddenNodesSettingsGroup = SettingsGroup(name: "Hidden Nodes", settingsItems: [])
         flattendedNodesSettingsGroup = SettingsGroup(name: "Flattened Nodes", settingsItems: [])
         unfoldedScopesSettingsGroup = SettingsGroup(name: "Unfolded Scopes", settingsItems: [])
