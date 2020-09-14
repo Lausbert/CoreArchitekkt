@@ -3,16 +3,12 @@
 import Foundation
 
 public enum SettingsValue: Codable, Hashable {
-
-    // MARK: - Internal -
-
+    
+    // MARK: - Public -
+    
     case range(value: Double, minValue: Double, maxValue: Double)
     case deletable(virtualTransformation: VirtualTransformation)
-
-    enum CodingKeys: CodingKey {
-        case range, deletable
-    }
-
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let key = container.allKeys.first
@@ -44,6 +40,13 @@ public enum SettingsValue: Codable, Hashable {
             try container.encode(virtualTransformation, forKey: .deletable)
         }
     }
+
+    // MARK: - Internal -
+
+    enum CodingKeys: CodingKey {
+        case range, deletable
+    }
+
 }
 
 extension SettingsValue: Equatable {}
