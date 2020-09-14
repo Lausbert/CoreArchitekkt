@@ -44,15 +44,7 @@ public class SettingsGroup: ObservableObject, Codable, Hashable, Identifiable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
-        let filteredSettingsItems = settingsItems.filter {
-            switch $0.value {
-            case .range:
-                return true
-            default:
-                return false
-            }
-        }
-        try container.encode(filteredSettingsItems, forKey: .settingsItems)
+        try container.encode(settingsItems, forKey: .settingsItems)
     }
     
     public func hash(into hasher: inout Hasher) {
