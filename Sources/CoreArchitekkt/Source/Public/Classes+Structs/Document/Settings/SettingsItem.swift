@@ -2,7 +2,7 @@
 
 import Foundation
 
-public class SettingsItem: ObservableObject, Codable, Hashable {
+public class SettingsItem: ObservableObject, Codable, Hashable, Identifiable {
 
     // MARK: - Public -
 

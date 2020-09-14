@@ -45,8 +45,6 @@ public struct SystemTabView: View {
     
     private struct SystemSegmentControl : View {
         
-        // MARK: - Internal -
-
         @Binding var selection : Int
         let systemImages: [SystemImageName]
 
@@ -62,8 +60,6 @@ public struct SystemTabView: View {
 
     private struct SystemSegmentButton : View {
         
-        // MARK: - Internal -
-
         @Binding var selection : Int
         let selectionIndex: Int
         let systemImage : SystemImageName
