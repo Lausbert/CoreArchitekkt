@@ -8,6 +8,9 @@ public class SettingsDomain: Codable, Hashable, Identifiable {
 
     public let name: String
     public let settingsGroups: [SettingsGroup]
+    public var settingsItems: [SettingsItem] {
+        settingsGroups.flatMap { $0.settingsItems }
+    }
     
     public init(name: String, settingsGroups: [SettingsGroup]) {
         self.name = name
