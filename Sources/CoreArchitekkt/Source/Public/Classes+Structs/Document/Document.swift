@@ -29,6 +29,10 @@ public struct Document: FileDocument, Codable {
         self.node = graph
         self.isNew = false
     }
+    
+    mutating public func incrementVersion() {
+        version &+= 1
+    }
 
     public static var readableContentTypes: [UTType] { [.architekktGraph] }
 
@@ -43,4 +47,8 @@ public struct Document: FileDocument, Codable {
         let data = try JSONEncoder().encode(self)
         return .init(regularFileWithContents: data)
     }
+    
+    // MARK: - Private -
+    
+    private var version: Int = 0
 }
