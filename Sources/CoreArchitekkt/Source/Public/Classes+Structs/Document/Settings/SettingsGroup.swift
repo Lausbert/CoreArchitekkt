@@ -44,6 +44,7 @@ public class SettingsGroup: ObservableObject, Codable, Hashable, Identifiable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.settingsItems = try container.decode([SettingsItem].self, forKey: .settingsItems)
+        updateCancellables()
     }
 
     public func encode(to encoder: Encoder) throws {

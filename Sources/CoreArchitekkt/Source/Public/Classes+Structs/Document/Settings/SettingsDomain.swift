@@ -18,6 +18,7 @@ public class SettingsDomain: ObservableObject, Codable, Hashable, Identifiable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.settingsGroups = try container.decode([SettingsGroup].self, forKey: .settingsGroups)
+        updateCancellables()
     }
 
     public func encode(to encoder: Encoder) throws {
