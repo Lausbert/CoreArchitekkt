@@ -1,18 +1,10 @@
 //  Copyright © 2019 Stephan Lerner. All rights reserved.
 
 import Foundation
-import Combine
 
 public class Settings: Codable {
 
     // MARK: - Public -
-
-    public var settingsItems: [SettingsItem] {
-        (firstDomains + secondDomains)
-            .compactMap { $0 }
-            .flatMap { $0.settingsGroups }
-            .flatMap { $0.settingsItems }
-    }
     
     public init() {
         // Force
@@ -37,6 +29,10 @@ public class Settings: Codable {
     }
     
     // MARK: Domains
+    
+    public lazy var domains: [SettingsDomain] = {
+        firstDomains + secondDomains
+    }()
     
     public lazy var firstDomains: [SettingsDomain] = {
         [
@@ -206,5 +202,13 @@ public class Settings: Codable {
     private let unfoldedScopesSettingsGroup: SettingsGroup
     private let hiddenScopesSettingsGroup: SettingsGroup
     private let flattendedScopesSettingsGroup: SettingsGroup
-
+    
+    // MARK: Other
+    
+    private var settingsItems: [SettingsItem] {
+        domains
+            .compactMap { $0 }
+            .flatMap { $0.settingsGroups }
+            .flatMap { $0.settingsItems }
+    }
 }

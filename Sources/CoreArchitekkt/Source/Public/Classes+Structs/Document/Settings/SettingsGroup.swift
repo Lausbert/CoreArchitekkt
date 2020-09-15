@@ -1,13 +1,18 @@
 //  Copyright © 2019 Stephan Lerner. All rights reserved.
 
 import Foundation
+import Combine
 
 public class SettingsGroup: ObservableObject, Codable, Hashable, Identifiable {
     
     // MARK: - Public -
 
     public let name: String
-    @Published public private(set) var settingsItems: [SettingsItem]
+    @Published public private(set) var settingsItems: [SettingsItem] {
+        didSet {
+            updateCancellables()
+        }
+    }
 
     public func reset() {
         for settingsItem in settingsItems.reversed() {
@@ -58,13 +63,25 @@ public class SettingsGroup: ObservableObject, Codable, Hashable, Identifiable {
     
     // MARK: - Internal -
     
+    init(name: String, settingsItems: [SettingsItem]) {
+        self.name = name
+        self.settingsItems = settingsItems
+        updateCancellables()
+    }
+    
+    // MARK: - Private -
+    
     enum CodingKeys: CodingKey {
         case name, settingsItems
     }
     
-    init(name: String, settingsItems: [SettingsItem]) {
-        self.name = name
-        self.settingsItems = settingsItems
+    private var cancellables: [AnyCancellable] = []
+    
+    private func updateCancellables() {
+        cancellables = settingsItems.map({ settingsItem -> AnyCancellable in
+            settingsItem.objectDidChange.sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+        })
     }
-
 }
