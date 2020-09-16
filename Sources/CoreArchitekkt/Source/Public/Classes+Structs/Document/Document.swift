@@ -21,12 +21,12 @@ public struct Document: FileDocument, Codable {
         self.isNew = node == nil
     }
     
-    mutating public func set(graph: Node) {
+    mutating public func set(node: Node) {
         guard isNew else {
             assertionFailure()
             return
         }
-        self.node = graph
+        self.node = node
         self.isNew = false
     }
     
