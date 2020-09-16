@@ -2,7 +2,7 @@
 
 import Foundation
 
-public class ConsistentUrlRequirement: NSObject {
+public struct ConsistentUrlRequirement: Equatable, Hashable {
 
     // MARK: - Public -
 

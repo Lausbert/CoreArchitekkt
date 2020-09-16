@@ -2,7 +2,7 @@
 
 import Foundation
 
-public class Node: NSObject, Codable, Identifiable {
+public class Node: Codable, Identifiable {
 
     // MARK: - Public -
 
@@ -92,8 +92,6 @@ public class Node: NSObject, Codable, Identifiable {
         children = try container.decode([Node].self, forKey: .children)
         arcs = try container.decode([UUID].self, forKey: .arcs)
         tags = try container.decode(Set<String>.self, forKey: .tags)
-
-        super.init()
 
         children.forEach { $0.parent = self }
     }
