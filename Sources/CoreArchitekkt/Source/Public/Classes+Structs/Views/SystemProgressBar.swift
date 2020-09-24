@@ -11,8 +11,9 @@ public struct SystemProgressBar: View {
     public var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
-                Rectangle()
-                    .fill(Color.gray)
+                Capsule()
+                    .strokeBorder(Color.systemProgressBarBackgroundStrokeColor, lineWidth: 1)
+                    .background(Color.systemProgressBarBackgroundColor)
                 Capsule()
                     .fill(Color.accentColor)
                     .frame(width: SystemProgressBar.widthFactor*geometry.size.width)
