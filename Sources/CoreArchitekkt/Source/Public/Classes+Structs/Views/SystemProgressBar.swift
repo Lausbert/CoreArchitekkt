@@ -33,9 +33,9 @@ public struct SystemProgressBar: View {
                     self.isMovingRight.toggle()
                 }
             }
-            .frame(height: SystemProgressBar.height)
-            .clipShape(Capsule())
         }
+        .frame(height: SystemProgressBar.height)
+        .clipShape(Capsule())
     }
     
     // MARK: - Private -
