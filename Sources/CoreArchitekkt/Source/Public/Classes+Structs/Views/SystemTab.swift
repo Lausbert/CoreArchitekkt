@@ -4,7 +4,7 @@ import SwiftUI
 
 public typealias SystemImageName = String
 
-public struct SystemTabView: View {
+public struct SystemTab: View {
     
     // MARK: - Public -
     
