@@ -1,8 +1,7 @@
 // Copyright © 2020 Stephan Lerner. All rights reserved.
 
 import XCTest
-import CoreArchitekkt
-@testable import SKArchitekkt
+@testable import CoreArchitekkt
 
 class VirtualNodeTest: VirtualTest {
 

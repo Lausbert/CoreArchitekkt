@@ -3,8 +3,7 @@
 import Foundation
 
 import XCTest
-import CoreArchitekkt
-@testable import SKArchitekkt
+@testable import CoreArchitekkt
 
 class VirtualArcTest: VirtualTest {
 
