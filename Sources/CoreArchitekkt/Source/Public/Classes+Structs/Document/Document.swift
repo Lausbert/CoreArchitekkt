@@ -29,10 +29,6 @@ public struct Document: FileDocument, Codable {
         self.node = node
         self.isNew = false
     }
-    
-    mutating public func incrementVersion() {
-        version &+= 1
-    }
 
     public static var readableContentTypes: [UTType] { [.architekktGraph] }
 
