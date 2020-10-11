@@ -26,6 +26,16 @@ public struct VirtualNode: Identifiable, Equatable {
     public let children: [VirtualNode]
     public let color: NSColor
     public let radius: CGFloat
+    
+    public init(id: UUID, scope: String, name: String?, children: [VirtualNode], color: NSColor, radius: CGFloat) {
+        self.id = id
+        self.scope = scope
+        self.name = name
+        self.children = children
+        self.color = color
+        self.radius = radius
+    }
+
 
     public static func createVirtualNodes(from node: Node, with transformations: Set<VirtualTransformation>, and settings: VirtualNode.Settings) -> [VirtualNode] {
 
