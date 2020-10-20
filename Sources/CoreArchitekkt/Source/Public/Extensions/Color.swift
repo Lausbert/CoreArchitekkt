@@ -9,9 +9,6 @@ public extension Color {
     static let systemSegmentButtonColor = Color.gray
     static let systemSegmentButtonAccentColor = Color.accentColor
     
-    static let systemProgressBarBackgroundColor = Color("systemProgressBarBackgroundColor", bundle: Bundle.module)
-    static let systemProgressBarBackgroundStrokeColor = Color("systemProgressBarBackgroundStrokeColor", bundle: Bundle.module)
-    
     static let elevatedBackgroundColor = Color("elevatedBackgroundColor", bundle: Bundle.module)
     static let elevatedBackgroundStrokeColor = Color("elevatedBackgroundStrokeColor", bundle: Bundle.module)
     
