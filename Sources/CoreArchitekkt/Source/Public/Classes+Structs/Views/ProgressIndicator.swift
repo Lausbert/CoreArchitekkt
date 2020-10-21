@@ -6,33 +6,34 @@ public struct ProgressIndicator: NSViewRepresentable {
     
     // MARK: - Public -
     
-    @Binding public var doubleValue: Double
     
-    public init(style: NSProgressIndicator.Style = .bar, isIndeterminate: Bool = false, doubleValue: Binding<Double>? = nil) {
+    public init(style: NSProgressIndicator.Style = .bar, isIndeterminate: Bool = false, doubleValue: Double = 0.0) {
         self.style = style
         self.isIndeterminate = isIndeterminate
-        if let binding = doubleValue {
-            self._doubleValue = binding
-        } else {
-            self._doubleValue = Binding<Double>(get: { 0.0 }, set: { _ in })
-        }
+        self.doubleValue = doubleValue
     }
     
     public func makeNSView(context: NSViewRepresentableContext<ProgressIndicator>) -> NSProgressIndicator {
         let progressIndicator = NSProgressIndicator()
+        progressIndicator.maxValue = 1.0
+        progressIndicator.minValue = 0.0
         progressIndicator.style = style
         progressIndicator.isIndeterminate = isIndeterminate
-        progressIndicator.doubleValue = doubleValue
-        progressIndicator.startAnimation(nil)
         return progressIndicator
     }
     
-    public func updateNSView(_ nsView: NSProgressIndicator, context: NSViewRepresentableContext<ProgressIndicator>) {
+    public func updateNSView(_ nsView: NSProgressIndicator, context: Context) {
         nsView.doubleValue = doubleValue
+        nsView.startAnimation(nil)
+        nsView.isHidden = !isIndeterminate && (doubleValue == 0.0 || doubleValue == 1.0)
+        if doubleValue == 1.0 {
+            nsView.doubleValue = 0.0
+        }
     }
     
     // MARK: - Private -
     
+    private let doubleValue: Double
     private let style: NSProgressIndicator.Style
     private let isIndeterminate: Bool
 }
