@@ -11,11 +11,13 @@ public struct Document: FileDocument, Codable {
     
     // MARK: - Public -
     
+    public let id: UUID
     public private(set) var node: Node
     public let settings: Settings
     public private(set) var isNew: Bool
 
     public init(node: Node? = nil) {
+        self.id = UUID()
         self.node = node ?? Node(scope: "new")
         self.settings = Settings()
         self.isNew = node == nil
