@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct ConsistentUrlRequirement: Equatable, Hashable {
+public struct ConsistentUrlRequirement: Codable, Equatable, Hashable {
 
     // MARK: - Public -
 

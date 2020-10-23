@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct GraphRequest {
+public struct GraphRequest: Codable {
 
     // MARK: - Public -
 

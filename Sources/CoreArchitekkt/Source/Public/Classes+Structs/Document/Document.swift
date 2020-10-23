@@ -16,18 +16,24 @@ public struct Document: FileDocument, Codable {
     public let settings: Settings
     public private(set) var isNew: Bool
     
+    public var description: String {
+        graphRequest.url.deletingPathExtension().lastPathComponent + " : " + graphRequest.options.values.joined(separator: " | ")
+    }
+    
     public init() {
         self.id = UUID()
         self.node = Node(scope: "new")
         self.settings = Settings()
         self.isNew = true
+        self.graphRequest = GraphRequest(url: URL(staticString: "/new/document/do/not/access/this/path"), options: [:])
     }
     
-    mutating public func set(node: Node) {
+    mutating public func set(graphRequest: GraphRequest, node: Node) {
         guard isNew else {
             assertionFailure()
             return
         }
+        self.graphRequest = graphRequest
         self.node = node
         self.isNew = false
         self.bumpVersion()
@@ -54,5 +60,6 @@ public struct Document: FileDocument, Codable {
     // MARK: - Private -
     
     private var version: Int = 0
+    private var graphRequest: GraphRequest
     
 }
