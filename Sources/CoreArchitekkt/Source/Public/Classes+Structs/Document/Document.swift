@@ -15,12 +15,12 @@ public struct Document: FileDocument, Codable {
     public private(set) var node: Node
     public let settings: Settings
     public private(set) var isNew: Bool
-
-    public init(node: Node? = nil) {
+    
+    public init() {
         self.id = UUID()
-        self.node = node ?? Node(scope: "new")
+        self.node = Node(scope: "new")
         self.settings = Settings()
-        self.isNew = node == nil
+        self.isNew = true
     }
     
     mutating public func set(node: Node) {
@@ -30,6 +30,11 @@ public struct Document: FileDocument, Codable {
         }
         self.node = node
         self.isNew = false
+        self.bumpVersion()
+    }
+    
+    public mutating func bumpVersion() {
+        version += 1
     }
 
     public static var readableContentTypes: [UTType] { [.architekktGraph] }
@@ -49,4 +54,5 @@ public struct Document: FileDocument, Codable {
     // MARK: - Private -
     
     private var version: Int = 0
+    
 }
