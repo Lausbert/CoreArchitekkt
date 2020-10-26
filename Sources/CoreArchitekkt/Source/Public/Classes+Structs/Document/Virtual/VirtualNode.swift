@@ -9,10 +9,12 @@ public struct VirtualNode: Identifiable, Equatable {
     public struct Settings {
         public let colorDictionary: [String: NSColor]
         public let defaultColor: NSColor
+        public let visualRadiusMultiplier: CGFloat
         
-        public init(colorDictionary: [String: NSColor], defaultColor: NSColor) {
+        public init(colorDictionary: [String: NSColor], defaultColor: NSColor, visualRadiusMultiplier: CGFloat) {
             self.colorDictionary = colorDictionary
             self.defaultColor = defaultColor
+            self.visualRadiusMultiplier = visualRadiusMultiplier
         }
     }
 
@@ -22,14 +24,16 @@ public struct VirtualNode: Identifiable, Equatable {
     public let children: [VirtualNode]
     public let color: NSColor
     public let physicalRadius: CGFloat
+    public let visualRadius: CGFloat
     
-    public init(id: UUID, scope: String, name: String?, children: [VirtualNode], color: NSColor, physicalRadius: CGFloat) {
+    public init(id: UUID, scope: String, name: String?, children: [VirtualNode], color: NSColor, physicalRadius: CGFloat, visualRadius: CGFloat) {
         self.id = id
         self.scope = scope
         self.name = name
         self.children = children
         self.color = color
         self.physicalRadius = physicalRadius
+        self.visualRadius = visualRadius
     }
 
 
@@ -49,7 +53,8 @@ public struct VirtualNode: Identifiable, Equatable {
                     name: node.name,
                     children: childrenVirtualNodes,
                     color: settings.colorDictionary[node.scope, default: settings.defaultColor],
-                    physicalRadius: r
+                    physicalRadius: r,
+                    visualRadius: settings.visualRadiusMultiplier*r
                 )
             ]
         }
@@ -61,7 +66,8 @@ public struct VirtualNode: Identifiable, Equatable {
                 name: node.name,
                 children: [],
                 color: settings.colorDictionary[node.scope, default: settings.defaultColor],
-                physicalRadius: physicalBaseRadius
+                physicalRadius: physicalBaseRadius,
+                visualRadius: settings.visualRadiusMultiplier*physicalBaseRadius
             )
         ]
     }

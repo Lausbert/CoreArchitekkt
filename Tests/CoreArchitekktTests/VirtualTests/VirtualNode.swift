@@ -7,7 +7,8 @@ class VirtualNodeTest: VirtualTest {
 
     let defaultSettings = VirtualNode.Settings(
         colorDictionary: [:],
-        defaultColor: .black
+        defaultColor: .black,
+        visualRadiusMultiplier: 1.0
     )
 
     func testNoTransformation() {
@@ -24,6 +25,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 128)
+        XCTAssertEqual(one.visualRadius, 128)
         XCTAssertEqual(one.children.count, 0)
     }
 
@@ -43,6 +45,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(one.visualRadius, 362.03867196751236)
         XCTAssertEqual(one.children.count, 2)
 
         let two = one.children[0]
@@ -50,6 +53,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.color, .black)
         XCTAssertEqual(two.physicalRadius, 128)
+        XCTAssertEqual(two.visualRadius, 128)
         XCTAssertEqual(two.children.count, 0)
 
         let three = one.children[1]
@@ -57,6 +61,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(three.name, "three")
         XCTAssertEqual(three.color, .black)
         XCTAssertEqual(three.physicalRadius, 128)
+        XCTAssertEqual(three.visualRadius, 128)
         XCTAssertEqual(three.children.count, 0)
     }
 
@@ -77,6 +82,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 768.0000000000001)
+        XCTAssertEqual(one.visualRadius, 768.0000000000001)
         XCTAssertEqual(one.children.count, 2)
 
         let two = one.children[0]
@@ -84,6 +90,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.color, .black)
         XCTAssertEqual(two.physicalRadius, 362.038671967512368)
+        XCTAssertEqual(two.visualRadius, 362.038671967512368)
         XCTAssertEqual(two.children.count, 2)
 
         let three = one.children[1]
@@ -91,6 +98,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(three.name, "three")
         XCTAssertEqual(three.color, .black)
         XCTAssertEqual(three.physicalRadius, 128)
+        XCTAssertEqual(three.visualRadius, 128)
         XCTAssertEqual(three.children.count, 0)
 
         let four = two.children[0]
@@ -98,6 +106,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(four.name, "four")
         XCTAssertEqual(four.color, .black)
         XCTAssertEqual(four.physicalRadius, 128)
+        XCTAssertEqual(four.visualRadius, 128)
         XCTAssertEqual(four.children.count, 0)
 
         let five = two.children[1]
@@ -105,6 +114,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.name, "five")
         XCTAssertEqual(five.color, .black)
         XCTAssertEqual(five.physicalRadius, 128)
+        XCTAssertEqual(five.visualRadius, 128)
         XCTAssertEqual(five.children.count, 0)
     }
 
@@ -126,6 +136,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 1024.0)
+        XCTAssertEqual(one.visualRadius, 1024.0)
         XCTAssertEqual(one.children.count, 2)
 
         let two = one.children[0]
@@ -133,6 +144,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.color, .black)
         XCTAssertEqual(two.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(two.visualRadius, 362.03867196751236)
         XCTAssertEqual(two.children.count, 2)
 
         let three = one.children[1]
@@ -140,6 +152,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(three.name, "three")
         XCTAssertEqual(three.color, .black)
         XCTAssertEqual(three.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(three.visualRadius, 362.03867196751236)
         XCTAssertEqual(three.children.count, 2)
 
         let four = two.children[0]
@@ -147,6 +160,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(four.name, "four")
         XCTAssertEqual(four.color, .black)
         XCTAssertEqual(four.physicalRadius, 128)
+        XCTAssertEqual(four.visualRadius, 128)
         XCTAssertEqual(four.children.count, 0)
 
         let five = two.children[1]
@@ -154,6 +168,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.name, "five")
         XCTAssertEqual(five.color, .black)
         XCTAssertEqual(five.physicalRadius, 128)
+        XCTAssertEqual(five.visualRadius, 128)
         XCTAssertEqual(five.children.count, 0)
 
         let six = three.children[0]
@@ -161,6 +176,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.color, .black)
         XCTAssertEqual(six.physicalRadius, 128)
+        XCTAssertEqual(six.visualRadius, 128)
         XCTAssertEqual(six.children.count, 0)
 
         let seven = three.children[1]
@@ -168,6 +184,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(seven.name, "seven")
         XCTAssertEqual(seven.color, .black)
         XCTAssertEqual(seven.physicalRadius, 128)
+        XCTAssertEqual(seven.visualRadius, 128)
         XCTAssertEqual(seven.children.count, 0)
     }
 
@@ -193,6 +210,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 1024.0)
+        XCTAssertEqual(one.visualRadius, 1024.0)
         XCTAssertEqual(one.children.count, 2)
 
         let two = one.children[0]
@@ -200,6 +218,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.color, .black)
         XCTAssertEqual(two.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(two.visualRadius, 362.03867196751236)
         XCTAssertEqual(two.children.count, 2)
 
         let three = one.children[1]
@@ -207,6 +226,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(three.name, "three")
         XCTAssertEqual(three.color, .black)
         XCTAssertEqual(three.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(three.visualRadius, 362.03867196751236)
         XCTAssertEqual(three.children.count, 2)
 
         let four = two.children[0]
@@ -214,6 +234,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(four.name, "four")
         XCTAssertEqual(four.color, .black)
         XCTAssertEqual(four.physicalRadius, 128)
+        XCTAssertEqual(four.visualRadius, 128)
         XCTAssertEqual(four.children.count, 0)
 
         let five = two.children[1]
@@ -221,6 +242,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.name, "five")
         XCTAssertEqual(five.color, .black)
         XCTAssertEqual(five.physicalRadius, 128)
+        XCTAssertEqual(five.visualRadius, 128)
         XCTAssertEqual(five.children.count, 0)
 
         let six = three.children[0]
@@ -228,6 +250,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.color, .black)
         XCTAssertEqual(six.physicalRadius, 128)
+        XCTAssertEqual(six.visualRadius, 128)
         XCTAssertEqual(six.children.count, 0)
 
         let seven = three.children[1]
@@ -235,6 +258,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(seven.name, "seven")
         XCTAssertEqual(seven.color, .black)
         XCTAssertEqual(seven.physicalRadius, 128)
+        XCTAssertEqual(seven.visualRadius, 128)
         XCTAssertEqual(seven.children.count, 0)
     }
 
@@ -252,6 +276,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 128)
+        XCTAssertEqual(one.visualRadius, 128)
         XCTAssertEqual(one.children.count, 0)
     }
 
@@ -289,6 +314,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 724.0773439350247)
+        XCTAssertEqual(one.visualRadius, 724.0773439350247)
         XCTAssertEqual(one.children.count, 1)
 
         let two = one.children[0]
@@ -296,6 +322,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.color, .black)
         XCTAssertEqual(two.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(two.visualRadius, 362.03867196751236)
         XCTAssertEqual(two.children.count, 2)
 
         let four = two.children[0]
@@ -303,6 +330,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(four.name, "four")
         XCTAssertEqual(four.color, .black)
         XCTAssertEqual(four.physicalRadius, 128)
+        XCTAssertEqual(four.visualRadius, 128)
         XCTAssertEqual(four.children.count, 0)
 
         let five = two.children[1]
@@ -310,6 +338,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.name, "five")
         XCTAssertEqual(five.color, .black)
         XCTAssertEqual(five.physicalRadius, 128)
+        XCTAssertEqual(five.visualRadius, 128)
         XCTAssertEqual(five.children.count, 0)
     }
 
@@ -332,6 +361,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 886.8100134752652)
+        XCTAssertEqual(one.visualRadius, 886.8100134752652)
         XCTAssertEqual(one.children.count, 2)
 
         let two = one.children[0]
@@ -339,6 +369,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.color, .black)
         XCTAssertEqual(two.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(two.visualRadius, 362.03867196751236)
         XCTAssertEqual(two.children.count, 2)
 
         let three = one.children[1]
@@ -346,6 +377,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(three.name, "three")
         XCTAssertEqual(three.color, .black)
         XCTAssertEqual(three.physicalRadius, 256.0)
+        XCTAssertEqual(three.visualRadius, 256.0)
         XCTAssertEqual(three.children.count, 1)
 
         let four = two.children[0]
@@ -353,6 +385,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(four.name, "four")
         XCTAssertEqual(four.color, .black)
         XCTAssertEqual(four.physicalRadius, 128)
+        XCTAssertEqual(four.visualRadius, 128)
         XCTAssertEqual(four.children.count, 0)
 
         let five = two.children[1]
@@ -360,6 +393,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.name, "five")
         XCTAssertEqual(five.color, .black)
         XCTAssertEqual(five.physicalRadius, 128)
+        XCTAssertEqual(five.visualRadius, 128)
         XCTAssertEqual(five.children.count, 0)
 
         let six = three.children[0]
@@ -367,6 +401,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.color, .black)
         XCTAssertEqual(six.physicalRadius, 128)
+        XCTAssertEqual(six.visualRadius, 128)
         XCTAssertEqual(six.children.count, 0)
     }
 
@@ -386,6 +421,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 128)
+        XCTAssertEqual(one.visualRadius, 128)
         XCTAssertEqual(one.children.count, 0)
     }
 
@@ -408,6 +444,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.color, .black)
         XCTAssertEqual(two.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(two.visualRadius, 362.03867196751236)
         XCTAssertEqual(two.children.count, 2)
 
         let three = virtualNodes[1]
@@ -415,6 +452,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(three.name, "three")
         XCTAssertEqual(three.color, .black)
         XCTAssertEqual(three.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(three.visualRadius, 362.03867196751236)
         XCTAssertEqual(three.children.count, 2)
 
         let four = two.children[0]
@@ -422,6 +460,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(four.name, "four")
         XCTAssertEqual(four.color, .black)
         XCTAssertEqual(four.physicalRadius, 128)
+        XCTAssertEqual(four.visualRadius, 128)
         XCTAssertEqual(four.children.count, 0)
 
         let five = two.children[1]
@@ -429,6 +468,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.name, "five")
         XCTAssertEqual(five.color, .black)
         XCTAssertEqual(five.physicalRadius, 128)
+        XCTAssertEqual(five.visualRadius, 128)
         XCTAssertEqual(five.children.count, 0)
 
         let six = three.children[0]
@@ -436,6 +476,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.color, .black)
         XCTAssertEqual(six.physicalRadius, 128)
+        XCTAssertEqual(six.visualRadius, 128)
         XCTAssertEqual(six.children.count, 0)
 
         let seven = three.children[1]
@@ -443,6 +484,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(seven.name, "seven")
         XCTAssertEqual(seven.color, .black)
         XCTAssertEqual(seven.physicalRadius, 128)
+        XCTAssertEqual(seven.visualRadius, 128)
         XCTAssertEqual(seven.children.count, 0)
     }
 
@@ -466,6 +508,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.color, .black)
         XCTAssertEqual(two.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(two.visualRadius, 362.03867196751236)
         XCTAssertEqual(two.children.count, 2)
 
         let four = two.children[0]
@@ -473,6 +516,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(four.name, "four")
         XCTAssertEqual(four.color, .black)
         XCTAssertEqual(four.physicalRadius, 128)
+        XCTAssertEqual(four.visualRadius, 128)
         XCTAssertEqual(four.children.count, 0)
 
         let five = two.children[1]
@@ -480,6 +524,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.name, "five")
         XCTAssertEqual(five.color, .black)
         XCTAssertEqual(five.physicalRadius, 128)
+        XCTAssertEqual(five.visualRadius, 128)
         XCTAssertEqual(five.children.count, 0)
 
         let six = virtualNodes[1]
@@ -487,6 +532,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.color, .black)
         XCTAssertEqual(six.physicalRadius, 128)
+        XCTAssertEqual(six.visualRadius, 128)
         XCTAssertEqual(six.children.count, 0)
 
         let seven = virtualNodes[2]
@@ -494,6 +540,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(seven.name, "seven")
         XCTAssertEqual(seven.color, .black)
         XCTAssertEqual(seven.physicalRadius, 128)
+        XCTAssertEqual(seven.visualRadius, 128)
         XCTAssertEqual(seven.children.count, 0)
     }
 
@@ -518,6 +565,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.color, .black)
         XCTAssertEqual(two.physicalRadius, 362.03867196751236)
+        XCTAssertEqual(two.visualRadius, 362.03867196751236)
         XCTAssertEqual(two.children.count, 2)
 
         let four = two.children[0]
@@ -525,6 +573,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(four.name, "four")
         XCTAssertEqual(four.color, .black)
         XCTAssertEqual(four.physicalRadius, 128)
+        XCTAssertEqual(four.visualRadius, 128)
         XCTAssertEqual(four.children.count, 0)
 
         let five = two.children[1]
@@ -532,6 +581,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.name, "five")
         XCTAssertEqual(five.color, .black)
         XCTAssertEqual(five.physicalRadius, 128)
+        XCTAssertEqual(five.visualRadius, 128)
         XCTAssertEqual(five.children.count, 0)
 
         let six = virtualNodes[1]
@@ -539,6 +589,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.color, .black)
         XCTAssertEqual(six.physicalRadius, 128)
+        XCTAssertEqual(six.visualRadius, 128)
         XCTAssertEqual(six.children.count, 0)
     }
 
@@ -558,6 +609,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.color, .black)
         XCTAssertEqual(one.physicalRadius, 128)
+        XCTAssertEqual(one.visualRadius, 128)
         XCTAssertEqual(one.children.count, 0)
     }
 
