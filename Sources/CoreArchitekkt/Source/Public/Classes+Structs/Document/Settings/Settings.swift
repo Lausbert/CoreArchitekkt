@@ -17,8 +17,7 @@ public class Settings: Codable {
         negativeRadialGravitationalForceOnSiblingsPowerSettingsItem = SettingsItem(name: "Negative Radial Force on Siblings", value: v3, initialValue: v3)
         springForceBetweenConnectedNodesPowerSettingsItem = SettingsItem(name: "Spring Force on Connected Nodes", value: v4, initialValue: v4)
         // Area
-        let v5 = SettingsValue.range(value: 4, minValue: 2, maxValue: 6)
-        areaBasedOnTotalChildrensAreaMultiplierSettingsItem = SettingsItem(name: "Parents Area", value: v5, initialValue: v5)
+        
         // Visibility
         unfoldedNodesSettingsGroup = SettingsGroup(name: "Unfolded Nodes", settingsItems: [])
         hiddenNodesSettingsGroup = SettingsGroup(name: "Hidden Nodes", settingsItems: [])
@@ -102,14 +101,7 @@ public class Settings: Codable {
         )
     }()
 
-    public var areaBasedOnTotalChildrensAreaMultiplier: Double {
-        if case let .range(value, _, _) = areaBasedOnTotalChildrensAreaMultiplierSettingsItem.value {
-            return value
-        } else {
-            assertionFailure()
-            return 4
-        }
-    }
+    
 
     // MARK: Visibility
 
@@ -188,12 +180,10 @@ public class Settings: Codable {
     private lazy var areaSettingsGroup = SettingsGroup(
         name: "",
         settingsItems: [
-            areaBasedOnTotalChildrensAreaMultiplierSettingsItem
+            
         ]
     )
-    
-    private let areaBasedOnTotalChildrensAreaMultiplierSettingsItem: SettingsItem
-    
+        
     // MARK: Visibility
     
     private let unfoldedNodesSettingsGroup: SettingsGroup
