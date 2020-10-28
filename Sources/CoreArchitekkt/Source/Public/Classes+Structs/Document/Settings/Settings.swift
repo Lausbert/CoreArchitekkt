@@ -17,7 +17,7 @@ public class Settings: Codable {
         negativeRadialGravitationalForceOnSiblingsPowerSettingsItem = SettingsItem(name: "Negative Radial Force on Siblings", value: v3, initialValue: v3)
         springForceBetweenConnectedNodesPowerSettingsItem = SettingsItem(name: "Spring Force on Connected Nodes", value: v4, initialValue: v4)
         // Area
-        let v5 = SettingsValue.range(value: 4, minValue: 1, maxValue: 7)
+        let v5 = SettingsValue.range(value: 128, minValue: 0.1, maxValue: 255.9)
         visualRadiusMultiplierSettingsItem = SettingsItem(name: "Node Area", value: v5, initialValue: v5)
         // Visibility
         unfoldedNodesSettingsGroup = SettingsGroup(name: "Unfolded Nodes", settingsItems: [])

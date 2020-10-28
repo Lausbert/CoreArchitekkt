@@ -6,55 +6,37 @@ public struct VirtualNode: Identifiable, Equatable {
 
     // MARK: - Public -
 
-    public struct Settings {
-        public let colorDictionary: [String: NSColor]
-        public let defaultColor: NSColor
-        public let visualRadiusMultiplier: CGFloat
-        
-        public init(colorDictionary: [String: NSColor], defaultColor: NSColor, visualRadiusMultiplier: CGFloat) {
-            self.colorDictionary = colorDictionary
-            self.defaultColor = defaultColor
-            self.visualRadiusMultiplier = visualRadiusMultiplier
-        }
-    }
-
     public let id: UUID
     public let scope: String
     public let name: String?
     public let children: [VirtualNode]
-    public let color: NSColor
-    public let physicalRadius: CGFloat
-    public let visualRadius: CGFloat
+    public let radius: CGFloat
     
-    public init(id: UUID, scope: String, name: String?, children: [VirtualNode], color: NSColor, physicalRadius: CGFloat, visualRadius: CGFloat) {
+    public init(id: UUID, scope: String, name: String?, children: [VirtualNode], radius: CGFloat) {
         self.id = id
         self.scope = scope
         self.name = name
         self.children = children
-        self.color = color
-        self.physicalRadius = physicalRadius
-        self.visualRadius = visualRadius
+        self.radius = radius
     }
 
 
-    public static func createVirtualNodes(from node: Node, with transformations: Set<VirtualTransformation>, and settings: VirtualNode.Settings) -> [VirtualNode] {
+    public static func createVirtualNodes(from node: Node, with transformations: Set<VirtualTransformation>) -> [VirtualNode] {
 
         if transformations.contains(.hideNode(id: node.id)) || transformations.contains(.hideScope(scope: node.scope)) {
             return []
         } else if transformations.contains(.flattenNode(id: node.id)) || transformations.contains(.flattenScope(scope: node.scope)) {
-            return node.children.flatMap { createVirtualNodes(from: $0, with: transformations, and: settings) }
+            return node.children.flatMap { createVirtualNodes(from: $0, with: transformations) }
         } else if transformations.contains(.unfoldNode(id: node.id)) || transformations.contains(.unfoldScope(scope: node.scope)) {
-            let childrenVirtualNodes = node.children.flatMap { createVirtualNodes(from: $0, with: transformations, and: settings) }
-            let r = physicalRadius(for: childrenVirtualNodes, and: settings)
+            let childrenVirtualNodes = node.children.flatMap { createVirtualNodes(from: $0, with: transformations) }
+            let r = radius(for: childrenVirtualNodes)
             return[
                 VirtualNode(
                     id: node.id,
                     scope: node.scope,
                     name: node.name,
                     children: childrenVirtualNodes,
-                    color: settings.colorDictionary[node.scope, default: settings.defaultColor],
-                    physicalRadius: r,
-                    visualRadius: settings.visualRadiusMultiplier*r
+                    radius: r
                 )
             ]
         }
@@ -65,20 +47,14 @@ public struct VirtualNode: Identifiable, Equatable {
                 scope: node.scope,
                 name: node.name,
                 children: [],
-                color: settings.colorDictionary[node.scope, default: settings.defaultColor],
-                physicalRadius: physicalBaseRadius,
-                visualRadius: settings.visualRadiusMultiplier*physicalBaseRadius
+                radius: 1
             )
         ]
     }
     
-    public static func physicalRadius(for children: [VirtualNode], and settings: VirtualNode.Settings) -> CGFloat {
-        max(physicalBaseRadius, (sqrt(4*children.map {$0.physicalRadius^^2} .reduce(0, +))))
+    public static func radius(for children: [VirtualNode]) -> CGFloat {
+        sqrt(4*children.map {$0.radius^^2} .reduce(0, +))
     }
-
-    // MARK: - Private -
-    
-    private static let physicalBaseRadius: CGFloat = 128
 
 }
 
@@ -99,8 +75,7 @@ extension VirtualNode: CustomStringConvertible {
         if let name = name {
             result += "\(newLine)name: \(String(describing: name))"
         }
-        result += "\(newLine)color: \(color)"
-        result += "\(newLine)physicalRadius: \(physicalRadius)"
+        result += "\(newLine)radius: \(radius)"
         if !children.isEmpty {
             result += "\(newLine)children: ["
             result += "\(children.map({ $0.description(forNestingLevel: level + 1) }).joined(separator: ","))"
