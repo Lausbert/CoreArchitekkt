@@ -53,7 +53,7 @@ public struct VirtualNode: Identifiable, Equatable {
     }
     
     public static func radius(for children: [VirtualNode]) -> CGFloat {
-        sqrt(4*children.map {$0.radius^^2} .reduce(0, +))
+        max(1, sqrt(4*children.map {$0.radius^^2} .reduce(0, +)))
     }
 
 }
