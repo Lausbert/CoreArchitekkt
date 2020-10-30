@@ -11,7 +11,7 @@ public class Settings: Codable {
         let v1 = SettingsValue.range(value: 0.75, minValue: 0.5, maxValue: 1)
         let v2 = SettingsValue.range(value: 1, minValue: 0, maxValue: 2)
         let v3 = SettingsValue.range(value: -1.3, minValue: -2.3, maxValue: -0.3)
-        let v4 = SettingsValue.range(value: 1.5, minValue: 0.2, maxValue: 2.8)
+        let v4 = SettingsValue.range(value: 1.1, minValue: 0.2, maxValue: 2.0)
         decayPowerSettingsItem = SettingsItem(name: "Friction", value: v1, initialValue: v1)
         radialGravitationForceOnChildrenMultiplierSettingsItem = SettingsItem(name: "Radial Force on Children", value: v2, initialValue: v2)
         negativeRadialGravitationalForceOnSiblingsPowerSettingsItem = SettingsItem(name: "Negative Radial Force on Siblings", value: v3, initialValue: v3)
