@@ -22,12 +22,12 @@ public class Settings: Codable {
         let v6 = SettingsValue.range(value: 7, minValue: 0.1, maxValue: 13.9)
         arcWidthMultiplierSettingsItem = SettingsItem(name: "Arc Width", value: v6, initialValue: v6)
         // Visibility
-        unfoldedNodesSettingsGroup = SettingsGroup(name: "Unfolded Nodes", settingsItems: [])
-        hiddenNodesSettingsGroup = SettingsGroup(name: "Hidden Nodes", settingsItems: [])
-        flattendedNodesSettingsGroup = SettingsGroup(name: "Flattened Nodes", settingsItems: [])
-        unfoldedScopesSettingsGroup = SettingsGroup(name: "Unfolded Scopes", settingsItems: [])
-        hiddenScopesSettingsGroup = SettingsGroup(name: "Hidden Scopes", settingsItems: [])
-        flattendedScopesSettingsGroup = SettingsGroup(name: "Flattened Scopes", settingsItems: [])
+        unfoldedNodesSettingsGroup = SettingsGroup(name: "Unfolded Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldNodes(regex: "")))
+        hiddenNodesSettingsGroup = SettingsGroup(name: "Hidden Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideNodes(regex: "")))
+        flattendedNodesSettingsGroup = SettingsGroup(name: "Flattened Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenNodes(regex: "")))
+        unfoldedScopesSettingsGroup = SettingsGroup(name: "Unfolded Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldScopes(regex: "")))
+        hiddenScopesSettingsGroup = SettingsGroup(name: "Hidden Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideScopes(regex: "")))
+        flattendedScopesSettingsGroup = SettingsGroup(name: "Flattened Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenScopes(regex: "")))
     }
     
     // MARK: Domains
@@ -169,6 +169,8 @@ public class Settings: Codable {
                 hiddenScopesSettingsGroup.toggle(settingsItem: settingsItem)
             case .flattenScope:
                 flattendedScopesSettingsGroup.toggle(settingsItem: settingsItem)
+            default:
+                assertionFailure()
             }
         default:
             assertionFailure()
