@@ -16,9 +16,11 @@ public class Settings: Codable {
         radialGravitationForceOnChildrenMultiplierSettingsItem = SettingsItem(name: "Radial Force on Children", value: v2, initialValue: v2)
         negativeRadialGravitationalForceOnSiblingsPowerSettingsItem = SettingsItem(name: "Negative Radial Force on Siblings", value: v3, initialValue: v3)
         springForceBetweenConnectedNodesPowerSettingsItem = SettingsItem(name: "Spring Force on Connected Nodes", value: v4, initialValue: v4)
-        // Area
+        // Geometry
         let v5 = SettingsValue.range(value: 64, minValue: 0.1, maxValue: 127.9)
-        visualRadiusMultiplierSettingsItem = SettingsItem(name: "Node Area", value: v5, initialValue: v5)
+        visualRadiusMultiplierSettingsItem = SettingsItem(name: "Node Radius", value: v5, initialValue: v5)
+        let v6 = SettingsValue.range(value: 7, minValue: 0.1, maxValue: 13.9)
+        arcWidthMultiplierSettingsItem = SettingsItem(name: "Arc Width", value: v6, initialValue: v6)
         // Visibility
         unfoldedNodesSettingsGroup = SettingsGroup(name: "Unfolded Nodes", settingsItems: [])
         hiddenNodesSettingsGroup = SettingsGroup(name: "Hidden Nodes", settingsItems: [])
@@ -37,7 +39,7 @@ public class Settings: Codable {
     public lazy var firstDomains: [SettingsDomain] = {
         [
             forceSettingsDomain,
-            areaSettingsDomain
+            geometrySettingsDomain
         ]
     }()
     
@@ -91,13 +93,13 @@ public class Settings: Codable {
         }
     }
     
-    // MARK: Area
+    // MARK: Geometry
     
-    public lazy var areaSettingsDomain: SettingsDomain = {
+    public lazy var geometrySettingsDomain: SettingsDomain = {
         SettingsDomain(
-            name: "Area Settings",
+            name: "Geometry Settings",
             settingsGroups: [
-                areaSettingsGroup
+                geometrySettingsGroup
             ]
         )
     }()
@@ -108,6 +110,15 @@ public class Settings: Codable {
         } else {
             assertionFailure()
             return 2
+        }
+    }
+    
+    public var arcWidthMultiplier: Double {
+        if case let .range(value, _, _) = arcWidthMultiplierSettingsItem.value {
+            return value
+        } else {
+            assertionFailure()
+            return 5
         }
     }
 
@@ -183,16 +194,18 @@ public class Settings: Codable {
     private let negativeRadialGravitationalForceOnSiblingsPowerSettingsItem: SettingsItem
     private let springForceBetweenConnectedNodesPowerSettingsItem: SettingsItem
     
-    // MARK: Area
+    // MARK: Geometry
     
-    private lazy var areaSettingsGroup = SettingsGroup(
+    private lazy var geometrySettingsGroup = SettingsGroup(
         name: "",
         settingsItems: [
-            visualRadiusMultiplierSettingsItem
+            visualRadiusMultiplierSettingsItem,
+            arcWidthMultiplierSettingsItem
         ]
     )
     
     private let visualRadiusMultiplierSettingsItem: SettingsItem
+    private let arcWidthMultiplierSettingsItem: SettingsItem
         
     // MARK: Visibility
     
