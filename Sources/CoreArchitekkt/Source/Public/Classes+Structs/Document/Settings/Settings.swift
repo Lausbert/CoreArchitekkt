@@ -9,7 +9,7 @@ public class Settings: Codable {
     public init() {
         // Force
         let v1 = SettingsValue.range(value: 0.75, minValue: 0.5, maxValue: 1)
-        let v2 = SettingsValue.range(value: 1, minValue: 0, maxValue: 2)
+        let v2 = SettingsValue.range(value: 50, minValue: 0, maxValue: 100)
         let v3 = SettingsValue.range(value: -1.3, minValue: -2.3, maxValue: -0.3)
         let v4 = SettingsValue.range(value: 1.1, minValue: 0.2, maxValue: 2.0)
         decayPowerSettingsItem = SettingsItem(name: "Friction", value: v1, initialValue: v1)
