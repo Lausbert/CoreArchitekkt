@@ -13,7 +13,8 @@ public struct VirtualArc: Hashable {
     public static func createVirtualArcs(from node: Node, with transformations: Set<VirtualTransformation>) -> [VirtualArc] {
         let virtualArcContext = createVirtualArcContext(
             from: node,
-            with: transformations
+            with: transformations,
+            and: VirtualTransformation.createRegexEvaluations(from: transformations)
         )
         var weightDictionary = virtualArcContext.weightDictionary
         weightDictionary.forEach { (weightLessVirtualArc, weight) in
@@ -68,7 +69,7 @@ public struct VirtualArc: Hashable {
 
     private static var virtualArcContextCache: [TransformationContext: VirtualArcContext] = [:]
 
-    private static func createVirtualArcContext(from node: Node, with transformations: Set<VirtualTransformation>, isParentFolded: Bool = false) -> VirtualArcContext {
+    private static func createVirtualArcContext(from node: Node, with transformations: Set<VirtualTransformation>, and regexEvaluations: VirtualTransformation.RegexEvaluations, isParentFolded: Bool = false) -> VirtualArcContext {
 
         let weightDictionary = Dictionary(
             uniqueKeysWithValues: node.arcs.map {
@@ -82,11 +83,12 @@ public struct VirtualArc: Hashable {
             }
         )
 
-        if transformations.contains(.hideNode(id: node.id)) || transformations.contains(.hideScope(scope: node.scope)) {
+        if transformations.contains(.hideNode(id: node.id)) || transformations.contains(.hideScope(scope: node.scope)) || regexEvaluations.hideNodesBlock(node) || regexEvaluations.hideScopesBlock(node) {
             let resultingTransformations = Set(node.children.map { VirtualTransformation.hideNode(id: $0.id) })
             let virtualArcContext = createVirtualArcContext(
                 from: node.children,
-                with: resultingTransformations
+                with: resultingTransformations,
+                and: regexEvaluations
             )
             return VirtualArcContext(
                 weightDictionary: [:],
@@ -94,10 +96,11 @@ public struct VirtualArc: Hashable {
                 foldedIds: [],
                 hiddenIds: virtualArcContext.hiddenIds.union([node.id])
             )
-        } else if transformations.contains(.flattenNode(id: node.id)) || transformations.contains(.flattenScope(scope: node.scope)) {
+        } else if transformations.contains(.flattenNode(id: node.id)) || transformations.contains(.flattenScope(scope: node.scope)) || regexEvaluations.flattenNodesBlock(node) || regexEvaluations.flattenScopesBlock(node) {
             let virtualArcContext = createVirtualArcContext(
                 from: node.children,
                 with: transformations,
+                and: regexEvaluations,
                 isParentFolded: isParentFolded
             )
             let resultingFoldedIds: Set<UUID>
@@ -120,10 +123,11 @@ public struct VirtualArc: Hashable {
                 foldedIds: resultingFoldedIds,
                 hiddenIds: virtualArcContext.hiddenIds.union([node.id])
             )
-        } else if transformations.contains(.unfoldNode(id: node.id)) || transformations.contains(.unfoldScope(scope: node.scope)) {
+        } else if transformations.contains(.unfoldNode(id: node.id)) || transformations.contains(.unfoldScope(scope: node.scope)) || regexEvaluations.unfoldNodesBlock(node) || regexEvaluations.unfoldScopesBlock(node) {
             let virtualArcContext = createVirtualArcContext(
                 from: node.children,
-                with: transformations
+                with: transformations,
+                and: regexEvaluations
             )
             return VirtualArcContext(
                 weightDictionary: weightDictionary.merging(
@@ -144,6 +148,14 @@ public struct VirtualArc: Hashable {
                     return true
                 }
             }
+            let resultingRegexEvaluations = VirtualTransformation.RegexEvaluations (
+                hideNodesBlock: regexEvaluations.hideNodesBlock,
+                flattenNodesBlock: regexEvaluations.flattenNodesBlock,
+                unfoldNodesBlock: { _ in false },
+                hideScopesBlock: regexEvaluations.hideScopesBlock,
+                flattenScopesBlock: regexEvaluations.flattenScopesBlock,
+                unfoldScopesBlock: { _ in false }
+            )
             let transformationContext = TransformationContext(
                 identifier: node.id,
                 transformations: resultingTransformations
@@ -154,6 +166,7 @@ public struct VirtualArc: Hashable {
             let virtualArcContext = createVirtualArcContext(
                 from: node.children,
                 with: resultingTransformations,
+                and: resultingRegexEvaluations,
                 isParentFolded: true
             )
             let foldedIds = Set(node.children.map { $0.id })
@@ -186,7 +199,7 @@ public struct VirtualArc: Hashable {
         }
     }
 
-    private static func createVirtualArcContext(from children: [Node], with transformations: Set<VirtualTransformation>, isParentFolded: Bool = false) -> VirtualArcContext {
+    private static func createVirtualArcContext(from children: [Node], with transformations: Set<VirtualTransformation>, and regexEvaluations: VirtualTransformation.RegexEvaluations, isParentFolded: Bool = false) -> VirtualArcContext {
         var weightDictionary: [VirtualArcContext.WeightLessVirtualArc: Int] = [:]
         var destinationMapping: [UUID: UUID] = [:]
         var foldedIds: Set<UUID> = []
@@ -195,6 +208,7 @@ public struct VirtualArc: Hashable {
             let virtualArcContext = createVirtualArcContext(
                 from: child,
                 with: transformations,
+                and: regexEvaluations,
                 isParentFolded: isParentFolded
             )
             weightDictionary = weightDictionary.merging(virtualArcContext.weightDictionary, uniquingKeysWith: { $0 + $1 })

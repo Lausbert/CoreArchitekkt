@@ -115,4 +115,105 @@ public enum VirtualTransformation: Hashable, Codable {
             try container.encode(regex, forKey: .flattenScopes)
         }
     }
+    
+    // MARK: - Internal -
+    
+    struct RegexEvaluations {
+        let hideNodesBlock: (Node) -> Bool
+        let flattenNodesBlock: (Node) -> Bool
+        let unfoldNodesBlock: (Node) -> Bool
+        let hideScopesBlock: (Node) -> Bool
+        let flattenScopesBlock: (Node) -> Bool
+        let unfoldScopesBlock: (Node) -> Bool
+    }
+    
+    static func createRegexEvaluations(from transformations: Set<VirtualTransformation>) -> RegexEvaluations {
+        var hideNodesRegex: [String] = []
+        var flattenNodesRegex: [String] = []
+        var unfoldNodesRegex: [String] = []
+        var hideScopesRegex: [String] = []
+        var flattenScopesRegex: [String] = []
+        var unfoldScopesRegex: [String] = []
+        for transformation in transformations {
+            switch transformation {
+            case let .hideNodes(regex: regex):
+                hideNodesRegex.append(regex)
+            case let .flattenNodes(regex: regex):
+                flattenNodesRegex.append(regex)
+            case let .unfoldNodes(regex: regex):
+                unfoldNodesRegex.append(regex)
+            case let .hideScopes(regex: regex):
+                hideScopesRegex.append(regex)
+            case let .flattenScopes(regex: regex):
+                flattenScopesRegex.append(regex)
+            case let .unfoldScopes(regex: regex):
+                unfoldScopesRegex.append(regex)
+            default:
+                break
+            }
+        }
+        let hideNodesBlock: (Node) -> Bool = { node in
+            hideNodesRegex.anySatisfy {
+                if let isMatching = try? Regex.isMatching(for: $0, text: node.name?.components(separatedBy: ".").last ?? node.scope) {
+                    return isMatching
+                } else {
+                    return false
+                }
+            }
+        }
+        let flattenNodesBlock: (Node) -> Bool = { node in
+            flattenNodesRegex.anySatisfy {
+                if let isMatching = try? Regex.isMatching(for: $0, text: node.name?.components(separatedBy: ".").last ?? node.scope) {
+                    return isMatching
+                } else {
+                    return false
+                }
+            }
+        }
+        let unfoldNodesBlock: (Node) -> Bool = { node in
+            unfoldNodesRegex.anySatisfy {
+                if let isMatching = try? Regex.isMatching(for: $0, text: node.name?.components(separatedBy: ".").last ?? node.scope) {
+                    return isMatching
+                } else {
+                    return false
+                }
+            }
+        }
+        let hideScopesBlock: (Node) -> Bool = { node in
+            hideScopesRegex.anySatisfy {
+                if let isMatching = try? Regex.isMatching(for: $0, text: node.scope) {
+                    return isMatching
+                } else {
+                    return false
+                }
+            }
+            
+        }
+        let flattenScopesBlock: (Node) -> Bool = { node in
+            flattenScopesRegex.anySatisfy {
+                if let isMatching = try? Regex.isMatching(for: $0, text: node.scope) {
+                    return isMatching
+                } else {
+                    return false
+                }
+            }
+        }
+        let unfoldScopesBlock: (Node) -> Bool = { node in
+            unfoldScopesRegex.anySatisfy {
+                if let isMatching = try? Regex.isMatching(for: $0, text: node.scope) {
+                    return isMatching
+                } else {
+                    return false
+                }
+            }
+        }
+        return RegexEvaluations(
+            hideNodesBlock: hideNodesBlock,
+            flattenNodesBlock: flattenNodesBlock,
+            unfoldNodesBlock: unfoldNodesBlock,
+            hideScopesBlock: hideScopesBlock,
+            flattenScopesBlock: flattenScopesBlock,
+            unfoldScopesBlock: unfoldScopesBlock
+        )
+    }
 }

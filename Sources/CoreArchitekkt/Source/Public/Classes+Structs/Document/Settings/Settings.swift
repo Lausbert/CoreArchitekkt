@@ -144,8 +144,13 @@ public class Settings: Codable {
         Set(
             settingsItems.compactMap { settingsItem in
                 switch settingsItem.value {
-                case let .deletable(transformation):
-                    return transformation
+                case let .deletable(virtualTransformation):
+                    switch virtualTransformation {
+                    case let .unfoldNodes(regex), let .hideNodes(regex), let .flattenNodes(regex), let .unfoldScopes(regex), let .hideScopes(regex), let .flattenScopes(regex):
+                        return regex.isEmpty ? nil : virtualTransformation
+                    default:
+                        return virtualTransformation
+                    }
                 default:
                     return nil
                 }

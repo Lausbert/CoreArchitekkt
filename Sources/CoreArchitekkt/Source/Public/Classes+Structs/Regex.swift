@@ -1,9 +1,4 @@
-//
-//  Regex.swift
-//  Nimble
-//
-//  Created by Stephan Lerner on 27.05.18.
-//
+//  Copyright © 2019 Stephan Lerner. All rights reserved.
 
 import Foundation
 
@@ -21,6 +16,14 @@ public struct Regex {
         public let range: Range<String.Index>
         public let regex: String
         public let text: String
+    }
+    
+    public static func isMatching(for regex: StaticString, text: String) -> Bool {
+        try! !getMatches(for: "\(regex)", text: text).isEmpty
+    }
+    
+    public static func isMatching(for regex: String, text: String) throws -> Bool {
+        try !getMatches(for: regex, text: text).isEmpty
     }
 
     public static func getResult(for regex: StaticString, text: String, captureGroup: Int) -> [Result] {

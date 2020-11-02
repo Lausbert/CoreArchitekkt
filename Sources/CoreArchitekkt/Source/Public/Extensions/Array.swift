@@ -31,3 +31,13 @@ public extension Array where Element: Hashable {
     }
     
 }
+
+public extension Array {
+    
+    func anySatisfy(predicate: (Element) -> Bool) -> Bool {
+        return !self.allSatisfy({ (element) -> Bool in
+            !predicate(element)
+        })
+    }
+    
+}

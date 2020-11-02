@@ -22,12 +22,22 @@ public struct VirtualNode: Identifiable, Equatable {
 
 
     public static func createVirtualNodes(from node: Node, with transformations: Set<VirtualTransformation>) -> [VirtualNode] {
+        return createVirtualNodes(from: node, with: transformations, and: VirtualTransformation.createRegexEvaluations(from: transformations))
+    }
+    
+    public static func radius(for children: [VirtualNode]) -> CGFloat {
+        max(1, sqrt(4*children.map {$0.radius^^2} .reduce(0, +)))
+    }
+    
+    // MARK: - Private -
+        
+    private static func createVirtualNodes(from node: Node, with transformations: Set<VirtualTransformation>, and regexEvaluations: VirtualTransformation.RegexEvaluations) -> [VirtualNode] {
 
-        if transformations.contains(.hideNode(id: node.id)) || transformations.contains(.hideScope(scope: node.scope)) {
+        if transformations.contains(.hideNode(id: node.id)) || transformations.contains(.hideScope(scope: node.scope)) || regexEvaluations.hideNodesBlock(node) || regexEvaluations.hideScopesBlock(node) {
             return []
-        } else if transformations.contains(.flattenNode(id: node.id)) || transformations.contains(.flattenScope(scope: node.scope)) {
+        } else if transformations.contains(.flattenNode(id: node.id)) || transformations.contains(.flattenScope(scope: node.scope)) || regexEvaluations.flattenNodesBlock(node) || regexEvaluations.flattenScopesBlock(node) {
             return node.children.flatMap { createVirtualNodes(from: $0, with: transformations) }
-        } else if transformations.contains(.unfoldNode(id: node.id)) || transformations.contains(.unfoldScope(scope: node.scope)) {
+        } else if transformations.contains(.unfoldNode(id: node.id)) || transformations.contains(.unfoldScope(scope: node.scope)) || regexEvaluations.unfoldNodesBlock(node) || regexEvaluations.unfoldScopesBlock(node) {
             let childrenVirtualNodes = node.children.flatMap { createVirtualNodes(from: $0, with: transformations) }
             let r = radius(for: childrenVirtualNodes)
             return[
@@ -50,10 +60,6 @@ public struct VirtualNode: Identifiable, Equatable {
                 radius: 1
             )
         ]
-    }
-    
-    public static func radius(for children: [VirtualNode]) -> CGFloat {
-        max(1, sqrt(4*children.map {$0.radius^^2} .reduce(0, +)))
     }
 
 }
