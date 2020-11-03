@@ -499,7 +499,7 @@ class VirtualNodeTest: VirtualTest {
                 .unfoldNodes(regex: "nomatch"),
                 .flattenScopes(regex: "nomatch"),
                 .hideScopes(regex: "nomatch"),
-                .unfoldScopes(regex: "nomatch"),
+                .unfoldScopes(regex: "nomatch")
             ]
         )
 
@@ -690,7 +690,9 @@ class VirtualNodeTest: VirtualTest {
     func testRegexUnfoldingTwo() {
         let virtualNodes = VirtualNode.createVirtualNodes(
             from: one,
-            with: [.unfoldNodes(regex: "two")]
+            with: [
+                .unfoldNodes(regex: "two")
+            ]
         )
 
         XCTAssertEqual(virtualNodes.count, 1)
