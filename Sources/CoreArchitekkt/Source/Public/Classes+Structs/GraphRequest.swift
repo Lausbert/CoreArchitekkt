@@ -9,6 +9,15 @@ public struct GraphRequest: Codable {
     public let url: URL
     public let options: [Parameter: Option]
     public let consistentlyRequiredUrls: [ConsistentUrlRequirement: URL]
+    
+    public var description: String {
+        let joinedOptions = options.values.joined(separator: " | ")
+        if joinedOptions.isEmpty  {
+            return url.deletingPathExtension().lastPathComponent
+        } else {
+            return url.deletingPathExtension().lastPathComponent + " : " + joinedOptions
+        }
+    }
 
     public init(url: URL, options: [Parameter: Option], consistentlyRequiredUrls: [ConsistentUrlRequirement: URL] = [:]) {
         self.url = url

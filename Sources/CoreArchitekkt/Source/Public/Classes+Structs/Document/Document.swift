@@ -14,18 +14,15 @@ public struct Document: FileDocument, Codable {
     public let id: UUID
     public private(set) var node: Node
     public let settings: Settings
+    public private(set) var graphRequest: GraphRequest
     public private(set) var isNew: Bool
-    
-    public var description: String {
-        graphRequest.url.deletingPathExtension().lastPathComponent + " : " + graphRequest.options.values.joined(separator: " | ")
-    }
     
     public init() {
         self.id = UUID()
         self.node = Node(scope: "new")
         self.settings = Settings()
-        self.isNew = true
         self.graphRequest = GraphRequest(url: URL(staticString: "/new/document/do/not/access/this/path"), options: [:])
+        self.isNew = true
     }
     
     mutating public func set(graphRequest: GraphRequest, node: Node) {
@@ -60,6 +57,5 @@ public struct Document: FileDocument, Codable {
     // MARK: - Private -
     
     private var version: Int = 0
-    private var graphRequest: GraphRequest
     
 }
