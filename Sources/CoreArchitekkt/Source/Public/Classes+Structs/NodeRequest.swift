@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct GraphRequest: Codable {
+public struct NodeRequest: Codable {
 
     // MARK: - Public -
 
@@ -34,19 +34,19 @@ public struct GraphRequest: Codable {
     public typealias AdditionalInformation = String
 
     public enum StatusUpdate {
-        case willStartProcedure(GraphRequest, Procedure)
-        case didFinishProcedure(GraphRequest, Procedure, AdditionalInformation?)
+        case willStartProcedure(NodeRequest, Procedure)
+        case didFinishProcedure(NodeRequest, Procedure, AdditionalInformation?)
     }
 
-    /// The result of handling a graph request.
+    /// The result of handling a node request.
     ///
-    /// - success: The result, when no additional parameter was needed and no error occured. The graphRequest contains also automatically updated options. The node is the root node and containts the graph as its children. Only nodes that are no children of any other node than the root node are directly contained in a graph. Every other note is contained in exactly one children array of another node. Additionally any node could be contained in any number of arc arrays of any other node, if this node is neither an ancestor nor a descendant.
+    /// - success: The result, when no additional parameter was needed and no error occured. The nodeRequest contains also automatically updated options. The node is the root node and containts the node as its children. Only nodes that are no children of any other node than the root node are directly contained in a node. Every other note is contained in exactly one children array of another node. Additionally any node could be contained in any number of arc arrays of any other node, if this node is neither an ancestor nor a descendant.
     /// - decisionNeeded: todo
     /// - failure: todo
     public enum Result {
-        case success(GraphRequest, Node)
-        case decisionNeeded(GraphRequest, (Parameter, [Option]))
-        case failure(GraphRequest, Error)
+        case success(NodeRequest, Node)
+        case decisionNeeded(NodeRequest, (Parameter, [Option]))
+        case failure(NodeRequest, Error)
     }
 
 }

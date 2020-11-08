@@ -14,23 +14,23 @@ public struct Document: FileDocument, Codable {
     public let id: UUID
     public private(set) var node: Node
     public let settings: Settings
-    public private(set) var graphRequest: GraphRequest
+    public private(set) var nodeRequest: NodeRequest
     public private(set) var isNew: Bool
     
     public init() {
         self.id = UUID()
         self.node = Node(scope: "new")
         self.settings = Settings()
-        self.graphRequest = GraphRequest(url: URL(staticString: "/new/document/do/not/access/this/path"), options: [:])
+        self.nodeRequest = NodeRequest(url: URL(staticString: "/new/document/do/not/access/this/path"), options: [:])
         self.isNew = true
     }
     
-    mutating public func set(graphRequest: GraphRequest, node: Node) {
+    mutating public func set(nodeRequest: NodeRequest, node: Node) {
         guard isNew else {
             assertionFailure()
             return
         }
-        self.graphRequest = graphRequest
+        self.nodeRequest = nodeRequest
         self.node = node
         self.isNew = false
         self.bumpVersion()

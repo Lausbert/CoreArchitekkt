@@ -2,12 +2,12 @@
 
 import Foundation
 
-public protocol GraphRequestHandler {
+public protocol NodeRequestHandler {
 
     var consistentUrlRequirements: [ConsistentUrlRequirement]? { get }
 
     var handableFileExtensions: [String] { get }
 
-    func handle(graphRequest: GraphRequest, statusUpdateHandler: ((GraphRequest.StatusUpdate) -> Void)?, completionHandler: @escaping (GraphRequest.Result) -> Void)
+    func handle(nodeRequest: NodeRequest, statusUpdateHandler: ((NodeRequest.StatusUpdate) -> Void)?, completionHandler: @escaping (NodeRequest.Result) -> Void)
 
 }
