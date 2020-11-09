@@ -24,6 +24,8 @@ public struct NodeRequest: Codable {
         self.options = options
         self.consistentlyRequiredUrls = consistentlyRequiredUrls
     }
+    
+    public typealias Warning = String
 
     public typealias Parameter = String
 
@@ -32,7 +34,7 @@ public struct NodeRequest: Codable {
     public typealias Procedure = String
 
     public typealias AdditionalInformation = String
-
+    
     public enum StatusUpdate {
         case willStartProcedure(NodeRequest, Procedure)
         case didFinishProcedure(NodeRequest, Procedure, AdditionalInformation?)
@@ -44,7 +46,7 @@ public struct NodeRequest: Codable {
     /// - decisionNeeded: todo
     /// - failure: todo
     public enum Result {
-        case success(NodeRequest, Node)
+        case success(NodeRequest, Node, [Warning])
         case decisionNeeded(NodeRequest, (Parameter, [Option]))
         case failure(NodeRequest, Error)
     }
