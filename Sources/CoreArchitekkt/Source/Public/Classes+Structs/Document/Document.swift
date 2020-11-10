@@ -12,26 +12,29 @@ public struct Document: FileDocument, Codable {
     // MARK: - Public -
     
     public let id: UUID
-    public private(set) var node: Node
     public let settings: Settings
     public private(set) var nodeRequest: NodeRequest
+    public private(set) var node: Node
+    public private(set) var warnings: [String]
     public private(set) var isNew: Bool
     
     public init() {
         self.id = UUID()
-        self.node = Node(scope: "new")
         self.settings = Settings()
         self.nodeRequest = NodeRequest(url: URL(staticString: "/new/document/do/not/access/this/path"), options: [:])
+        self.node = Node(scope: "new")
+        self.warnings = []
         self.isNew = true
     }
     
-    mutating public func set(nodeRequest: NodeRequest, node: Node) {
+    mutating public func set(nodeRequest: NodeRequest, node: Node, warnings: [String]) {
         guard isNew else {
             assertionFailure()
             return
         }
         self.nodeRequest = nodeRequest
         self.node = node
+        self.warnings = warnings
         self.isNew = false
         self.bumpVersion()
     }
