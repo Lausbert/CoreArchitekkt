@@ -12,4 +12,6 @@ public extension Color {
     static let elevatedBackgroundColor = Color("elevatedBackgroundColor", bundle: Bundle.module)
     static let elevatedBackgroundStrokeColor = Color("elevatedBackgroundStrokeColor", bundle: Bundle.module)
     
+    static let warningColor = Color("warningColor", bundle: Bundle.module)
+    
 }
