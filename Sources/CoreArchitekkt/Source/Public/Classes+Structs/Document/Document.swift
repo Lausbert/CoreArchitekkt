@@ -12,7 +12,7 @@ public struct Document: FileDocument, Codable {
     // MARK: - Public -
     
     public let id: UUID
-    public var settings: Settings
+    public let settings: Settings
     public private(set) var nodeRequest: NodeRequest
     public private(set) var node: Node
     public private(set) var warnings: [String]

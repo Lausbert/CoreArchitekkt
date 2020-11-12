@@ -8,16 +8,16 @@ public struct SettingsGroup: Codable, Hashable {
     // MARK: - Public -
 
     public let name: String
-    public var settingsItems: [SettingsItem]
+    public private(set) var settingsItems: [SettingsItem]
     public let preferredNewValue: SettingsValue?
 
     public mutating func reset() {
-        let oldSettingsItems = settingsItems
-        settingsItems = oldSettingsItems.compactMap { oldSettingsItem in
-            if let initialValue = oldSettingsItem.initialValue {
-                return SettingsItem(name: oldSettingsItem.name, value: initialValue, initialValue: initialValue)
+        for (index, settingsItem) in settingsItems.reversed().enumerated() {
+            if let initialValue = settingsItem.initialValue {
+                let newSettingsItem = SettingsItem(name: settingsItem.name, value: settingsItem.value, initialValue: initialValue)
+                settingsItems[index] = newSettingsItem
             } else {
-                return nil
+                settingsItems.remove(element: settingsItem)
             }
         }
     }
@@ -61,7 +61,7 @@ public struct SettingsGroup: Codable, Hashable {
     }
     
     public static func == (lhs: SettingsGroup, rhs: SettingsGroup) -> Bool {
-        return lhs.name == rhs.name && lhs.settingsItems == rhs.settingsItems
+        lhs.name == rhs.name && lhs.settingsItems == rhs.settingsItems
     }
     
     // MARK: - Internal -
