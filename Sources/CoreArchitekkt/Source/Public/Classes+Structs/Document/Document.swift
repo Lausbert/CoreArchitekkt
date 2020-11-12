@@ -36,11 +36,6 @@ public struct Document: FileDocument, Codable {
         self.node = node
         self.warnings = warnings
         self.isNew = false
-        self.bumpVersion()
-    }
-    
-    public mutating func bumpVersion() {
-        version += 1
     }
 
     public static var readableContentTypes: [UTType] { [.architekktGraph] }
