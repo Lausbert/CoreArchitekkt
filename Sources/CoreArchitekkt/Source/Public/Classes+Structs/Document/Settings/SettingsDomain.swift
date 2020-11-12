@@ -3,24 +3,26 @@
 import Foundation
 import Combine
 
-public struct SettingsDomain: Codable, Hashable, Identifiable {
+public class SettingsDomain: ObservableObject, Codable, Hashable, Identifiable {
     
     // MARK: - Public -
 
-    public let id: UUID
     public let name: String
-    public var settingsGroups: [SettingsGroup]
+    @Published public var settingsGroups: [SettingsGroup] {
+        didSet {
+            updateCancellables()
+        }
+    }
     
-    public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(UUID.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         self.settingsGroups = try container.decode([SettingsGroup].self, forKey: .settingsGroups)
+        updateCancellables()
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(settingsGroups, forKey: .settingsGroups)
     }
@@ -37,15 +39,24 @@ public struct SettingsDomain: Codable, Hashable, Identifiable {
     // MARK: - Internal -
     
     init(name: String, settingsGroups: [SettingsGroup]) {
-        self.id = UUID()
         self.name = name
         self.settingsGroups = settingsGroups
+        updateCancellables()
     }
     
     // MARK: - Private -
     
     enum CodingKeys: CodingKey {
-        case id, name, settingsGroups
+        case name, settingsGroups
     }
     
+    private var cancellables: [AnyCancellable] = []
+    
+    private func updateCancellables() {
+        cancellables = settingsGroups.map({ settingsGroup -> AnyCancellable in
+            settingsGroup.objectDidChange.sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+        })
+    }
 }

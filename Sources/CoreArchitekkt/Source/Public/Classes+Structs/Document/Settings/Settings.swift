@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct Settings: Codable {
+public class Settings: Codable {
 
     // MARK: - Public -
     
@@ -32,33 +32,33 @@ public struct Settings: Codable {
     
     // MARK: Domains
     
-    public var domains: [SettingsDomain] {
+    public lazy var domains: [SettingsDomain] = {
         firstDomains + secondDomains
-    }
+    }()
     
-    public var firstDomains: [SettingsDomain] {
+    public lazy var firstDomains: [SettingsDomain] = {
         [
             forceSettingsDomain,
             geometrySettingsDomain
         ]
-    }
+    }()
     
-    public var secondDomains: [SettingsDomain] {
+    public lazy var secondDomains: [SettingsDomain] = {
         [
             visibilitySettingsDomain
         ]
-    }
+    }()
 
     // MARK: Force
     
-    public var forceSettingsDomain: SettingsDomain {
+    public lazy var forceSettingsDomain: SettingsDomain = {
         SettingsDomain(
             name: "Force Settings",
             settingsGroups: [
                 forceSettingsGroup
             ]
         )
-    }
+    }()
 
     public var decayPower: Double {
         if case let .range(value, _, _) = decayPowerSettingsItem.value {
@@ -95,14 +95,14 @@ public struct Settings: Codable {
     
     // MARK: Geometry
     
-    public var geometrySettingsDomain: SettingsDomain  {
+    public lazy var geometrySettingsDomain: SettingsDomain = {
         SettingsDomain(
             name: "Geometry Settings",
             settingsGroups: [
                 geometrySettingsGroup
             ]
         )
-    }
+    }()
 
     public var visualRadiusMultiplier: Double {
         if case let .range(value, _, _) = visualRadiusMultiplierSettingsItem.value {
@@ -124,7 +124,7 @@ public struct Settings: Codable {
 
     // MARK: Visibility
 
-    public var visibilitySettingsDomain: SettingsDomain {
+    public lazy var visibilitySettingsDomain: SettingsDomain = {
         SettingsDomain(
             name: "Visibility Settings",
             settingsGroups: [
@@ -136,7 +136,7 @@ public struct Settings: Codable {
                 flattendedScopesSettingsGroup
             ]
         )
-    }
+    }()
     
     // MARK: Other
     
@@ -158,7 +158,7 @@ public struct Settings: Codable {
         )
     }
     
-    public mutating func toggle(settingsItem: SettingsItem) {
+    public func toggle(settingsItem: SettingsItem) {
         switch settingsItem.value {
         case let .deletable(virtualTransformation):
             switch virtualTransformation {
@@ -186,17 +186,15 @@ public struct Settings: Codable {
     
     // MARK: Force
     
-    private var forceSettingsGroup: SettingsGroup {
-        SettingsGroup(
-            name: "",
-            settingsItems: [
-              decayPowerSettingsItem,
-              radialGravitationForceOnChildrenMultiplierSettingsItem,
-              negativeRadialGravitationalForceOnSiblingsPowerSettingsItem,
-              springForceBetweenConnectedNodesPowerSettingsItem
-            ]
-        )
-    }
+    private lazy var forceSettingsGroup = SettingsGroup(
+        name: "",
+        settingsItems: [
+            decayPowerSettingsItem,
+            radialGravitationForceOnChildrenMultiplierSettingsItem,
+            negativeRadialGravitationalForceOnSiblingsPowerSettingsItem,
+            springForceBetweenConnectedNodesPowerSettingsItem
+        ]
+    )
     
     private let decayPowerSettingsItem: SettingsItem
     private let radialGravitationForceOnChildrenMultiplierSettingsItem: SettingsItem
@@ -205,27 +203,25 @@ public struct Settings: Codable {
     
     // MARK: Geometry
     
-    private var geometrySettingsGroup: SettingsGroup {
-        SettingsGroup(
-            name: "",
-            settingsItems: [
-                visualRadiusMultiplierSettingsItem,
-                arcWidthMultiplierSettingsItem
-            ]
-        )
-    }
+    private lazy var geometrySettingsGroup = SettingsGroup(
+        name: "",
+        settingsItems: [
+            visualRadiusMultiplierSettingsItem,
+            arcWidthMultiplierSettingsItem
+        ]
+    )
     
     private let visualRadiusMultiplierSettingsItem: SettingsItem
     private let arcWidthMultiplierSettingsItem: SettingsItem
         
     // MARK: Visibility
     
-    private var unfoldedNodesSettingsGroup: SettingsGroup
-    private var hiddenNodesSettingsGroup: SettingsGroup
-    private var flattendedNodesSettingsGroup: SettingsGroup
-    private var unfoldedScopesSettingsGroup: SettingsGroup
-    private var hiddenScopesSettingsGroup: SettingsGroup
-    private var flattendedScopesSettingsGroup: SettingsGroup
+    private let unfoldedNodesSettingsGroup: SettingsGroup
+    private let hiddenNodesSettingsGroup: SettingsGroup
+    private let flattendedNodesSettingsGroup: SettingsGroup
+    private let unfoldedScopesSettingsGroup: SettingsGroup
+    private let hiddenScopesSettingsGroup: SettingsGroup
+    private let flattendedScopesSettingsGroup: SettingsGroup
     
     // MARK: Other
     

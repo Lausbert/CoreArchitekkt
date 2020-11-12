@@ -3,26 +3,29 @@
 import Foundation
 import Combine
 
-public struct SettingsGroup: Codable, Hashable {
+public class SettingsGroup: ObservableObject, Codable, Hashable, Identifiable {
     
     // MARK: - Public -
 
     public let name: String
-    public private(set) var settingsItems: [SettingsItem]
+    @Published public private(set) var settingsItems: [SettingsItem] {
+        didSet {
+            updateCancellables()
+        }
+    }
     public let preferredNewValue: SettingsValue?
 
-    public mutating func reset() {
-        for (index, settingsItem) in settingsItems.reversed().enumerated() {
+    public func reset() {
+        for settingsItem in settingsItems.reversed() {
             if let initialValue = settingsItem.initialValue {
-                let newSettingsItem = SettingsItem(name: settingsItem.name, value: settingsItem.value, initialValue: initialValue)
-                settingsItems[index] = newSettingsItem
+                settingsItem.value = initialValue
             } else {
                 settingsItems.remove(element: settingsItem)
             }
         }
     }
 
-    public mutating func toggle(settingsItem: SettingsItem) {
+    public func toggle(settingsItem: SettingsItem) {
         if settingsItems.contains(settingsItem) {
             remove(settingsItem: settingsItem)
         } else {
@@ -30,22 +33,23 @@ public struct SettingsGroup: Codable, Hashable {
         }
     }
     
-    public mutating func add(settingsItem: SettingsItem) {
+    public func add(settingsItem: SettingsItem) {
         settingsItems.append(settingsItem)
     }
 
-    public mutating func remove(settingsItem: SettingsItem) {
+    public func remove(settingsItem: SettingsItem) {
         guard let index = settingsItems.firstIndex(of: settingsItem) else {
             return
         }
         settingsItems.remove(at: index)
     }
 
-    public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.settingsItems = try container.decode([SettingsItem].self, forKey: .settingsItems)
         self.preferredNewValue = try? container.decode(SettingsValue.self, forKey: .preferredNewValue)
+        updateCancellables()
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -70,6 +74,7 @@ public struct SettingsGroup: Codable, Hashable {
         self.name = name
         self.settingsItems = settingsItems
         self.preferredNewValue = preferredNewValue
+        updateCancellables()
     }
     
     // MARK: - Private -
@@ -78,4 +83,13 @@ public struct SettingsGroup: Codable, Hashable {
         case name, settingsItems, preferredNewValue
     }
     
+    private var cancellables: [AnyCancellable] = []
+    
+    private func updateCancellables() {
+        cancellables = settingsItems.map({ settingsItem -> AnyCancellable in
+            settingsItem.objectDidChange.sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+        })
+    }
 }

@@ -2,12 +2,12 @@
 
 import Foundation
 
-public struct SettingsItem: Codable, Hashable {
-    
+public class SettingsItem: ObservableObject, Codable, Hashable, Identifiable {
+
     // MARK: - Public -
 
     public let name: String
-    public var value: SettingsValue
+    @Published public var value: SettingsValue
 
     public init(name: String, value: SettingsValue, initialValue: SettingsValue? = nil) {
         self.name = name
@@ -15,7 +15,7 @@ public struct SettingsItem: Codable, Hashable {
         self.initialValue = initialValue
     }
 
-    public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.value = try container.decode(SettingsValue.self, forKey: .value)
