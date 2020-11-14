@@ -7,61 +7,70 @@ public struct Settings: Codable {
     // MARK: - Public -
     
     public init() {
-        // Force
-        let v1 = SettingsValue.range(value: 0.75, minValue: 0.5, maxValue: 1)
-        let v2 = SettingsValue.range(value: 50, minValue: 0, maxValue: 100)
-        let v3 = SettingsValue.range(value: -1.3, minValue: -2.3, maxValue: -0.3)
-        let v4 = SettingsValue.range(value: 1.1, minValue: 0.2, maxValue: 2.0)
-        decayPowerSettingsItem = SettingsItem(name: "Friction", value: v1, initialValue: v1)
-        radialGravitationForceOnChildrenMultiplierSettingsItem = SettingsItem(name: "Radial Force on Children", value: v2, initialValue: v2)
-        negativeRadialGravitationalForceOnSiblingsPowerSettingsItem = SettingsItem(name: "Negative Radial Force on Siblings", value: v3, initialValue: v3)
-        springForceBetweenConnectedNodesPowerSettingsItem = SettingsItem(name: "Spring Force on Connected Nodes", value: v4, initialValue: v4)
-        // Geometry
-        let v5 = SettingsValue.range(value: 64, minValue: 0.1, maxValue: 127.9)
-        visualRadiusMultiplierSettingsItem = SettingsItem(name: "Node Radius", value: v5, initialValue: v5)
-        let v6 = SettingsValue.range(value: 7, minValue: 0.1, maxValue: 13.9)
-        arcWidthMultiplierSettingsItem = SettingsItem(name: "Arc Width", value: v6, initialValue: v6)
+        // Force & Geometry
+        let v0 = SettingsValue.range(value: 0.75, minValue: 0.5, maxValue: 1)
+        let v1 = SettingsValue.range(value: 50, minValue: 0, maxValue: 100)
+        let v2 = SettingsValue.range(value: -1.3, minValue: -2.3, maxValue: -0.3)
+        let v3 = SettingsValue.range(value: 1.1, minValue: 0.2, maxValue: 2.0)
+        let v4 = SettingsValue.range(value: 64, minValue: 0.1, maxValue: 127.9)
+        let v5 = SettingsValue.range(value: 7, minValue: 0.1, maxValue: 13.9)
+        firstDomains = [
+            SettingsDomain(
+                name: "Force Settings",
+                settingsGroups: [
+                    SettingsGroup(
+                        name: "",
+                        settingsItems: [
+                            SettingsItem(name: "Friction", value: v0, initialValue: v0),
+                            SettingsItem(name: "Radial Force on Children", value: v1, initialValue: v1),
+                            SettingsItem(name: "Negative Radial Force on Siblings", value: v2, initialValue: v2),
+                            SettingsItem(name: "Spring Force on Connected Nodes", value: v3, initialValue: v3)
+                        ]
+                    )
+                ]
+            ),
+            SettingsDomain(
+                name: "Geometry Settings",
+                settingsGroups: [
+                    SettingsGroup(
+                        name: "",
+                        settingsItems: [
+                            SettingsItem(name: "Node Radius", value: v4, initialValue: v4),
+                            SettingsItem(name: "Arc Width", value: v5, initialValue: v5)
+                        ]
+                    )
+                ]
+            )
+        ]
+        
         // Visibility
-        unfoldedNodesSettingsGroup = SettingsGroup(name: "Unfolded Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldNodes(regex: "")))
-        hiddenNodesSettingsGroup = SettingsGroup(name: "Hidden Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideNodes(regex: "")))
-        flattendedNodesSettingsGroup = SettingsGroup(name: "Flattened Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenNodes(regex: "")))
-        unfoldedScopesSettingsGroup = SettingsGroup(name: "Unfolded Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldScopes(regex: "")))
-        hiddenScopesSettingsGroup = SettingsGroup(name: "Hidden Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideScopes(regex: "")))
-        flattendedScopesSettingsGroup = SettingsGroup(name: "Flattened Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenScopes(regex: "")))
+        secondDomains = [
+            SettingsDomain(
+                name: "Visibility Settings",
+                settingsGroups: [
+                    SettingsGroup(name: "Unfolded Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldNodes(regex: ""))),
+                    SettingsGroup(name: "Hidden Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideNodes(regex: ""))),
+                    SettingsGroup(name: "Flattened Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenNodes(regex: ""))),
+                    SettingsGroup(name: "Unfolded Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldScopes(regex: ""))),
+                    SettingsGroup(name: "Hidden Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideScopes(regex: ""))),
+                    SettingsGroup(name: "Flattened Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenScopes(regex: "")))
+                ]
+            )
+        ]
     }
     
     // MARK: Domains
     
-    public var domains: [SettingsDomain] {
-        firstDomains + secondDomains
-    }
-    
-    public var firstDomains: [SettingsDomain] {
-        [
-            forceSettingsDomain,
-            geometrySettingsDomain
-        ]
-    }
-    
-    public var secondDomains: [SettingsDomain] {
-        [
-            visibilitySettingsDomain
-        ]
-    }
+    public var firstDomains: [SettingsDomain]
+    public var secondDomains: [SettingsDomain]
 
     // MARK: Force
     
     public var forceSettingsDomain: SettingsDomain {
-        SettingsDomain(
-            name: "Force Settings",
-            settingsGroups: [
-                forceSettingsGroup
-            ]
-        )
+        firstDomains[0]
     }
-
     public var decayPower: Double {
-        if case let .range(value, _, _) = decayPowerSettingsItem.value {
+        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[0].value {
             return value
         } else {
             assertionFailure()
@@ -69,7 +78,7 @@ public struct Settings: Codable {
         }
     }
     public var radialGravitationForceOnChildrenMultiplier: Double {
-        if case let .range(value, _, _) = radialGravitationForceOnChildrenMultiplierSettingsItem.value {
+        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[1].value {
             return value
         } else {
             assertionFailure()
@@ -77,7 +86,7 @@ public struct Settings: Codable {
         }
     }
     public var negativeRadialGravitationalForceOnSiblingsPower: Double {
-        if case let .range(value, _, _) = negativeRadialGravitationalForceOnSiblingsPowerSettingsItem.value {
+        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[2].value {
             return value
         } else {
             assertionFailure()
@@ -85,7 +94,7 @@ public struct Settings: Codable {
         }
     }
     public var springForceBetweenConnectedNodesPower: Double {
-        if case let .range(value, _, _) = springForceBetweenConnectedNodesPowerSettingsItem.value {
+        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[3].value {
             return value
         } else {
             assertionFailure()
@@ -96,25 +105,18 @@ public struct Settings: Codable {
     // MARK: Geometry
     
     public var geometrySettingsDomain: SettingsDomain  {
-        SettingsDomain(
-            name: "Geometry Settings",
-            settingsGroups: [
-                geometrySettingsGroup
-            ]
-        )
+        firstDomains[1]
     }
-
     public var visualRadiusMultiplier: Double {
-        if case let .range(value, _, _) = visualRadiusMultiplierSettingsItem.value {
+        if case let .range(value, _, _) = geometrySettingsGroup.settingsItems[0].value {
             return value
         } else {
             assertionFailure()
             return 2
         }
     }
-    
     public var arcWidthMultiplier: Double {
-        if case let .range(value, _, _) = arcWidthMultiplierSettingsItem.value {
+        if case let .range(value, _, _) = geometrySettingsGroup.settingsItems[1].value {
             return value
         } else {
             assertionFailure()
@@ -125,21 +127,8 @@ public struct Settings: Codable {
     // MARK: Visibility
 
     public var visibilitySettingsDomain: SettingsDomain {
-        SettingsDomain(
-            name: "Visibility Settings",
-            settingsGroups: [
-                unfoldedNodesSettingsGroup,
-                hiddenNodesSettingsGroup,
-                flattendedNodesSettingsGroup,
-                unfoldedScopesSettingsGroup,
-                hiddenScopesSettingsGroup,
-                flattendedScopesSettingsGroup
-            ]
-        )
+        secondDomains[0]
     }
-    
-    // MARK: Other
-    
     public var virtualTransformations: Set<VirtualTransformation> {
         Set(
             settingsItems.compactMap { settingsItem in
@@ -163,17 +152,17 @@ public struct Settings: Codable {
         case let .deletable(virtualTransformation):
             switch virtualTransformation {
             case .unfoldNode:
-                unfoldedNodesSettingsGroup.toggle(settingsItem: settingsItem)
+                secondDomains[0].settingsGroups[0].toggle(settingsItem: settingsItem)
             case .hideNode:
-                hiddenNodesSettingsGroup.toggle(settingsItem: settingsItem)
+                secondDomains[0].settingsGroups[1].toggle(settingsItem: settingsItem)
             case .flattenNode:
-                flattendedNodesSettingsGroup.toggle(settingsItem: settingsItem)
+                secondDomains[0].settingsGroups[2].toggle(settingsItem: settingsItem)
             case .unfoldScope:
-                unfoldedScopesSettingsGroup.toggle(settingsItem: settingsItem)
+                secondDomains[0].settingsGroups[3].toggle(settingsItem: settingsItem)
             case .hideScope:
-                hiddenScopesSettingsGroup.toggle(settingsItem: settingsItem)
+                secondDomains[0].settingsGroups[4].toggle(settingsItem: settingsItem)
             case .flattenScope:
-                flattendedScopesSettingsGroup.toggle(settingsItem: settingsItem)
+                secondDomains[0].settingsGroups[5].toggle(settingsItem: settingsItem)
             default:
                 assertionFailure()
             }
@@ -187,52 +176,22 @@ public struct Settings: Codable {
     // MARK: Force
     
     private var forceSettingsGroup: SettingsGroup {
-        SettingsGroup(
-            name: "",
-            settingsItems: [
-              decayPowerSettingsItem,
-              radialGravitationForceOnChildrenMultiplierSettingsItem,
-              negativeRadialGravitationalForceOnSiblingsPowerSettingsItem,
-              springForceBetweenConnectedNodesPowerSettingsItem
-            ]
-        )
+        forceSettingsDomain.settingsGroups[0]
     }
-    
-    private let decayPowerSettingsItem: SettingsItem
-    private let radialGravitationForceOnChildrenMultiplierSettingsItem: SettingsItem
-    private let negativeRadialGravitationalForceOnSiblingsPowerSettingsItem: SettingsItem
-    private let springForceBetweenConnectedNodesPowerSettingsItem: SettingsItem
     
     // MARK: Geometry
     
     private var geometrySettingsGroup: SettingsGroup {
-        SettingsGroup(
-            name: "",
-            settingsItems: [
-                visualRadiusMultiplierSettingsItem,
-                arcWidthMultiplierSettingsItem
-            ]
-        )
+        geometrySettingsDomain.settingsGroups[0]
     }
-    
-    private let visualRadiusMultiplierSettingsItem: SettingsItem
-    private let arcWidthMultiplierSettingsItem: SettingsItem
-        
-    // MARK: Visibility
-    
-    private var unfoldedNodesSettingsGroup: SettingsGroup
-    private var hiddenNodesSettingsGroup: SettingsGroup
-    private var flattendedNodesSettingsGroup: SettingsGroup
-    private var unfoldedScopesSettingsGroup: SettingsGroup
-    private var hiddenScopesSettingsGroup: SettingsGroup
-    private var flattendedScopesSettingsGroup: SettingsGroup
     
     // MARK: Other
     
     private var settingsItems: [SettingsItem] {
-        domains
+        (firstDomains + secondDomains)
             .compactMap { $0 }
             .flatMap { $0.settingsGroups }
             .flatMap { $0.settingsItems }
     }
+    
 }
