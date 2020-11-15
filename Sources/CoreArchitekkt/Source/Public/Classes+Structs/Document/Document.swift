@@ -16,6 +16,7 @@ public struct Document: FileDocument, Codable {
     public private(set) var nodeRequest: NodeRequest
     public private(set) var node: Node
     public private(set) var warnings: [String]
+    public var isEditing: Bool
     public private(set) var isNew: Bool
     
     public init() {
@@ -24,6 +25,7 @@ public struct Document: FileDocument, Codable {
         self.nodeRequest = NodeRequest(url: URL(staticString: "/new/document/do/not/access/this/path"), options: [:])
         self.node = Node(scope: "new")
         self.warnings = []
+        self.isEditing = false
         self.isNew = true
     }
     
@@ -52,7 +54,22 @@ public struct Document: FileDocument, Codable {
         return .init(regularFileWithContents: data)
     }
     
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(settings, forKey: .settings)
+        try container.encode(nodeRequest, forKey: .nodeRequest)
+        try container.encode(node, forKey: .node)
+        try container.encode(warnings, forKey: .warnings)
+        try container.encode(false, forKey: .isEditing)
+        try container.encode(isNew, forKey: .isNew)
+    }
+    
     // MARK: - Private -
+    
+    private enum CodingKeys: CodingKey {
+        case id, settings, nodeRequest, node, warnings, isEditing, isNew
+    }
     
     private var version: Int = 0
     
