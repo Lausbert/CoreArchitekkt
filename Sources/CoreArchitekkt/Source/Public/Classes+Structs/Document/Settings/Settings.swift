@@ -13,7 +13,7 @@ public struct Settings: Codable {
         let v2 = SettingsValue.range(value: -1.3, minValue: -2.3, maxValue: -0.3)
         let v3 = SettingsValue.range(value: 1.1, minValue: 0.2, maxValue: 2.0)
         let v4 = SettingsValue.range(value: 64, minValue: 0.1, maxValue: 127.9)
-        let v5 = SettingsValue.range(value: 7, minValue: 0.1, maxValue: 13.9)
+        let v5 = SettingsValue.range(value: 1.5, minValue: 0.1, maxValue: 2.9)
         firstDomains = [
             SettingsDomain(
                 name: "Force Settings",
