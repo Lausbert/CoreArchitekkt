@@ -9,11 +9,12 @@ public struct Settings: Codable {
     public init() {
         // Force & Geometry
         let v0 = SettingsValue.range(value: 0.75, minValue: 0.5, maxValue: 1)
-        let v1 = SettingsValue.range(value: 50, minValue: 0, maxValue: 100)
-        let v2 = SettingsValue.range(value: -1.3, minValue: -2.3, maxValue: -0.3)
-        let v3 = SettingsValue.range(value: 1.1, minValue: 0.2, maxValue: 2.0)
-        let v4 = SettingsValue.range(value: 64, minValue: 0.1, maxValue: 127.9)
-        let v5 = SettingsValue.range(value: 1.5, minValue: 0.1, maxValue: 2.9)
+        let v1 = SettingsValue.range(value: -1.3, minValue: -2.3, maxValue: -0.3)
+        let v2 = SettingsValue.range(value: 1.1, minValue: 0.2, maxValue: 2.0)
+        let v3 = SettingsValue.range(value: 64, minValue: 0.1, maxValue: 127.9)
+        let v4 = SettingsValue.range(value: 1.5, minValue: 0.1, maxValue: 2.9)
+        let v5 = SettingsValue.range(value: 0, minValue: -0.1, maxValue: 0.1)
+        let v6 = SettingsValue.range(value: 0, minValue: -0.1, maxValue: 0.1)
         firstDomains = [
             SettingsDomain(
                 name: "Force Settings",
@@ -22,9 +23,8 @@ public struct Settings: Codable {
                         name: "",
                         settingsItems: [
                             SettingsItem(name: "Friction", value: v0, initialValue: v0),
-                            SettingsItem(name: "Radial Force on Children", value: v1, initialValue: v1),
-                            SettingsItem(name: "Negative Radial Force on Siblings", value: v2, initialValue: v2),
-                            SettingsItem(name: "Spring Force on Connected Nodes", value: v3, initialValue: v3)
+                            SettingsItem(name: "Negative Radial Force on Siblings", value: v1, initialValue: v1),
+                            SettingsItem(name: "Spring Force on Connected Nodes", value: v2, initialValue: v2)
                         ]
                     )
                 ]
@@ -35,8 +35,10 @@ public struct Settings: Codable {
                     SettingsGroup(
                         name: "",
                         settingsItems: [
-                            SettingsItem(name: "Node Radius", value: v4, initialValue: v4),
-                            SettingsItem(name: "Arc Width", value: v5, initialValue: v5)
+                            SettingsItem(name: "Node Radius", value: v3, initialValue: v3),
+                            SettingsItem(name: "Arc Width", value: v4, initialValue: v4),
+                            SettingsItem(name: "Source Radius", value: v5, initialValue: v5),
+                            SettingsItem(name: "Sink Radius", value: v6, initialValue: v6)
                         ]
                     )
                 ]
@@ -70,23 +72,15 @@ public struct Settings: Codable {
         firstDomains[0]
     }
     public var decayPower: Double {
-        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[0].value {
+        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[safe: 0]?.value {
             return value
         } else {
             assertionFailure()
             return 0.75
         }
     }
-    public var radialGravitationForceOnChildrenMultiplier: Double {
-        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[1].value {
-            return value
-        } else {
-            assertionFailure()
-            return 1
-        }
-    }
     public var negativeRadialGravitationalForceOnSiblingsPower: Double {
-        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[2].value {
+        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[safe: 1]?.value {
             return value
         } else {
             assertionFailure()
@@ -94,7 +88,7 @@ public struct Settings: Codable {
         }
     }
     public var springForceBetweenConnectedNodesPower: Double {
-        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[3].value {
+        if case let .range(value, _, _) = forceSettingsGroup.settingsItems[safe: 2]?.value {
             return value
         } else {
             assertionFailure()
@@ -108,7 +102,7 @@ public struct Settings: Codable {
         firstDomains[1]
     }
     public var visualRadiusMultiplier: Double {
-        if case let .range(value, _, _) = geometrySettingsGroup.settingsItems[0].value {
+        if case let .range(value, _, _) = geometrySettingsGroup.settingsItems[safe: 0]?.value {
             return value
         } else {
             assertionFailure()
@@ -116,7 +110,23 @@ public struct Settings: Codable {
         }
     }
     public var arcWidthMultiplier: Double {
-        if case let .range(value, _, _) = geometrySettingsGroup.settingsItems[1].value {
+        if case let .range(value, _, _) = geometrySettingsGroup.settingsItems[safe: 1]?.value {
+            return value
+        } else {
+            assertionFailure()
+            return 5
+        }
+    }
+    public var sourceRadiusMultiplier: Double {
+        if case let .range(value, _, _) = geometrySettingsGroup.settingsItems[safe: 2]?.value {
+            return value
+        } else {
+            assertionFailure()
+            return 5
+        }
+    }
+    public var sinkRadiusMultiplier: Double {
+        if case let .range(value, _, _) = geometrySettingsGroup.settingsItems[safe: 3]?.value {
             return value
         } else {
             assertionFailure()
