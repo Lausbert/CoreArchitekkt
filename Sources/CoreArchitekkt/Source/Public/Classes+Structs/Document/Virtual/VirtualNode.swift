@@ -37,12 +37,12 @@ public struct VirtualNode: Identifiable, Equatable {
         return newVirtualNodes
     }
 
-    public static func createVirtualNodes(from node: Node, with transformations: Set<VirtualTransformation>, and virtualArcs: [VirtualArc]) -> [VirtualNode] {
+    public static func createVirtualNodes(from node: Node, with transformations: Set<FirstOrderVirtualTransformation>, and virtualArcs: [VirtualArc]) -> [VirtualNode] {
         let arcCount = ArcCount(
             ingoingDictionary: Dictionary(virtualArcs.map { ($0.destinationIdentifier, $0.weight) }, uniquingKeysWith: { $0 + $1 } ),
             outgoingDictionary: Dictionary(virtualArcs.map { ($0.sourceIdentifier, $0.weight) }, uniquingKeysWith: { $0 + $1 } )
         )
-        return createVirtualNodes(from: node, with: transformations, and: VirtualTransformation.createRegexEvaluations(from: transformations), and: arcCount)
+        return createVirtualNodes(from: node, with: transformations, and: arcCount)
     }
     
     public static func radius(for children: [VirtualNode]) -> CGFloat {
@@ -56,14 +56,14 @@ public struct VirtualNode: Identifiable, Equatable {
         let outgoingDictionary: [UUID: Int]
     }
         
-    private static func createVirtualNodes(from node: Node, with transformations: Set<VirtualTransformation>, and regexEvaluations: VirtualTransformation.RegexEvaluations, and arcCount: ArcCount) -> [VirtualNode] {
+    private static func createVirtualNodes(from node: Node, with transformations: Set<FirstOrderVirtualTransformation>, and arcCount: ArcCount) -> [VirtualNode] {
 
-        if transformations.contains(.hideNode(id: node.id)) || transformations.contains(.hideScope(scope: node.scope)) || regexEvaluations.hideNodesBlock(node) || regexEvaluations.hideScopesBlock(node) {
+        if transformations.contains(.hideNode(id: node.id)) {
             return []
-        } else if transformations.contains(.flattenNode(id: node.id)) || transformations.contains(.flattenScope(scope: node.scope)) || regexEvaluations.flattenNodesBlock(node) || regexEvaluations.flattenScopesBlock(node) {
-            return node.children.flatMap { createVirtualNodes(from: $0, with: transformations, and: regexEvaluations, and: arcCount) }
-        } else if transformations.contains(.unfoldNode(id: node.id)) || transformations.contains(.unfoldScope(scope: node.scope)) || regexEvaluations.unfoldNodesBlock(node) || regexEvaluations.unfoldScopesBlock(node) {
-            let childrenVirtualNodes = node.children.flatMap { createVirtualNodes(from: $0, with: transformations, and: regexEvaluations, and: arcCount) }
+        } else if transformations.contains(.flattenNode(id: node.id)) {
+            return node.children.flatMap { createVirtualNodes(from: $0, with: transformations, and: arcCount) }
+        } else if transformations.contains(.unfoldNode(id: node.id)) {
+            let childrenVirtualNodes = node.children.flatMap { createVirtualNodes(from: $0, with: transformations, and: arcCount) }
             let r = radius(for: childrenVirtualNodes)
             return[
                 VirtualNode(

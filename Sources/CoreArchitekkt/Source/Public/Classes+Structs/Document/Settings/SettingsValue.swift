@@ -7,7 +7,7 @@ public enum SettingsValue: Codable, Hashable {
     // MARK: - Public -
     
     case range(value: Double, minValue: Double, maxValue: Double)
-    case deletable(virtualTransformation: VirtualTransformation)
+    case deletable(virtualTransformation: SecondOrderVirtualTransformation)
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -18,7 +18,7 @@ public enum SettingsValue: Codable, Hashable {
             let (value, minValue, maxValue): (Double, Double, Double) = try container.decodeValues(for: .range)
             self = .range(value: value, minValue: minValue, maxValue: maxValue)
         case .deletable:
-            let virtualTransformation = try container.decode(VirtualTransformation.self, forKey: .deletable)
+            let virtualTransformation = try container.decode(SecondOrderVirtualTransformation.self, forKey: .deletable)
             self = .deletable(virtualTransformation: virtualTransformation)
         case .none:
             throw DecodingError.dataCorrupted(

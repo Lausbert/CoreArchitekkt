@@ -139,23 +139,6 @@ public struct Settings: Codable {
     public var visibilitySettingsDomain: SettingsDomain {
         secondDomains[0]
     }
-    public var virtualTransformations: Set<VirtualTransformation> {
-        Set(
-            settingsItems.compactMap { settingsItem in
-                switch settingsItem.value {
-                case let .deletable(virtualTransformation):
-                    switch virtualTransformation {
-                    case let .unfoldNodes(regex), let .hideNodes(regex), let .flattenNodes(regex), let .unfoldScopes(regex), let .hideScopes(regex), let .flattenScopes(regex):
-                        return regex.isEmpty ? nil : virtualTransformation
-                    default:
-                        return virtualTransformation
-                    }
-                default:
-                    return nil
-                }
-            }
-        )
-    }
     
     public mutating func toggle(settingsItem: SettingsItem) {
         switch settingsItem.value {
@@ -180,6 +163,17 @@ public struct Settings: Codable {
             assertionFailure()
         }
     }
+    
+    // MARK: - Internal -
+    
+    // MARK: Other
+    
+    var settingsItems: [SettingsItem] {
+        (firstDomains + secondDomains)
+            .compactMap { $0 }
+            .flatMap { $0.settingsGroups }
+            .flatMap { $0.settingsItems }
+    }
 
     // MARK: - Private -
     
@@ -194,14 +188,5 @@ public struct Settings: Codable {
     private var geometrySettingsGroup: SettingsGroup {
         geometrySettingsDomain.settingsGroups[0]
     }
-    
-    // MARK: Other
-    
-    private var settingsItems: [SettingsItem] {
-        (firstDomains + secondDomains)
-            .compactMap { $0 }
-            .flatMap { $0.settingsGroups }
-            .flatMap { $0.settingsItems }
-    }
-    
+        
 }

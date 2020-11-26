@@ -19,6 +19,28 @@ public struct Document: FileDocument, Codable {
     public var isEditing: Bool
     public private(set) var isNew: Bool
     
+    public var firstOrdervirtualTransformations: Set<FirstOrderVirtualTransformation> {
+        return FirstOrderVirtualTransformation.createFirstOrderVirtualTransformations(from: node, and: secondOrderVirtualTransformations)
+    }
+    
+    public var secondOrderVirtualTransformations: Set<SecondOrderVirtualTransformation> {
+        Set(
+            settings.settingsItems.compactMap { settingsItem in
+                switch settingsItem.value {
+                case let .deletable(virtualTransformation):
+                    switch virtualTransformation {
+                    case let .unfoldNodes(regex), let .hideNodes(regex), let .flattenNodes(regex), let .unfoldScopes(regex), let .hideScopes(regex), let .flattenScopes(regex):
+                        return regex.isEmpty ? nil : virtualTransformation
+                    default:
+                        return virtualTransformation
+                    }
+                default:
+                    return nil
+                }
+            }
+        )
+    }
+    
     public init() {
         self.id = UUID()
         self.settings = Settings()
