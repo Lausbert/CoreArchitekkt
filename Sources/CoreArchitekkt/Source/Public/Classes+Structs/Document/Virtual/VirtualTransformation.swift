@@ -48,6 +48,13 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
     }
         
     static func createFirstOrderVirtualTransformations(from node: Node, and secondOrderVirtualTransformations: Set<SecondOrderVirtualTransformation>) -> Set<FirstOrderVirtualTransformation> {
+        let transformationContext = SecondOrderVirtualTransformation.Context(
+            identifier: node.id,
+            transformations: secondOrderVirtualTransformations
+        )
+        if let firstOrderVirtualTransformations = virtualTransformationCache[transformationContext] {
+            return firstOrderVirtualTransformations
+        }
         var firstOrderVirtualTransformations: Set<FirstOrderVirtualTransformation> = []
         var newSecondOrderVirtualTransformations: Set<SecondOrderVirtualTransformation> = []
         for transformation in secondOrderVirtualTransformations {
@@ -62,10 +69,21 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
                 newSecondOrderVirtualTransformations.insert(transformation)
             }
         }
-        return firstOrderVirtualTransformations.union(createFirstOrderVirtualTransformations(from: node, secondOrderVirtualTransformations: newSecondOrderVirtualTransformations))
+        let result = firstOrderVirtualTransformations.union(createFirstOrderVirtualTransformations(from: node, secondOrderVirtualTransformations: newSecondOrderVirtualTransformations))
+        virtualTransformationCache[transformationContext] = result
+        return result
+    }
+    
+    // MARK: - Internal -
+    
+    struct Context: Hashable {
+        let identifier: UUID
+        let transformations: Set<FirstOrderVirtualTransformation>
     }
     
     // MARK: - Private -
+    
+    private static var virtualTransformationCache: [SecondOrderVirtualTransformation.Context: Set<FirstOrderVirtualTransformation>] = [:]
     
     private enum CodingKeys: CodingKey {
         case unfoldNode
@@ -74,6 +92,13 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
     }
     
     private static func createFirstOrderVirtualTransformations(from node: Node, secondOrderVirtualTransformations: Set<SecondOrderVirtualTransformation>) -> Set<FirstOrderVirtualTransformation> {
+        let transformationContext = SecondOrderVirtualTransformation.Context(
+            identifier: node.id,
+            transformations: secondOrderVirtualTransformations
+        )
+        if let firstOrderVirtualTransformations = virtualTransformationCache[transformationContext] {
+            return firstOrderVirtualTransformations
+        }
         var firstOrderVirtualTransformations: Set<FirstOrderVirtualTransformation> = []
         for transformation in secondOrderVirtualTransformations {
             switch transformation {
@@ -116,7 +141,9 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
                 assertionFailure()
             }
         }
-        return firstOrderVirtualTransformations.union(createFirstOrderVirtualTransformations(from: node.children, and: secondOrderVirtualTransformations))
+        let result = firstOrderVirtualTransformations.union(createFirstOrderVirtualTransformations(from: node.children, and: secondOrderVirtualTransformations))
+        virtualTransformationCache[transformationContext] = result
+        return result
     }
     
     private static func createFirstOrderVirtualTransformations(from nodes: [Node], and secondOrderVirtualTransformations: Set<SecondOrderVirtualTransformation>) -> Set<FirstOrderVirtualTransformation> {
@@ -226,6 +253,13 @@ public enum SecondOrderVirtualTransformation: Hashable, Codable {
         case let .flattenScopes(regex: regex):
             try container.encode(regex, forKey: .flattenScopes)
         }
+    }
+    
+    // MARK: - Internal -
+    
+    struct Context: Hashable {
+        let identifier: UUID
+        let transformations: Set<SecondOrderVirtualTransformation>
     }
     
     // MARK: - Private -

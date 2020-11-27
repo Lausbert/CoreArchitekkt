@@ -38,11 +38,20 @@ public struct VirtualNode: Identifiable, Equatable {
     }
 
     public static func createVirtualNodes(from node: Node, with transformations: Set<FirstOrderVirtualTransformation>, and virtualArcs: [VirtualArc]) -> [VirtualNode] {
+        let transformationContext = FirstOrderVirtualTransformation.Context(
+            identifier: node.id,
+            transformations: transformations
+        )
+        if let virtualNodes = virtualNodesCache[transformationContext] {
+            return virtualNodes
+        }
         let arcCount = ArcCount(
             ingoingDictionary: Dictionary(virtualArcs.map { ($0.destinationIdentifier, $0.weight) }, uniquingKeysWith: { $0 + $1 } ),
             outgoingDictionary: Dictionary(virtualArcs.map { ($0.sourceIdentifier, $0.weight) }, uniquingKeysWith: { $0 + $1 } )
         )
-        return createVirtualNodes(from: node, with: transformations, and: arcCount)
+        let virtualNodes = createVirtualNodes(from: node, with: transformations, and: arcCount)
+        virtualNodesCache[transformationContext] = virtualNodes
+        return virtualNodes
     }
     
     public static func radius(for children: [VirtualNode]) -> CGFloat {
@@ -55,6 +64,8 @@ public struct VirtualNode: Identifiable, Equatable {
         let ingoingDictionary: [UUID: Int]
         let outgoingDictionary: [UUID: Int]
     }
+    
+    private static var virtualNodesCache: [FirstOrderVirtualTransformation.Context: [VirtualNode]] = [:]
         
     private static func createVirtualNodes(from node: Node, with transformations: Set<FirstOrderVirtualTransformation>, and arcCount: ArcCount) -> [VirtualNode] {
 
@@ -65,7 +76,7 @@ public struct VirtualNode: Identifiable, Equatable {
         } else if transformations.contains(.unfoldNode(id: node.id)) {
             let childrenVirtualNodes = node.children.flatMap { createVirtualNodes(from: $0, with: transformations, and: arcCount) }
             let r = radius(for: childrenVirtualNodes)
-            return[
+            return [
                 VirtualNode(
                     id: node.id,
                     scope: node.scope,
@@ -77,7 +88,21 @@ public struct VirtualNode: Identifiable, Equatable {
                 )
             ]
         } else {
-            return [
+            let resultingTransformations = transformations.filter {
+                if case .unfoldNode = $0 {
+                    return false
+                } else {
+                    return true
+                }
+            }
+            let transformationContext = FirstOrderVirtualTransformation.Context(
+                identifier: node.id,
+                transformations: resultingTransformations
+            )
+            if let virtualNodes = virtualNodesCache[transformationContext] {
+                return virtualNodes
+            }
+            let virtualNodes = [
                 VirtualNode(
                     id: node.id,
                     scope: node.scope,
@@ -88,6 +113,8 @@ public struct VirtualNode: Identifiable, Equatable {
                     outgoingArcsWeight: arcCount.outgoingDictionary[node.id, default: 0]
                 )
             ]
+            virtualNodesCache[transformationContext] = virtualNodes
+            return virtualNodes
         }
     }
 

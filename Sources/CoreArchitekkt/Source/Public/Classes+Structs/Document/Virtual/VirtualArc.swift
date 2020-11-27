@@ -11,6 +11,13 @@ public struct VirtualArc: Hashable {
     public let weight: Int
 
     public static func createVirtualArcs(from node: Node, with transformations: Set<FirstOrderVirtualTransformation>) -> [VirtualArc] {
+        let transformationContext = FirstOrderVirtualTransformation.Context(
+            identifier: node.id,
+            transformations: transformations
+        )
+        if let virtualArcs = virtualArcsCache[transformationContext] {
+            return virtualArcs
+        }
         let virtualArcContext = createVirtualArcContext(
             from: node,
             with: transformations
@@ -30,7 +37,7 @@ public struct VirtualArc: Hashable {
                 weightDictionary.removeValue(forKey: weightLessVirtualArc)
             }
         }
-        return weightDictionary.map {
+        let virtualArcs = weightDictionary.map {
             VirtualArc(
                 sourceIdentifier: $0.sourceIdentifier,
                 destinationIdentifier: $0.destinationIdentifier,
@@ -43,14 +50,11 @@ public struct VirtualArc: Hashable {
                 return lhs.destinationIdentifier.uuidString < rhs.destinationIdentifier.uuidString
             }
         }
+        virtualArcsCache[transformationContext] = virtualArcs
+        return virtualArcs
     }
 
     // MARK: - Private -
-
-    private struct TransformationContext: Hashable {
-        let identifier: UUID
-        let transformations: Set<FirstOrderVirtualTransformation>
-    }
 
     private struct VirtualArcContext: Hashable {
 
@@ -66,7 +70,8 @@ public struct VirtualArc: Hashable {
 
     }
 
-    private static var virtualArcContextCache: [TransformationContext: VirtualArcContext] = [:]
+    private static var virtualArcsCache: [FirstOrderVirtualTransformation.Context: [VirtualArc]] = [:]
+    private static var virtualArcContextCache: [FirstOrderVirtualTransformation.Context: VirtualArcContext] = [:]
 
     private static func createVirtualArcContext(from node: Node, with transformations: Set<FirstOrderVirtualTransformation>, isParentFolded: Bool = false) -> VirtualArcContext {
 
@@ -142,7 +147,7 @@ public struct VirtualArc: Hashable {
                     return true
                 }
             }
-            let transformationContext = TransformationContext(
+            let transformationContext = FirstOrderVirtualTransformation.Context(
                 identifier: node.id,
                 transformations: resultingTransformations
             )

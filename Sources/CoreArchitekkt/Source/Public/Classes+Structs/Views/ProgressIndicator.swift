@@ -19,6 +19,7 @@ public struct ProgressIndicator: NSViewRepresentable {
         progressIndicator.minValue = 0.0
         progressIndicator.style = style
         progressIndicator.isIndeterminate = isIndeterminate
+        progressIndicator.doubleValue = doubleValue
         return progressIndicator
     }
     
