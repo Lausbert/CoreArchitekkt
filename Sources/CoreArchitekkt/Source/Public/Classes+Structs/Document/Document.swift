@@ -19,7 +19,7 @@ public struct Document: FileDocument, Codable {
     public var isEditing: Bool
     public private(set) var isNew: Bool
     
-    public var firstOrdervirtualTransformations: Set<FirstOrderVirtualTransformation> {
+    public var firstOrderVirtualTransformations: Set<FirstOrderVirtualTransformation> {
         return FirstOrderVirtualTransformation.createFirstOrderVirtualTransformations(from: node, and: secondOrderVirtualTransformations)
     }
     

@@ -76,19 +76,19 @@ public struct VirtualNode: Identifiable, Equatable {
                     outgoingArcsWeight: arcCount.outgoingDictionary[node.id, default: 0]
                 )
             ]
+        } else {
+            return [
+                VirtualNode(
+                    id: node.id,
+                    scope: node.scope,
+                    name: node.name,
+                    children: [],
+                    radius: 1,
+                    ingoingArcsWeight: arcCount.ingoingDictionary[node.id, default: 0],
+                    outgoingArcsWeight: arcCount.outgoingDictionary[node.id, default: 0]
+                )
+            ]
         }
-
-        return [
-            VirtualNode(
-                id: node.id,
-                scope: node.scope,
-                name: node.name,
-                children: [],
-                radius: 1,
-                ingoingArcsWeight: arcCount.ingoingDictionary[node.id, default: 0],
-                outgoingArcsWeight: arcCount.outgoingDictionary[node.id, default: 0]
-            )
-        ]
     }
 
 }
