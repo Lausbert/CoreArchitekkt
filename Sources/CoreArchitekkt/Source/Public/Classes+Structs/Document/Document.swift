@@ -29,7 +29,7 @@ public struct Document: FileDocument, Codable {
                 switch settingsItem.value {
                 case let .deletable(virtualTransformation):
                     switch virtualTransformation {
-                    case let .unfoldNodes(regex), let .hideNodes(regex), let .flattenNodes(regex), let .colorNodes(regex, _), let .unfoldScopes(regex), let .hideScopes(regex), let .flattenScopes(regex), let.colorScopes(regex, _):
+                    case let .unfoldNodes(regex), let .hideNodes(regex), let .flattenNodes(regex), let .unfoldScopes(regex), let .hideScopes(regex), let .flattenScopes(regex):
                         return regex.isEmpty ? nil : virtualTransformation
                     default:
                         return virtualTransformation

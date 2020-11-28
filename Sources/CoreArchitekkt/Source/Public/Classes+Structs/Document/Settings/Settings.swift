@@ -57,13 +57,6 @@ public struct Settings: Codable {
                     SettingsGroup(name: "Hidden Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideScopes(regex: ""))),
                     SettingsGroup(name: "Flattened Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenScopes(regex: "")))
                 ]
-            ),
-            SettingsDomain(
-                name: "Color Settings",
-                settingsGroups: [
-                    SettingsGroup(name: "Colored Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .colorNodes(regex: "", color: CodableColor.gray))),
-                    SettingsGroup(name: "Colored Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .colorScopes(regex: "", color: CodableColor.gray)))
-                ]
             )
         ]
     }
