@@ -8,13 +8,6 @@ public struct Settings: Codable {
     
     public init() {
         // Force & Geometry
-        let v0 = SettingsValue.range(value: 0.75, minValue: 0.5, maxValue: 1)
-        let v1 = SettingsValue.range(value: -1.3, minValue: -2.3, maxValue: -0.3)
-        let v2 = SettingsValue.range(value: 1.1, minValue: 0.2, maxValue: 2.0)
-        let v3 = SettingsValue.range(value: 64, minValue: 0.1, maxValue: 127.9)
-        let v4 = SettingsValue.range(value: 1.5, minValue: 0.1, maxValue: 2.9)
-        let v5 = SettingsValue.range(value: 0, minValue: -0.1, maxValue: 0.1)
-        let v6 = SettingsValue.range(value: 0, minValue: -0.1, maxValue: 0.1)
         firstDomains = [
             SettingsDomain(
                 name: "Force Settings",
@@ -22,9 +15,9 @@ public struct Settings: Codable {
                     SettingsGroup(
                         name: "",
                         settingsItems: [
-                            SettingsItem(name: "Friction", value: v0, initialValue: v0),
-                            SettingsItem(name: "Negative Radial Force on Siblings", value: v1, initialValue: v1),
-                            SettingsItem(name: "Spring Force on Connected Nodes", value: v2, initialValue: v2)
+                            SettingsItem(name: "Friction", value: .range(value: 0.75, minValue: 0.5, maxValue: 1)),
+                            SettingsItem(name: "Negative Radial Force on Siblings", value: .range(value: -1.3, minValue: -2.3, maxValue: -0.3)),
+                            SettingsItem(name: "Spring Force on Connected Nodes", value: .range(value: 1.1, minValue: 0.2, maxValue: 2.0))
                         ]
                     )
                 ]
@@ -35,34 +28,88 @@ public struct Settings: Codable {
                     SettingsGroup(
                         name: "",
                         settingsItems: [
-                            SettingsItem(name: "Node Radius", value: v3, initialValue: v3),
-                            SettingsItem(name: "Arc Width", value: v4, initialValue: v4),
-                            SettingsItem(name: "Source Radius", value: v5, initialValue: v5),
-                            SettingsItem(name: "Sink Radius", value: v6, initialValue: v6)
+                            SettingsItem(name: "Node Radius", value: .range(value: 64, minValue: 0.1, maxValue: 127.9)),
+                            SettingsItem(name: "Arc Width", value: .range(value: 1.5, minValue: 0.1, maxValue: 2.9)),
+                            SettingsItem(name: "Source Radius", value: .range(value: 0, minValue: -0.1, maxValue: 0.1)),
+                            SettingsItem(name: "Sink Radius", value: .range(value: 0, minValue: -0.1, maxValue: 0.1))
                         ]
                     )
                 ]
             )
         ]
         
-        // Visibility
+        // Visibility & Color
         secondDomains = [
             SettingsDomain(
                 name: "Visibility Settings",
                 settingsGroups: [
-                    SettingsGroup(name: "Unfolded Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldNodes(regex: ""))),
-                    SettingsGroup(name: "Hidden Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideNodes(regex: ""))),
-                    SettingsGroup(name: "Flattened Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenNodes(regex: ""))),
-                    SettingsGroup(name: "Unfolded Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldScopes(regex: ""))),
-                    SettingsGroup(name: "Hidden Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideScopes(regex: ""))),
-                    SettingsGroup(name: "Flattened Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenScopes(regex: "")))
+                    SettingsGroup(
+                        name: "Unfolded Nodes",
+                        settingsItems: [],
+                        preferredNewValue: .deletable(virtualTransformation: .unfoldNodes(regex: "")
+                        )
+                    ),
+                    SettingsGroup(
+                        name: "Hidden Nodes",
+                        settingsItems: [],
+                        preferredNewValue: .deletable(virtualTransformation: .hideNodes(regex: "")
+                        )
+                    ),
+                    SettingsGroup(
+                        name: "Flattened Nodes",
+                        settingsItems: [],
+                        preferredNewValue: .deletable(virtualTransformation: .flattenNodes(regex: "")
+                        )
+                    ),
+                    SettingsGroup(
+                        name: "Unfolded Scopes",
+                        settingsItems: [],
+                        preferredNewValue: .deletable(virtualTransformation: .unfoldScopes(regex: "")
+                        )
+                    ),
+                    SettingsGroup(
+                        name: "Hidden Scopes",
+                        settingsItems: [],
+                        preferredNewValue: .deletable(virtualTransformation: .hideScopes(regex: "")
+                        )
+                    ),
+                    SettingsGroup(
+                        name: "Flattened Scopes",
+                        settingsItems: [],
+                        preferredNewValue: .deletable(virtualTransformation: .flattenScopes(regex: "")
+                        )
+                    )
                 ]
             ),
             SettingsDomain(
                 name: "Color Settings",
                 settingsGroups: [
-                    SettingsGroup(name: "Colored Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .colorNodes(regex: "", color: CodableColor.gray))),
-                    SettingsGroup(name: "Colored Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .colorScopes(regex: "", color: CodableColor.gray)))
+                    SettingsGroup(
+                        name: "Colored Nodes",
+                        settingsItems: [],
+                        preferredNewValue: .deletable(virtualTransformation: .colorNodes(regex: "", color: CodableColor.gray)
+                        )
+                    ),
+                    SettingsGroup(
+                        name: "Colored Scopes",
+                        settingsItems: [
+                            SettingsItem(name: "module", value: .deletable(virtualTransformation: .colorScope(scope: "module", color: CodableColor(systemColor: #colorLiteral(red: 0.4745098039, green: 0.9882352941, blue: 0.9176470588, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "import_decl", value: .deletable(virtualTransformation: .colorScope(scope: "import_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.4745098039, green: 0.9882352941, blue: 0.9176470588, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "class_decl", value: .deletable(virtualTransformation: .colorScope(scope: "class_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.4392156863, green: 0.8470588235, blue: 1, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "struct_decl", value: .deletable(virtualTransformation: .colorScope(scope: "struct_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.4392156863, green: 0.8470588235, blue: 1, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "enum_decl", value: .deletable(virtualTransformation: .colorScope(scope: "enum_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.4392156863, green: 0.8470588235, blue: 1, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "extension_decl", value: .deletable(virtualTransformation: .colorScope(scope: "extension_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.4392156863, green: 0.8470588235, blue: 1, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "var_decl", value: .deletable(virtualTransformation: .colorScope(scope: "var_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.9647058824, green: 0.4823529412, blue: 0.4705882353, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "enum_case_decl", value: .deletable(virtualTransformation: .colorScope(scope: "enum_case_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.9647058824, green: 0.4823529412, blue: 0.4705882353, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "enum_element_decl", value: .deletable(virtualTransformation: .colorScope(scope: "enum_element_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.9647058824, green: 0.4823529412, blue: 0.4705882353, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "func_decl", value: .deletable(virtualTransformation: .colorScope(scope: "func_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.9607843137, green: 0.768627451, blue: 0.5058823529, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "constructor_decl", value: .deletable(virtualTransformation: .colorScope(scope: "constructor_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.9607843137, green: 0.768627451, blue: 0.5058823529, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "destructor_decl", value: .deletable(virtualTransformation: .colorScope(scope: "destructor_decl", color: CodableColor(systemColor: #colorLiteral(red: 0.9607843137, green: 0.768627451, blue: 0.5058823529, alpha: 1)) ?? .gray))),
+                            SettingsItem(name: "protocol", value: .deletable(virtualTransformation: .colorScope(scope: "protocol", color: CodableColor(systemColor: #colorLiteral(red: 0.8, green: 0.862745098, blue: 0.8588235294, alpha: 1)) ?? .gray)))
+                        ],
+                        preferredNewValue: .deletable(virtualTransformation: .colorScopes(regex: "", color: CodableColor.gray)
+                        )
+                    )
                 ]
             )
         ]

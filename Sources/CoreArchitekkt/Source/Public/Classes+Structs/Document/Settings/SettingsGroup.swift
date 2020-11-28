@@ -12,14 +12,7 @@ public struct SettingsGroup: Codable, Hashable {
     public let preferredNewValue: SettingsValue?
 
     public mutating func reset() {
-        let oldSettingsItems = settingsItems
-        settingsItems = oldSettingsItems.compactMap { oldSettingsItem in
-            if let initialValue = oldSettingsItem.initialValue {
-                return SettingsItem(name: oldSettingsItem.name, value: initialValue, initialValue: initialValue)
-            } else {
-                return nil
-            }
-        }
+        settingsItems = initialSettingsItems
     }
 
     public mutating func toggle(settingsItem: SettingsItem) {
@@ -46,6 +39,7 @@ public struct SettingsGroup: Codable, Hashable {
         self.name = try container.decode(String.self, forKey: .name)
         self.settingsItems = try container.decode([SettingsItem].self, forKey: .settingsItems)
         self.preferredNewValue = try? container.decode(SettingsValue.self, forKey: .preferredNewValue)
+        self.initialSettingsItems = try container.decode([SettingsItem].self, forKey: .initialSettingsItems)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -53,6 +47,7 @@ public struct SettingsGroup: Codable, Hashable {
         try container.encode(name, forKey: .name)
         try container.encode(settingsItems, forKey: .settingsItems)
         try? container.encode(preferredNewValue, forKey: .preferredNewValue)
+        try container.encode(initialSettingsItems, forKey: .initialSettingsItems)
     }
     
     public func hash(into hasher: inout Hasher) {
@@ -70,12 +65,15 @@ public struct SettingsGroup: Codable, Hashable {
         self.name = name
         self.settingsItems = settingsItems
         self.preferredNewValue = preferredNewValue
+        self.initialSettingsItems = settingsItems
     }
     
     // MARK: - Private -
     
+    private let initialSettingsItems: [SettingsItem]
+    
     enum CodingKeys: CodingKey {
-        case name, settingsItems, preferredNewValue
+        case name, settingsItems, preferredNewValue, initialSettingsItems
     }
     
 }

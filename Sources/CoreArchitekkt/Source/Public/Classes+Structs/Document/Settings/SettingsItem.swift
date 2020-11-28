@@ -9,24 +9,21 @@ public struct SettingsItem: Codable, Hashable {
     public let name: String
     public var value: SettingsValue
 
-    public init(name: String, value: SettingsValue, initialValue: SettingsValue? = nil) {
+    public init(name: String, value: SettingsValue) {
         self.name = name
         self.value = value
-        self.initialValue = initialValue
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.value = try container.decode(SettingsValue.self, forKey: .value)
-        self.initialValue = try container.decode(SettingsValue?.self, forKey: .initialValue)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(value, forKey: .value)
-        try container.encode(initialValue, forKey: .initialValue)
     }
     
     
@@ -37,15 +34,13 @@ public struct SettingsItem: Codable, Hashable {
     // MARK: - Internal -
     
     enum CodingKeys: CodingKey {
-        case name, value, initialValue
+        case name, value
     }
     
-    let initialValue: SettingsValue?
-
 }
 
 extension SettingsItem: Equatable {
     public static func == (lhs: SettingsItem, rhs: SettingsItem) -> Bool {
-        lhs.name == rhs.name && lhs.value == rhs.value && lhs.initialValue == rhs.initialValue
+        lhs.name == rhs.name && lhs.value == rhs.value
     }
 }
