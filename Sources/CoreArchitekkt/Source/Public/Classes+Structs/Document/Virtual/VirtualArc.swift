@@ -11,23 +11,16 @@ public struct VirtualArc: Hashable {
     public let weight: Int
 
     public static func createVirtualArcs(from node: Node, with transformations: Set<FirstOrderVirtualTransformation>) -> [VirtualArc] {
-        let resultingTransformations = transformations.filter {
-            if case .colorNode = $0 {
-                return false
-            } else {
-                return true
-            }
-        }
         let transformationContext = FirstOrderVirtualTransformation.Context(
             identifier: node.id,
-            transformations: resultingTransformations
+            transformations: transformations
         )
         if let virtualArcs = virtualArcsCache[transformationContext] {
             return virtualArcs
         }
         let virtualArcContext = createVirtualArcContext(
             from: node,
-            with: resultingTransformations
+            with: transformations
         )
         var weightDictionary = virtualArcContext.weightDictionary
         weightDictionary.forEach { (weightLessVirtualArc, weight) in

@@ -154,15 +154,30 @@ extension CodableColor: ExpressibleByStringLiteral {
     
 }
 
-import AppKit
-extension CodableColor {
-    public init?(systemColor: NSColor?) {
-        guard let systemColor = systemColor else { return nil }
-        self.init(cgColor: systemColor.cgColor)
+#if os(iOS)
+    import UIKit
+    extension CodableColor {
+        public init?(systemColor: UIColor?) {
+            guard let systemColor = systemColor else { return nil }
+            self.init(cgColor: systemColor.cgColor)
+        }
+        
+        public var systemColor: UIColor {
+            return UIColor(cgColor: cgColor)
+        }
     }
-    
-    public var systemColor: NSColor {
-        return NSColor(cgColor: cgColor)!
-    }
-}
+#endif
 
+#if os(OSX)
+    import AppKit
+    extension CodableColor {
+        public init?(systemColor: NSColor?) {
+            guard let systemColor = systemColor else { return nil }
+            self.init(cgColor: systemColor.cgColor)
+        }
+        
+        public var systemColor: NSColor {
+            return NSColor(cgColor: cgColor)!
+        }
+    }
+#endif
