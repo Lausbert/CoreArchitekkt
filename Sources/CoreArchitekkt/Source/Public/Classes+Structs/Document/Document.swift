@@ -51,13 +51,14 @@ public struct Document: FileDocument, Codable {
         self.isNew = true
     }
     
-    mutating public func set(nodeRequest: NodeRequest, node: Node, warnings: [String]) {
+    mutating public func set(nodeRequest: NodeRequest, node: Node, virtualTransformations: [SecondOrderVirtualTransformation], warnings: [String]) {
         guard isNew else {
             assertionFailure()
             return
         }
         self.nodeRequest = nodeRequest
         self.node = node
+        settings.toggle(virtualTransformations: virtualTransformations)
         self.warnings = warnings
         self.isNew = false
     }

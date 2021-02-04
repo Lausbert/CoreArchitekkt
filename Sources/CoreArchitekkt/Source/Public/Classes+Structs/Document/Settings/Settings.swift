@@ -9,8 +9,8 @@ public struct Settings: Codable {
     public init() {
         // Force & Geometry
         let v0 = SettingsValue.range(value: 0.75, minValue: 0.5, maxValue: 1)
-        let v1 = SettingsValue.range(value: -1.3, minValue: -2.3, maxValue: -0.3)
-        let v2 = SettingsValue.range(value: 1.1, minValue: 0.2, maxValue: 2.0)
+        let v1 = SettingsValue.range(value: -1, minValue: -2, maxValue: 0)
+        let v2 = SettingsValue.range(value: 1.3, minValue: 0.4, maxValue: 2.2)
         let v3 = SettingsValue.range(value: 64, minValue: 0.1, maxValue: 127.9)
         let v4 = SettingsValue.range(value: 1.5, minValue: 0.1, maxValue: 2.9)
         let v5 = SettingsValue.range(value: 0, minValue: -0.1, maxValue: 0.1)
@@ -161,6 +161,18 @@ public struct Settings: Codable {
             }
         default:
             assertionFailure()
+        }
+    }
+    
+    public mutating func toggle(virtualTransformations: [SecondOrderVirtualTransformation]) {
+        for virtualTransformation in virtualTransformations {
+            switch virtualTransformation {
+            case let .flattenScope(scope: scope):
+                let settingsItem = SettingsItem(name: scope, value: .deletable(virtualTransformation: virtualTransformation))
+                secondDomains[0].settingsGroups[5].toggle(settingsItem: settingsItem)
+            default:
+                assertionFailure()
+            }
         }
     }
     

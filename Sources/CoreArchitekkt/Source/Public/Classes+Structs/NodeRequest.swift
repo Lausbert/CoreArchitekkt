@@ -46,7 +46,7 @@ public struct NodeRequest: Codable {
     /// - decisionNeeded: todo
     /// - failure: todo
     public enum Result {
-        case success(NodeRequest, Node, [Warning])
+        case success(NodeRequest, Node, [SecondOrderVirtualTransformation], [Warning])
         case decisionNeeded(NodeRequest, (Parameter, [Option]))
         case failure(NodeRequest, Error)
     }
