@@ -119,7 +119,8 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
                     firstOrderVirtualTransformations.insert(.unfoldNode(id: node.id))
                 }
             case let .hideNodes(regex):
-                if let isMatching = try? Regex.isMatching(for: regex, text: node.name?.components(separatedBy: ".").last ?? node.scope), isMatching {          firstOrderVirtualTransformations.insert(.hideNode(id: node.id))
+                if let isMatching = try? Regex.isMatching(for: regex, text: node.name?.components(separatedBy: ".").last ?? node.scope), isMatching {
+                    firstOrderVirtualTransformations.insert(.hideNode(id: node.id))
                 }
             case let .flattenNodes(regex):
                 if let isMatching = try? Regex.isMatching(for: regex, text: node.name?.components(separatedBy: ".").last ?? node.scope), isMatching {
