@@ -69,7 +69,10 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
                 newSecondOrderVirtualTransformations.insert(transformation)
             }
         }
-        let result = firstOrderVirtualTransformations.union(createFirstOrderVirtualTransformations(from: node, secondOrderVirtualTransformations: newSecondOrderVirtualTransformations))
+        var result = firstOrderVirtualTransformations
+        for transformation in newSecondOrderVirtualTransformations {
+            result = result.union(createFirstOrderVirtualTransformations(from: node, secondOrderVirtualTransformation: transformation))
+        }
         virtualTransformationCache[transformationContext] = result
         return result
     }
@@ -91,66 +94,64 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
         case flattenNode
     }
     
-    private static func createFirstOrderVirtualTransformations(from node: Node, secondOrderVirtualTransformations: Set<SecondOrderVirtualTransformation>) -> Set<FirstOrderVirtualTransformation> {
+    private static func createFirstOrderVirtualTransformations(from node: Node, secondOrderVirtualTransformation: SecondOrderVirtualTransformation) -> Set<FirstOrderVirtualTransformation> {
         let transformationContext = SecondOrderVirtualTransformation.Context(
             identifier: node.id,
-            transformations: secondOrderVirtualTransformations
+            transformations: [secondOrderVirtualTransformation]
         )
         if let firstOrderVirtualTransformations = virtualTransformationCache[transformationContext] {
             return firstOrderVirtualTransformations
         }
         var firstOrderVirtualTransformations: Set<FirstOrderVirtualTransformation> = []
-        for transformation in secondOrderVirtualTransformations {
-            switch transformation {
-            case let .unfoldScope(scope):
-                if scope == node.scope {
-                    firstOrderVirtualTransformations.insert(.unfoldNode(id: node.id))
-                }
-            case let .hideScope(scope):
-                if scope == node.scope {
-                    firstOrderVirtualTransformations.insert(.hideNode(id: node.id))
-                }
-            case let .flattenScope(scope):
-                if scope == node.scope {
-                    firstOrderVirtualTransformations.insert(.flattenNode(id: node.id))
-                }
-            case let .unfoldNodes(regex):
-                if let isMatching = try? Regex.isMatching(for: regex, text: node.name?.components(separatedBy: ".").last ?? node.scope), isMatching {
-                    firstOrderVirtualTransformations.insert(.unfoldNode(id: node.id))
-                }
-            case let .hideNodes(regex):
-                if let isMatching = try? Regex.isMatching(for: regex, text: node.name?.components(separatedBy: ".").last ?? node.scope), isMatching {
-                    firstOrderVirtualTransformations.insert(.hideNode(id: node.id))
-                }
-            case let .flattenNodes(regex):
-                if let isMatching = try? Regex.isMatching(for: regex, text: node.name?.components(separatedBy: ".").last ?? node.scope), isMatching {
-                    firstOrderVirtualTransformations.insert(.flattenNode(id: node.id))
-                }
-            case let .unfoldScopes(regex):
-                if let isMatching = try? Regex.isMatching(for: regex, text: node.scope), isMatching {
-                    firstOrderVirtualTransformations.insert(.unfoldNode(id: node.id))
-                }
-            case let .hideScopes(regex):
-                if let isMatching = try? Regex.isMatching(for: regex, text: node.scope), isMatching {
-                    firstOrderVirtualTransformations.insert(.hideNode(id: node.id))
-                }
-            case let .flattenScopes(regex):
-                if let isMatching = try? Regex.isMatching(for: regex, text: node.scope), isMatching {
-                    firstOrderVirtualTransformations.insert(.flattenNode(id: node.id))
-                }
-            default:
-                assertionFailure()
+        switch secondOrderVirtualTransformation {
+        case let .unfoldScope(scope):
+            if scope == node.scope {
+                firstOrderVirtualTransformations = [.unfoldNode(id: node.id)]
             }
+        case let .hideScope(scope):
+            if scope == node.scope {
+                firstOrderVirtualTransformations = [.hideNode(id: node.id)]
+            }
+        case let .flattenScope(scope):
+            if scope == node.scope {
+                firstOrderVirtualTransformations = [.flattenNode(id: node.id)]
+            }
+        case let .unfoldNodes(regex):
+            if let isMatching = try? Regex.isMatching(for: regex, text: node.name?.components(separatedBy: ".").last ?? node.scope), isMatching {
+                firstOrderVirtualTransformations = [.unfoldNode(id: node.id)]
+            }
+        case let .hideNodes(regex):
+            if let isMatching = try? Regex.isMatching(for: regex, text: node.name?.components(separatedBy: ".").last ?? node.scope), isMatching {
+                firstOrderVirtualTransformations = [.hideNode(id: node.id)]
+            }
+        case let .flattenNodes(regex):
+            if let isMatching = try? Regex.isMatching(for: regex, text: node.name?.components(separatedBy: ".").last ?? node.scope), isMatching {
+                firstOrderVirtualTransformations = [.flattenNode(id: node.id)]
+            }
+        case let .unfoldScopes(regex):
+            if let isMatching = try? Regex.isMatching(for: regex, text: node.scope), isMatching {
+                firstOrderVirtualTransformations = [.unfoldNode(id: node.id)]
+            }
+        case let .hideScopes(regex):
+            if let isMatching = try? Regex.isMatching(for: regex, text: node.scope), isMatching {
+                firstOrderVirtualTransformations = [.hideNode(id: node.id)]
+            }
+        case let .flattenScopes(regex):
+            if let isMatching = try? Regex.isMatching(for: regex, text: node.scope), isMatching {
+                firstOrderVirtualTransformations = [.flattenNode(id: node.id)]
+            }
+        default:
+            assertionFailure()
         }
-        let result = firstOrderVirtualTransformations.union(createFirstOrderVirtualTransformations(from: node.children, and: secondOrderVirtualTransformations))
+        let result = firstOrderVirtualTransformations.union(createFirstOrderVirtualTransformations(from: node.children, and: secondOrderVirtualTransformation))
         virtualTransformationCache[transformationContext] = result
         return result
     }
     
-    private static func createFirstOrderVirtualTransformations(from nodes: [Node], and secondOrderVirtualTransformations: Set<SecondOrderVirtualTransformation>) -> Set<FirstOrderVirtualTransformation> {
+    private static func createFirstOrderVirtualTransformations(from nodes: [Node], and secondOrderVirtualTransformation: SecondOrderVirtualTransformation) -> Set<FirstOrderVirtualTransformation> {
         var firstOrderVirtualTransformations: Set<FirstOrderVirtualTransformation> = []
         for node in nodes {
-            firstOrderVirtualTransformations = firstOrderVirtualTransformations.union(createFirstOrderVirtualTransformations(from: node, secondOrderVirtualTransformations: secondOrderVirtualTransformations))
+            firstOrderVirtualTransformations = firstOrderVirtualTransformations.union(createFirstOrderVirtualTransformations(from: node, secondOrderVirtualTransformation: secondOrderVirtualTransformation))
         }
         return firstOrderVirtualTransformations
     }
