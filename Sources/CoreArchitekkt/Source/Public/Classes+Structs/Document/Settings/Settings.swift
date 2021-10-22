@@ -53,6 +53,7 @@ public struct Settings: Codable {
                     SettingsGroup(name: "Unfolded Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldNodes(regex: ""))),
                     SettingsGroup(name: "Hidden Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideNodes(regex: ""))),
                     SettingsGroup(name: "Flattened Nodes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenNodes(regex: ""))),
+                    SettingsGroup(name: "Fixed Nodes", settingsItems: []),
                     SettingsGroup(name: "Unfolded Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .unfoldScopes(regex: ""))),
                     SettingsGroup(name: "Hidden Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .hideScopes(regex: ""))),
                     SettingsGroup(name: "Flattened Scopes", settingsItems: [], preferredNewValue: .deletable(virtualTransformation: .flattenScopes(regex: "")))
@@ -150,12 +151,14 @@ public struct Settings: Codable {
                 secondDomains[0].settingsGroups[1].toggle(settingsItem: settingsItem)
             case .flattenNode:
                 secondDomains[0].settingsGroups[2].toggle(settingsItem: settingsItem)
-            case .unfoldScope:
+            case .fixNode:
                 secondDomains[0].settingsGroups[3].toggle(settingsItem: settingsItem)
-            case .hideScope:
+            case .unfoldScope:
                 secondDomains[0].settingsGroups[4].toggle(settingsItem: settingsItem)
-            case .flattenScope:
+            case .hideScope:
                 secondDomains[0].settingsGroups[5].toggle(settingsItem: settingsItem)
+            case .flattenScope:
+                secondDomains[0].settingsGroups[6].toggle(settingsItem: settingsItem)
             default:
                 assertionFailure()
             }
@@ -169,7 +172,7 @@ public struct Settings: Codable {
             switch virtualTransformation {
             case let .flattenScope(scope: scope):
                 let settingsItem = SettingsItem(name: scope, value: .deletable(virtualTransformation: virtualTransformation))
-                secondDomains[0].settingsGroups[5].toggle(settingsItem: settingsItem)
+                secondDomains[0].settingsGroups[6].toggle(settingsItem: settingsItem)
             default:
                 assertionFailure()
             }
@@ -180,10 +183,14 @@ public struct Settings: Codable {
     
     // MARK: Other
     
-    var settingsItems: [SettingsItem] {
+    var settingsGroups: [SettingsGroup] {
         (firstDomains + secondDomains)
             .compactMap { $0 }
             .flatMap { $0.settingsGroups }
+    }
+    
+    var settingsItems: [SettingsItem] {
+        settingsGroups
             .flatMap { $0.settingsItems }
     }
 

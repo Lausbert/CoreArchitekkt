@@ -9,6 +9,7 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
     case unfoldNode(id: UUID)
     case hideNode(id: UUID)
     case flattenNode(id: UUID)
+    case fixNode(id: UUID)
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -24,6 +25,9 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
         case .flattenNode:
             let uuid = try container.decode(UUID.self, forKey: .flattenNode)
             self = .flattenNode(id: uuid)
+        case .fixNode:
+            let uuid = try container.decode(UUID.self, forKey: .fixNode)
+            self = .fixNode(id: uuid)
         case .none:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -44,6 +48,8 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
             try container.encode(uuid, forKey: .hideNode)
         case let .flattenNode(id: uuid):
             try container.encode(uuid, forKey: .flattenNode)
+        case let .fixNode(id: uuid):
+            try container.encode(uuid, forKey: .fixNode)
         }
     }
         
@@ -65,6 +71,8 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
                 firstOrderVirtualTransformations.insert(.hideNode(id: id))
             case let .flattenNode(id):
                 firstOrderVirtualTransformations.insert(.flattenNode(id: id))
+            case let .fixNode(id):
+                firstOrderVirtualTransformations.insert(.fixNode(id: id))
             default:
                 newSecondOrderVirtualTransformations.insert(transformation)
             }
@@ -92,6 +100,7 @@ public enum FirstOrderVirtualTransformation: Hashable, Codable {
         case unfoldNode
         case hideNode
         case flattenNode
+        case fixNode
     }
     
     private static func createFirstOrderVirtualTransformations(from node: Node, secondOrderVirtualTransformation: SecondOrderVirtualTransformation) -> Set<FirstOrderVirtualTransformation> {
@@ -165,6 +174,7 @@ public enum SecondOrderVirtualTransformation: Hashable, Codable {
     case unfoldNode(id: UUID)
     case hideNode(id: UUID)
     case flattenNode(id: UUID)
+    case fixNode(id: UUID)
     case unfoldScope(scope: String)
     case hideScope(scope: String)
     case flattenScope(scope: String)
@@ -189,6 +199,9 @@ public enum SecondOrderVirtualTransformation: Hashable, Codable {
         case .flattenNode:
             let uuid = try container.decode(UUID.self, forKey: .flattenNode)
             self = .flattenNode(id: uuid)
+        case .fixNode:
+            let uuid = try container.decode(UUID.self, forKey: .fixNode)
+            self = .fixNode(id: uuid)
         case .unfoldScope:
             let scope = try container.decode(String.self, forKey: .unfoldScope)
             self = .unfoldScope(scope: scope)
@@ -236,6 +249,8 @@ public enum SecondOrderVirtualTransformation: Hashable, Codable {
             try container.encode(uuid, forKey: .hideNode)
         case let .flattenNode(id: uuid):
             try container.encode(uuid, forKey: .flattenNode)
+        case let .fixNode(id: uuid):
+            try container.encode(uuid, forKey: .fixNode)
         case let .unfoldScope(scope: scope):
             try container.encode(scope, forKey: .unfoldScope)
         case let .hideScope(scope: scope):
@@ -270,6 +285,7 @@ public enum SecondOrderVirtualTransformation: Hashable, Codable {
         case unfoldNode
         case hideNode
         case flattenNode
+        case fixNode
         case unfoldScope
         case hideScope
         case flattenScope

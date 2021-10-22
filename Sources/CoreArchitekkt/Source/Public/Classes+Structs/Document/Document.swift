@@ -70,6 +70,9 @@ public struct Document: FileDocument, Codable {
             throw CocoaError(.fileReadCorruptFile)
         }
         self = try JSONDecoder().decode(Document.self, from: data)
+        if settingsAreCorrupted() {
+            settings = Settings()
+        }
     }
     
     public func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
@@ -95,5 +98,18 @@ public struct Document: FileDocument, Codable {
     }
     
     private var version: Int = 0
+    
+    private func settingsAreCorrupted() -> Bool {
+        let validSettings = Settings()
+        if settings.settingsGroups.count != validSettings.settingsGroups.count {
+            return true
+        }
+        for settingsGroups in zip(settings.settingsGroups, validSettings.settingsGroups) {
+            if settingsGroups.0.name != settingsGroups.1.name {
+                return true
+            }
+        }
+        return false
+    }
     
 }
