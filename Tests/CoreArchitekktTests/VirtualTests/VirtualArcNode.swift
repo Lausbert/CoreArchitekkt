@@ -5,35 +5,35 @@ import Foundation
 import XCTest
 @testable import CoreArchitekkt
 
-class VirtualArcTest: VirtualTest {
+class VirtualArcNodeTest: VirtualTest {
 
     func testNoTransformation() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: []
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
 
     func testUnfoldingOne() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldNode(id: one.id)
             ]
         ))
 
-        XCTAssertEqual(virtualArcs.count, 1)
+        XCTAssertEqual(virtualArcNodes.count, 1)
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, two.id)
         XCTAssertEqual(arcOne.destinationIdentifier, three.id)
         XCTAssertEqual(arcOne.weight, 3)
     }
 
     func testUnfoldingOneAndTwo() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldNode(id: one.id),
@@ -41,26 +41,26 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        XCTAssertEqual(virtualArcs.count, 3)
+        XCTAssertEqual(virtualArcNodes.count, 3)
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, three.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, five.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 2)
     }
 
     func testUnfoldingOneAndTwoAndThree() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldNode(id: one.id),
@@ -69,24 +69,24 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        XCTAssertEqual(virtualArcs.count, 4)
+        XCTAssertEqual(virtualArcNodes.count, 4)
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 1)
 
-        let arcFour = virtualArcs[3]
+        let arcFour = virtualArcNodes[3]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
@@ -94,7 +94,7 @@ class VirtualArcTest: VirtualTest {
     }
 
     func testUnfoldingAll() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldNode(id: one.id),
@@ -107,42 +107,42 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        XCTAssertEqual(virtualArcs.count, 4)
+        XCTAssertEqual(virtualArcNodes.count, 4)
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 1)
 
-        let arcFour = virtualArcs[3]
+        let arcFour = virtualArcNodes[3]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testUnfoldingTwo() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldNode(id: two.id)
             ]
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
 
     func testHidingOne() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .hideNode(id: one.id),
@@ -152,11 +152,11 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
 
     func testHidingThree() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .hideNode(id: three.id),
@@ -166,14 +166,14 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
     }
 
     func testHidingSeven() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .hideNode(id: seven.id),
@@ -183,40 +183,40 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 1)
 
-        let arcFour = virtualArcs[3]
+        let arcFour = virtualArcNodes[3]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testHidingTwoAndNoUnfolding() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .hideNode(id: two.id)
             ]
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
 
     func testFlattenOne() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .flattenNode(id: one.id),
@@ -226,29 +226,29 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 1)
 
-        let arcFour = virtualArcs[3]
+        let arcFour = virtualArcNodes[3]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testFlattenOneAndThree() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .flattenNode(id: one.id),
@@ -259,24 +259,24 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcFour = virtualArcs[2]
+        let arcFour = virtualArcNodes[2]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testFlattenOneThreeAndSeven() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .flattenNode(id: one.id),
@@ -288,35 +288,35 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcFour = virtualArcs[2]
+        let arcFour = virtualArcNodes[2]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testFlattenTwoAndNoUnfolding() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .flattenNode(id: two.id)
             ]
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
     
     func testRegexNoTransformation() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .flattenNodes(regex: "nomatch"),
@@ -328,77 +328,77 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
 
     func testRegexUnfoldingOne() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldNodes(regex: "one")
             ]
         ))
 
-        XCTAssertEqual(virtualArcs.count, 1)
+        XCTAssertEqual(virtualArcNodes.count, 1)
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, two.id)
         XCTAssertEqual(arcOne.destinationIdentifier, three.id)
         XCTAssertEqual(arcOne.weight, 3)
     }
 
     func testRegexUnfoldingOneAndTwo() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldNodes(regex: "one|two")
             ]
         ))
 
-        XCTAssertEqual(virtualArcs.count, 3)
+        XCTAssertEqual(virtualArcNodes.count, 3)
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, three.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, five.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 2)
     }
 
     func testRegexUnfoldingOneAndTwoAndThree() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldScopes(regex: "one|two")
             ]
         ))
 
-        XCTAssertEqual(virtualArcs.count, 4)
+        XCTAssertEqual(virtualArcNodes.count, 4)
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 1)
 
-        let arcFour = virtualArcs[3]
+        let arcFour = virtualArcNodes[3]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
@@ -406,49 +406,49 @@ class VirtualArcTest: VirtualTest {
     }
 
     func testRegexUnfoldingAll() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldNodes(regex: ".")
             ]
         ))
 
-        XCTAssertEqual(virtualArcs.count, 4)
+        XCTAssertEqual(virtualArcNodes.count, 4)
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 1)
 
-        let arcFour = virtualArcs[3]
+        let arcFour = virtualArcNodes[3]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testRegexUnfoldingTwo() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .unfoldNodes(regex: "two")
             ]
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
 
     func testRegexHidingOne() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .hideNodes(regex: "one"),
@@ -458,11 +458,11 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
 
     func testRegexHidingThree() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .hideNodes(regex: "three"),
@@ -472,14 +472,14 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
     }
 
     func testRegexHidingSeven() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .hideNodes(regex: "seven"),
@@ -489,40 +489,40 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 1)
 
-        let arcFour = virtualArcs[3]
+        let arcFour = virtualArcNodes[3]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testRegexHidingTwoAndNoUnfolding() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .hideNodes(regex: "two")
             ]
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
 
     func testRegexFlattenOne() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .flattenScopes(regex: "one"),
@@ -532,29 +532,29 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcThree = virtualArcs[2]
+        let arcThree = virtualArcNodes[2]
         XCTAssertEqual(arcThree.sourceIdentifier, five.id)
         XCTAssertEqual(arcThree.destinationIdentifier, three.id)
         XCTAssertEqual(arcThree.weight, 1)
 
-        let arcFour = virtualArcs[3]
+        let arcFour = virtualArcNodes[3]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testRegexFlattenOneAndThree() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .flattenNodes(regex: "one|three"),
@@ -564,24 +564,24 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcFour = virtualArcs[2]
+        let arcFour = virtualArcNodes[2]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testRegexFlattenOneThreeAndSeven() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .flattenNodes(regex: "one|three|seven"),
@@ -591,35 +591,35 @@ class VirtualArcTest: VirtualTest {
             ]
         ))
 
-        let arcOne = virtualArcs[0]
+        let arcOne = virtualArcNodes[0]
         XCTAssertEqual(arcOne.sourceIdentifier, four.id)
         XCTAssertEqual(arcOne.destinationIdentifier, five.id)
         XCTAssertEqual(arcOne.weight, 1)
 
-        let arcTwo = virtualArcs[1]
+        let arcTwo = virtualArcNodes[1]
         XCTAssertEqual(arcTwo.sourceIdentifier, four.id)
         XCTAssertEqual(arcTwo.destinationIdentifier, six.id)
         XCTAssertEqual(arcTwo.weight, 1)
 
-        let arcFour = virtualArcs[2]
+        let arcFour = virtualArcNodes[2]
         XCTAssertEqual(arcFour.sourceIdentifier, five.id)
         XCTAssertEqual(arcFour.destinationIdentifier, six.id)
         XCTAssertEqual(arcFour.weight, 1)
     }
 
     func testRegexFlattenTwoAndNoUnfolding() {
-        let virtualArcs = sort(VirtualArc.createVirtualArcs(
+        let virtualArcNodes = sort(VirtualArcNode.createVirtualArcNodes(
             from: one,
             with: [
                 .flattenNodes(regex: "two")
             ]
         ))
 
-        XCTAssertEqual(virtualArcs, [])
+        XCTAssertEqual(virtualArcNodes, [])
     }
 
-    private func sort(_ virtualArcs: [VirtualArc]) -> [VirtualArc] {
-        return virtualArcs.sorted { (lhs, rhs) -> Bool in
+    private func sort(_ virtualArcNodes: [VirtualArcNode]) -> [VirtualArcNode] {
+        return virtualArcNodes.sorted { (lhs, rhs) -> Bool in
             let lhsSourceIndex = allNodes.firstIndex(of: allNodes.first(where: { $0.id == lhs.sourceIdentifier })!)!
             let lhsDestinationIndex = allNodes.firstIndex(of: allNodes.first(where: { $0.id == lhs.destinationIdentifier })!)!
             let rhsSourceIndex = allNodes.firstIndex(of: allNodes.first(where: { $0.id == rhs.sourceIdentifier })!)!

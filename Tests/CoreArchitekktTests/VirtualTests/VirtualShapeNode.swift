@@ -3,17 +3,17 @@
 import XCTest
 @testable import CoreArchitekkt
 
-class VirtualNodeTest: VirtualTest {
+class VirtualShapeNodeTest: VirtualTest {
 
     func testNoTransformation() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: []
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 1.0)
@@ -21,16 +21,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testUnfoldingOne() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .unfoldNode(id: one.id)
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.children.count, 2)
@@ -49,7 +49,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testUnfoldingOneAndTwo() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .unfoldNode(id: one.id),
@@ -57,9 +57,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 6.000000000000001)
@@ -91,7 +91,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testUnfoldingOneAndTwoAndThree() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .unfoldNode(id: one.id),
@@ -100,9 +100,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 8.0)
@@ -146,7 +146,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testUnfoldingAll() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .unfoldNode(id: one.id),
@@ -159,9 +159,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 8.0)
@@ -205,14 +205,14 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testUnfoldingTwo() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [.unfoldNode(id: two.id)]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 1.0)
@@ -220,7 +220,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testHidingOne() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .hideNode(id: one.id),
@@ -230,11 +230,11 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 0)
+        XCTAssertEqual(virtualShapeNodes.count, 0)
     }
 
     func testHidingThree() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .hideNode(id: three.id),
@@ -244,9 +244,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 5.656854249492381)
@@ -272,7 +272,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testHidingSeven() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .hideNode(id: seven.id),
@@ -282,9 +282,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 6.92820323027551)
@@ -322,16 +322,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testHidingTwoAndNoUnfolding() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .hideNode(id: two.id)
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 1.0)
@@ -339,7 +339,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testFlattenOne() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .flattenNode(id: one.id),
@@ -349,15 +349,15 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 2)
+        XCTAssertEqual(virtualShapeNodes.count, 2)
 
-        let two = virtualNodes[0]
+        let two = virtualShapeNodes[0]
         XCTAssertEqual(two.scope, "two")
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.radius, 2.8284271247461903)
         XCTAssertEqual(two.children.count, 2)
 
-        let three = virtualNodes[1]
+        let three = virtualShapeNodes[1]
         XCTAssertEqual(three.scope, "two")
         XCTAssertEqual(three.name, "three")
         XCTAssertEqual(three.radius, 2.8284271247461903)
@@ -389,7 +389,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testFlattenOneAndThree() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .flattenNode(id: one.id),
@@ -400,9 +400,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 3)
+        XCTAssertEqual(virtualShapeNodes.count, 3)
 
-        let two = virtualNodes[0]
+        let two = virtualShapeNodes[0]
         XCTAssertEqual(two.scope, "two")
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.radius, 2.8284271247461903)
@@ -420,13 +420,13 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.radius, 1.0)
         XCTAssertEqual(five.children.count, 0)
 
-        let six = virtualNodes[1]
+        let six = virtualShapeNodes[1]
         XCTAssertEqual(six.scope, "three")
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.radius, 1.0)
         XCTAssertEqual(six.children.count, 0)
 
-        let seven = virtualNodes[2]
+        let seven = virtualShapeNodes[2]
         XCTAssertEqual(seven.scope, "three")
         XCTAssertEqual(seven.name, "seven")
         XCTAssertEqual(seven.radius, 1.0)
@@ -434,7 +434,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testFlattenOneThreeAndSeven() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .flattenNode(id: one.id),
@@ -446,9 +446,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 2)
+        XCTAssertEqual(virtualShapeNodes.count, 2)
 
-        let two = virtualNodes[0]
+        let two = virtualShapeNodes[0]
         XCTAssertEqual(two.scope, "two")
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.radius, 2.8284271247461903)
@@ -466,7 +466,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.radius, 1.0)
         XCTAssertEqual(five.children.count, 0)
 
-        let six = virtualNodes[1]
+        let six = virtualShapeNodes[1]
         XCTAssertEqual(six.scope, "three")
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.radius, 1.0)
@@ -474,16 +474,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testFlattenTwoAndNoUnfolding() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .flattenNode(id: two.id)
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 1.0)
@@ -491,7 +491,7 @@ class VirtualNodeTest: VirtualTest {
     }
     
     func testRegexNoTransformation() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .flattenNodes(regex: "nomatch"),
@@ -503,9 +503,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 1.0)
@@ -513,16 +513,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexUnfoldingOne() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .unfoldNodes(regex: "one")
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.children.count, 2)
@@ -541,16 +541,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexUnfoldingOneAndTwo() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .unfoldNodes(regex: "one|two")
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 6.000000000000001)
@@ -582,16 +582,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexUnfoldingOneAndTwoAndThree() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .unfoldScopes(regex: "one|two")
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 8.0)
@@ -635,16 +635,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexUnfoldingAll() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .unfoldNodes(regex: ".")
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 8.0)
@@ -688,16 +688,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexUnfoldingTwo() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .unfoldNodes(regex: "two")
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 1.0)
@@ -705,7 +705,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexHidingOne() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .hideNodes(regex: "one"),
@@ -715,11 +715,11 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 0)
+        XCTAssertEqual(virtualShapeNodes.count, 0)
     }
 
     func testRegexHidingThree() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .hideNodes(regex: "three"),
@@ -729,9 +729,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 5.656854249492381)
@@ -757,7 +757,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexHidingSeven() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .hideNodes(regex: "seven"),
@@ -767,9 +767,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 6.92820323027551)
@@ -807,16 +807,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexHidingTwoAndNoUnfolding() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .hideNodes(regex: "two")
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 1.0)
@@ -824,7 +824,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexFlattenOne() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .flattenScopes(regex: "one"),
@@ -834,15 +834,15 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 2)
+        XCTAssertEqual(virtualShapeNodes.count, 2)
 
-        let two = virtualNodes[0]
+        let two = virtualShapeNodes[0]
         XCTAssertEqual(two.scope, "two")
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.radius, 2.8284271247461903)
         XCTAssertEqual(two.children.count, 2)
 
-        let three = virtualNodes[1]
+        let three = virtualShapeNodes[1]
         XCTAssertEqual(three.scope, "two")
         XCTAssertEqual(three.name, "three")
         XCTAssertEqual(three.radius, 2.8284271247461903)
@@ -874,7 +874,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexFlattenOneAndThree() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .flattenNodes(regex: "one|three"),
@@ -884,9 +884,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 3)
+        XCTAssertEqual(virtualShapeNodes.count, 3)
 
-        let two = virtualNodes[0]
+        let two = virtualShapeNodes[0]
         XCTAssertEqual(two.scope, "two")
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.radius, 2.8284271247461903)
@@ -904,13 +904,13 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.radius, 1.0)
         XCTAssertEqual(five.children.count, 0)
 
-        let six = virtualNodes[1]
+        let six = virtualShapeNodes[1]
         XCTAssertEqual(six.scope, "three")
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.radius, 1.0)
         XCTAssertEqual(six.children.count, 0)
 
-        let seven = virtualNodes[2]
+        let seven = virtualShapeNodes[2]
         XCTAssertEqual(seven.scope, "three")
         XCTAssertEqual(seven.name, "seven")
         XCTAssertEqual(seven.radius, 1.0)
@@ -918,7 +918,7 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexFlattenOneThreeAndSeven() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .flattenNodes(regex: "one|three|seven"),
@@ -928,9 +928,9 @@ class VirtualNodeTest: VirtualTest {
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 2)
+        XCTAssertEqual(virtualShapeNodes.count, 2)
 
-        let two = virtualNodes[0]
+        let two = virtualShapeNodes[0]
         XCTAssertEqual(two.scope, "two")
         XCTAssertEqual(two.name, "two")
         XCTAssertEqual(two.radius, 2.8284271247461903)
@@ -948,7 +948,7 @@ class VirtualNodeTest: VirtualTest {
         XCTAssertEqual(five.radius, 1.0)
         XCTAssertEqual(five.children.count, 0)
 
-        let six = virtualNodes[1]
+        let six = virtualShapeNodes[1]
         XCTAssertEqual(six.scope, "three")
         XCTAssertEqual(six.name, "six")
         XCTAssertEqual(six.radius, 1.0)
@@ -956,16 +956,16 @@ class VirtualNodeTest: VirtualTest {
     }
 
     func testRegexFlattenTwoAndNoUnfolding() {
-        let virtualNodes = VirtualNode.createVirtualNodes(
+        let virtualShapeNodes = VirtualShapeNode.createVirtualShapeNodes(
             from: one,
             with: [
                 .flattenNodes(regex: "two")
             ]
         )
 
-        XCTAssertEqual(virtualNodes.count, 1)
+        XCTAssertEqual(virtualShapeNodes.count, 1)
 
-        let one = virtualNodes[0]
+        let one = virtualShapeNodes[0]
         XCTAssertEqual(one.scope, "one")
         XCTAssertEqual(one.name, "one")
         XCTAssertEqual(one.radius, 1.0)
