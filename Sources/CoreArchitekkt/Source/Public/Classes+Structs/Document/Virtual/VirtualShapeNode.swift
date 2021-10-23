@@ -13,6 +13,7 @@ public struct VirtualShapeNode: Identifiable, Equatable {
     public let radius: CGFloat
     public let ingoingArcsWeight: Int
     public let outgoingArcsWeight: Int
+    public let isFixed: Bool
     
     public static func align(newVirtualShapeNodes: [VirtualShapeNode], with oldVirtualShapeNodes: [VirtualShapeNode]) -> [VirtualShapeNode] {
         var newVirtualShapeNodesDictionary = Dictionary(uniqueKeysWithValues: newVirtualShapeNodes.map {($0.id, $0)} )
@@ -28,7 +29,8 @@ public struct VirtualShapeNode: Identifiable, Equatable {
                         children: children,
                         radius: newVirtualShapeNode.radius,
                         ingoingArcsWeight: newVirtualShapeNode.ingoingArcsWeight,
-                        outgoingArcsWeight: newVirtualShapeNode.outgoingArcsWeight
+                        outgoingArcsWeight: newVirtualShapeNode.outgoingArcsWeight,
+                        isFixed: newVirtualShapeNode.isFixed
                     )
                 )
             }
@@ -68,7 +70,7 @@ public struct VirtualShapeNode: Identifiable, Equatable {
     private static var virtualShapeNodesCache: [FirstOrderVirtualTransformation.Context: [VirtualShapeNode]] = [:]
         
     private static func createVirtualShapeNodes(from node: Node, with transformations: Set<FirstOrderVirtualTransformation>, and arcCount: ArcCount) -> [VirtualShapeNode] {
-
+        let isFixed = transformations.contains(.fixNode(id: node.id))
         if transformations.contains(.hideNode(id: node.id)) {
             return []
         } else if transformations.contains(.flattenNode(id: node.id)) {
@@ -84,7 +86,8 @@ public struct VirtualShapeNode: Identifiable, Equatable {
                     children: childrenVirtualShapeNodes,
                     radius: r,
                     ingoingArcsWeight: arcCount.ingoingDictionary[node.id, default: 0],
-                    outgoingArcsWeight: arcCount.outgoingDictionary[node.id, default: 0]
+                    outgoingArcsWeight: arcCount.outgoingDictionary[node.id, default: 0],
+                    isFixed: isFixed
                 )
             ]
         } else {
@@ -110,7 +113,8 @@ public struct VirtualShapeNode: Identifiable, Equatable {
                     children: [],
                     radius: 1,
                     ingoingArcsWeight: arcCount.ingoingDictionary[node.id, default: 0],
-                    outgoingArcsWeight: arcCount.outgoingDictionary[node.id, default: 0]
+                    outgoingArcsWeight: arcCount.outgoingDictionary[node.id, default: 0],
+                    isFixed: isFixed
                 )
             ]
             virtualShapeNodesCache[transformationContext] = virtualShapeNodes
